@@ -1,13 +1,13 @@
 import { useState } from "react";
 
-export default function ToDoItem() {
+export default function ToDoItem({ name, done }) {
 
-  const [done, setDone] = useState(true)
+  const [isDone, setDone] = useState(done)
 
   return (
     <div>
-      <p>Placeholder text here</p>
-      <button onClick={() => setDone(!done)}>{done ? "Done" : "Not Yet"}</button>
+      <p>{name}</p>
+      <button onClick={() => setDone(!isDone)}>{isDone ? "Done" : "Not Yet"}</button>
     </div>
   );
 }
