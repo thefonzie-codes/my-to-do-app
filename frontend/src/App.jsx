@@ -8,7 +8,7 @@ function App() {
   const todo = useAppData();
 
   const items = todo.list.map(item => {
-    return <ToDoItem key={item.id} name={item.name} completed={item.completed} />
+    return <ToDoItem key={item.id} id={item.id} name={item.name} completed={item.completed} />
   })
   
   return (

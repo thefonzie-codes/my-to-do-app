@@ -7,9 +7,10 @@ export default function useAppData() {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:8000/list_items.json").then((response) => {
+    axios.get(
+      "http://localhost:8000/list_items.json").then((response) => {
       console.log(response);
-      setState({ list: response.data.list_items });
+      setState({ list: response.data });
     });
   }, []);
 
