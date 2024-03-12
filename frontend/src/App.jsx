@@ -2,6 +2,7 @@ import './App.css'
 import useAppData from './hooks/useAppData'
 
 import ToDoItem from './components/ToDoItem'
+import AddItem from './components/AddItem';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
     <>
       <h1>Is it done yet?</h1>
       {items}
+      <AddItem setState={setState} state={state}/>
       <div className="card">
       </div>
     </>
