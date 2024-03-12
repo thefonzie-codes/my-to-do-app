@@ -14,5 +14,5 @@ export default function useAppData() {
     });
   }, []);
 
-  return state;
+  return { state, setState };
 }

@@ -5,10 +5,10 @@ import ToDoItem from './components/ToDoItem'
 
 function App() {
 
-  const todo = useAppData();
+  const { state, setState } = useAppData();
 
-  const items = todo.list.map(item => {
-    return <ToDoItem key={item.id} id={item.id} name={item.name} completed={item.completed} />
+  const items = state.list.map(item => {
+    return <ToDoItem key={item.id} id={item.id} name={item.name} completed={item.completed} setState={setState}/>
   })
   
   return (
