@@ -34,8 +34,17 @@ export default function EditItem({ id }) {
         label='editItem'
         placeholder={state.name}
         maxLength="100"
-        onChange={(evt) => setState({ name: evt.target.value })}>
+        onChange={(evt) => setState({ ...state, name: evt.target.value })}>
       </input>
+      <p>Completed:
+        <input
+          label='completed'
+          type="checkbox"
+          checked={state.completed}
+          onChange={(evt) => setState({ ...state, completed: evt.target.checked })}>
+        </input>
+      </p>
+      <br></br>
       <button type='submit'>Save</button>
     </form>
   );
