@@ -4,6 +4,7 @@ import axios from "axios";
 export default function useAppData() {
   const [state, setState] = useState({
     list: [],
+    modal: false,
   });
 
   useEffect(() => {
