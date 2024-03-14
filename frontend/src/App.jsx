@@ -15,7 +15,7 @@ function App() {
   
   return (
     <>
-      <h1>Is it done yet?</h1>
+      <h1 className='text-3xl font-bold underline'>Is it done yet?</h1>
       {/* {items}
       <AddItem setState={setState} state={state}/> */}
       <EditItem id={3}/>
