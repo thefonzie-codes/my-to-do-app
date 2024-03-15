@@ -1,4 +1,5 @@
 import axios from "axios";
+import '../styles/EditItem.css';
 
 import { useState, useEffect } from "react";
 
@@ -10,7 +11,7 @@ export default function EditItem({ id }) {
     });
   };
 
-  const [state, setState] = useState({});
+  const [state, setState] = useState({ name: "", completed: false });
 
   useEffect(() => {
 
@@ -23,29 +24,32 @@ export default function EditItem({ id }) {
   }, []);
 
   return (
-    <form
-      onSubmit={(evt) => {
-        evt.preventDefault();
-        handleEdit(state);
-      }}>
-      <input
-        id="editItem"
-        type='text'
-        label='editItem'
-        placeholder={state.name}
-        maxLength="100"
-        onChange={(evt) => setState({ ...state, name: evt.target.value })}>
-      </input>
-      <p>Completed:
+    <div className="EditItem modal">
+      <h1>Edit Item</h1>
+      <form
+        onSubmit={(evt) => {
+          evt.preventDefault();
+          handleEdit(state);
+        }}>
         <input
-          label='completed'
-          type="checkbox"
-          checked={state.completed}
-          onChange={(evt) => setState({ ...state, completed: evt.target.checked })}>
+          id="editItem"
+          type='text'
+          label='editItem'
+          placeholder={state.name}
+          maxLength="100"
+          onChange={(evt) => setState({ ...state, name: evt.target.value })}>
         </input>
-      </p>
-      <br></br>
-      <button type='submit'>Save</button>
-    </form>
+        <p>Completed:
+          <input
+            label='completed'
+            type="checkbox"
+            checked={state.completed}
+            onChange={(evt) => setState({ ...state, completed: evt.target.checked })}>
+          </input>
+        </p>
+        <br></br>
+        <button type='submit'>Save</button>
+      </form>
+    </div>
   );
 }
