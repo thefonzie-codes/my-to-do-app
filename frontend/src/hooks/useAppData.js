@@ -4,14 +4,15 @@ import axios from "axios";
 export default function useAppData() {
   const [state, setState] = useState({
     list: [],
-    modal: false,
+    view: 'home',
+    itemToEdit: 8,
   });
 
   useEffect(() => {
     axios.get(
       "http://localhost:8000/list_items.json").then((response) => {
       console.log(response);
-      setState({ list: response.data });
+      setState({ ...state, list: response.data });
     });
   }, []);
 

@@ -3,7 +3,7 @@ import '../styles/EditItem.css';
 
 import { useState, useEffect } from "react";
 
-export default function EditItem({ id }) {
+export default function EditItem({ id, state, setState }) {
 
   const handleEdit = (item) => {
     axios.put(`http://localhost:8000/list_items/${id}.json`, item).then((response) => {
@@ -11,45 +11,47 @@ export default function EditItem({ id }) {
     });
   };
 
-  const [state, setState] = useState({ name: "", completed: false });
+  const task = state.list.find((task) => task.id === id);
 
-  useEffect(() => {
+  const [taskData, setTaskData] = useState({ name: task.name, completed: false });
 
-    axios.get(
-      `http://localhost:8000/list_items/${id}.json`).then((response) => {
-        console.log(response);
-        setState(response.data);
-      });
+  const closeEdit = () => {
+    setState({ view: "home", ...state });
+  }
 
-  }, []);
+  console.log(state);
 
   return (
-    <div className="EditItem modal">
-      <h1>Edit Item</h1>
-      <form
-        onSubmit={(evt) => {
-          evt.preventDefault();
-          handleEdit(state);
-        }}>
-        <input
-          id="editItem"
-          type='text'
-          label='editItem'
-          placeholder={state.name}
-          maxLength="100"
-          onChange={(evt) => setState({ ...state, name: evt.target.value })}>
-        </input>
-        <p>Completed:
+    <div className="modal-bg">
+      <div className="EditItem modal">
+        <h1>Edit Item</h1>
+        <form
+          onSubmit={(evt) => {
+            evt.preventDefault();
+            handleEdit(taskData);
+          }}>
           <input
-            label='completed'
-            type="checkbox"
-            checked={state.completed}
-            onChange={(evt) => setState({ ...state, completed: evt.target.checked })}>
+            id="editItem"
+            type='text'
+            label='editItem'
+            placeholder={taskData.name}
+            maxLength="100"
+            onChange={(evt) => setTaskData({ ...taskData, name: evt.target.value })}>
           </input>
-        </p>
-        <br></br>
-        <button type='submit'>Save</button>
-      </form>
+          <p>Completed:
+            <input
+              label='completed'
+              type="checkbox"
+              checked={taskData.completed}
+              onChange={(evt) => setTaskData({ ...taskData, completed: evt.target.checked })}>
+            </input>
+          </p>
+          <p>{taskData.due_date}</p>
+          <br></br>
+          <button type='submit'>Save</button>
+          <button onClick={() => closeEdit()}>Cancel</button>
+        </form>
+      </div>
     </div>
   );
 }

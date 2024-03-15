@@ -27,3 +27,13 @@
   transform: translate(-50%, -50%);
   background-color: black;
 }
+
+.modal-bg {
+  top: 0;
+  left: 0;
+  background-color: rgba(50, 50, 50, 0.7);
+  backdrop-filter: blur(8px);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-export default function ToDoItem({ name, completed, id, setState }) {
+export default function ToDoItem({ name, completed, id, setState, state }) {
 
   const [done, setDone] = useState(completed)
 
@@ -16,6 +16,10 @@ export default function ToDoItem({ name, completed, id, setState }) {
         setState({ list: response.data });
       });
     });
+  }
+  
+  const openEdit = (id) => {
+    setState({ ...state, view: "edit", itemToEdit: id});
   }
 
   const handleStatusChange = (id) => {
@@ -32,7 +36,7 @@ export default function ToDoItem({ name, completed, id, setState }) {
       axios.get(
         "http://localhost:8000/list_items.json").then((response) => {
         console.log(response);
-        setState({ list: response.data });
+        setState({ ...state, list: response.data });
       });
     });
   }
@@ -42,6 +46,7 @@ export default function ToDoItem({ name, completed, id, setState }) {
       <p>{ name }</p>
       <button onClick={() => handleStatusChange(id)}>{done ? "Done" : "Not Yet"}</button>
       <button onClick={() => handleDelete(id)}>Delete</button>
+      <button onClick={() => openEdit(id)}>Edit</button>
     </div>
   );
 }
