@@ -16,7 +16,7 @@ export default function EditItem({ id, state, setState }) {
   const [taskData, setTaskData] = useState({ name: task.name, completed: false });
 
   const closeEdit = () => {
-    setState({ view: "home", ...state });
+    setState({ ...state, view: "home" });
   }
 
   console.log(state);
@@ -49,8 +49,8 @@ export default function EditItem({ id, state, setState }) {
           <p>{taskData.due_date}</p>
           <br></br>
           <button type='submit'>Save</button>
-          <button onClick={() => closeEdit()}>Cancel</button>
         </form>
+          <button onClick={() => closeEdit()}>Cancel</button>
       </div>
     </div>
   );
