@@ -2,6 +2,7 @@ import './App.css';
 import useAppData from './hooks/useAppData';
 
 import EditItem from './components/EditItem';
+import AddItem from './components/AddItem';
 import { useState } from 'react';
 import Home from './views/Home';
 
@@ -12,6 +13,7 @@ function App() {
   return (
     <>
       <Home state={state} setState={setState} />
+      {state.view === "add" && <AddItem state={state} setState={setState} />}
       {state.view === "edit" && <EditItem id={state.itemToEdit} state={state} setState={setState}/>}
     </>
   );

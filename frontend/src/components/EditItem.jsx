@@ -1,7 +1,7 @@
 import axios from "axios";
 import '../styles/EditItem.css';
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function EditItem({ id, state, setState }) {
 
@@ -14,10 +14,6 @@ export default function EditItem({ id, state, setState }) {
   const task = state.list.find((task) => task.id === id);
 
   const [taskData, setTaskData] = useState({ name: task.name, completed: false });
-
-  const closeEdit = () => {
-    setState({ ...state, view: "home" });
-  }
 
   console.log(state);
 
@@ -50,7 +46,7 @@ export default function EditItem({ id, state, setState }) {
           <br></br>
           <button type='submit'>Save</button>
         </form>
-          <button onClick={() => closeEdit()}>Cancel</button>
+          <button onClick={() => setState({ ...state, view: "home" })}>Cancel</button>
       </div>
     </div>
   );
