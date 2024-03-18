@@ -6,6 +6,7 @@ export default function useAppData() {
     list: [],
     view: 'home',
     itemToEdit: 8,
+    user: null,
   });
 
   useEffect(() => {

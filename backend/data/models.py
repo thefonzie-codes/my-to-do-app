@@ -9,3 +9,7 @@ class ListItem(models.Model):
 
   def __str__(self):
     return self.name
+
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
