@@ -4,7 +4,7 @@ import axios from "axios";
 export default function useAppData() {
   const [state, setState] = useState({
     list: [],
-    view: 'home',
+    view: 'login',
     itemToEdit: 8,
     user: null,
   });

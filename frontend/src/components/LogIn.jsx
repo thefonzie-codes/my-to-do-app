@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 
-export default function LogIn() {
+export default function LogIn({state, setState}) {
 
 const [loginData, setLoginData] = useState({
   username: null,
@@ -11,7 +11,11 @@ const [loginData, setLoginData] = useState({
 const handleLogin = () => {
   console.log(loginData)
   axios.post('http://localhost:8000/login/', loginData)
-  .then((response) => {console.log(response)})
+  .then((response) => {
+    console.log(response);
+    setState({ ...state, user: response.data.token, view: "home" });
+  })
+  .catch((error) => {console.log(error)})
 }
 
   return (
