@@ -26,6 +26,7 @@ urlpatterns = [
     path('test_token/', views.test_token),
     path('list_items/', views.list_items),
     path('list_items/<int:id>', views.list_items_detail),
+    path('reminder/', views.reminder),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

@@ -76,3 +76,15 @@ from rest_framework.permissions import IsAuthenticated
 @permission_classes([IsAuthenticated])
 def test_token(request, format=None):
   return Response({"passed for {}".format(request.user.username)})
+
+from django.core.mail import send_mail
+
+@api_view(['GET'])
+def reminder (request, format=None):
+  print(request)
+  send_mail(
+    subject="Reminder",
+    message="did you complete your tasks?",
+    from_email="doit@isitdoneyet.com",
+    recipient_list=["al_banzon@hotmail.com"])
+  return Response({"reminders sent"})

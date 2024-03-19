@@ -6,6 +6,7 @@ import AddItem from './components/AddItem';
 import { useState, useEffect } from 'react';
 import Home from './views/Home';
 import LogIn from './components/LogIn';
+import axios from 'axios';
 
 function App() {
 
@@ -23,7 +24,7 @@ function App() {
       {state.view === "home" && <Home state={state} setState={setState} />}
       {state.view === "login" && <LogIn state={state} setState={setState} />}
       {state.view === "add" && <AddItem state={state} setState={setState} />}
-      {state.view === "edit" && <EditItem id={state.itemToEdit} state={state} setState={setState}/>}
+      {state.view === "edit" && <EditItem id={state.itemToEdit} state={state} setState={setState} />}
     </>
   );
 }

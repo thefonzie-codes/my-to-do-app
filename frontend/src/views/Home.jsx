@@ -1,5 +1,6 @@
 import ToDoItem from '../components/ToDoItem';
 import '../styles/Home.css';
+import axios from 'axios';
 
 export default function Home({ state, setState }) {
 
@@ -18,6 +19,14 @@ export default function Home({ state, setState }) {
     setState({ ...state, view: "add" });
   };
 
+  const handleEmailSend = () => {
+    axios.get('http://localhost:8000/reminder/', state.user)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => { console.log(error); });
+  };
+
   return (
     <>
       <div className='Home'>
@@ -25,6 +34,7 @@ export default function Home({ state, setState }) {
         {items}
       </div>
       <button type="button" onClick={() => openAdd()}>Add</button>
+      <button onClick={() => handleEmailSend()}>Send Reminder</button>
     </>
   );
 };
