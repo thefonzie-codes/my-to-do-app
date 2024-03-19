@@ -13,8 +13,8 @@ function App() {
 
   return (
     <>
-      <LogIn state={state} setState={setState} />
       <Home state={state} setState={setState} />
+      {state==="login" && <LogIn state={state} setState={setState} />}
       {state.view === "add" && <AddItem state={state} setState={setState} />}
       {state.view === "edit" && <EditItem id={state.itemToEdit} state={state} setState={setState}/>}
     </>
