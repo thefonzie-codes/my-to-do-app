@@ -11,15 +11,21 @@ export default function AddItem({ setState, state }) {
       completed: false
     };
 
-    axios.post("http://localhost:8000/list_items/", item).then((response) => {
-      console.log(response);
+    axios.post("http://localhost:8000/list_items/", item, {
+      headers: {
+        'Authorization': `Token ${state.user}`,
+      }
     })
       .then(() => {
         axios.get(
-          "http://localhost:8000/list_items.json").then((response) => {
-            console.log(response);
-            setState({ list: response.data });
-          });
+          "http://localhost:8000/list_items.json", {
+          headers: {
+            'Authorization': `Token ${state.user}`,
+          }
+        }).then((response) => {
+          console.log(response);
+          setState({ ...state, list: response.data, view: "home" });
+        });
       });
 
     setNewItem("");
@@ -36,7 +42,7 @@ export default function AddItem({ setState, state }) {
           <input
             id="newItem"
             type='text'
-            label='newItem'
+            label='name'
             placeholder="Add new To-do"
             maxLength="100"
             onChange={(evt) => setNewItem(evt.target.value)}>

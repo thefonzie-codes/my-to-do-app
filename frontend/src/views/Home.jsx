@@ -1,5 +1,7 @@
 import ToDoItem from '../components/ToDoItem';
 import '../styles/Home.css';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 export default function Home({ state, setState }) {
 
@@ -13,6 +15,18 @@ export default function Home({ state, setState }) {
       completed={item.completed}
       dueDate={item.due_date} />;
   });
+
+  useEffect(() => {
+    axios.get(
+      "http://localhost:8000/list_items.json", {
+      headers: {
+        'Authorization': `Token ${state.user}`,
+      }
+    }).then((response) => {
+      console.log(response);
+      setState({ ...state, list: response.data });
+    });
+  }, [state.user]);
 
   const openAdd = () => {
     setState({ ...state, view: "add" });

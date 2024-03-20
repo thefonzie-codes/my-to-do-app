@@ -6,8 +6,13 @@ import { useState } from "react";
 export default function EditItem({ id, state, setState }) {
 
   const handleEdit = (item) => {
-    axios.put(`http://localhost:8000/list_items/${id}.json`, item).then((response) => {
+    axios.put(`http://localhost:8000/list_items/${id}.json`, item, {
+      headers: {
+        'Authorization': `Token ${state.user}`,
+      }
+    }).then((response) => {
       console.log(response);
+      setState({ ...state, view: "home" });
     });
   };
 
@@ -46,7 +51,7 @@ export default function EditItem({ id, state, setState }) {
           <br></br>
           <button type='submit'>Save</button>
         </form>
-          <button onClick={() => setState({ ...state, view: "home" })}>Cancel</button>
+        <button onClick={() => setState({ ...state, view: "home" })}>Cancel</button>
       </div>
     </div>
   );
