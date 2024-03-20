@@ -14,13 +14,16 @@ export default function LogIn({ state, setState }) {
       .then((response) => {
         console.log(response);
         setState({ ...state, user: response.data.token, view: "home" });
+        return response.data.token;
       })
-      // .then(axios.get('http://localhost:8000/list_items.json', {
-      //   headers: {
-      //     'Authorization': `Token ${state.user}`,
-      //   }
-      // })
-      .catch((error) => { console.log(error); });
+      .then((token) => window.sessionStorage.setItem("token", `${token}`))
+      .then(axios.get('http://localhost:8000/list_items.json', {
+        headers: {
+          'Authorization': `Token ${state.user}`,
+        }
+      }))
+      .then((response) => setState({ ...state, list: response.data }))
+      .catch((error) => console.log(error));
   };
 
   return (

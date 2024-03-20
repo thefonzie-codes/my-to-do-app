@@ -3,20 +3,12 @@ import useAppData from './hooks/useAppData';
 
 import EditItem from './components/EditItem';
 import AddItem from './components/AddItem';
-import { useState, useEffect } from 'react';
 import Home from './views/Home';
 import LogIn from './components/LogIn';
 
 function App() {
 
   const { state, setState } = useAppData();
-
-  useEffect(() => {
-    if (state.user) {
-      console.log("user", state.user);
-      setState({ ...state, view: "home" });
-    }
-  }, [state.user]);
 
   return (
     <>

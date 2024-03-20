@@ -16,18 +16,6 @@ export default function Home({ state, setState }) {
       dueDate={item.due_date} />;
   });
 
-  useEffect(() => {
-    axios.get(
-      "http://localhost:8000/list_items.json", {
-      headers: {
-        'Authorization': `Token ${state.user}`,
-      }
-    }).then((response) => {
-      console.log(response);
-      setState({ ...state, list: response.data });
-    });
-  }, [state.user]);
-
   const openAdd = () => {
     setState({ ...state, view: "add" });
   };
