@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { URL } from "../hooks/helpers";
 
 export default function LogIn({ state, setState }) {
 
@@ -10,16 +11,19 @@ export default function LogIn({ state, setState }) {
 
   const handleLogin = () => {
     console.log(loginData);
-    axios.post('http://localhost:8000/login/', loginData)
+    axios.post(URL + 'login/', loginData)
       .then((response) => {
         console.log(response);
         setState({ ...state, user: response.data.token, view: "home" });
         return response.data.token;
       })
-      .then((token) => window.sessionStorage.setItem("token", `${token}`))
-      .then(axios.get('http://localhost:8000/list_items.json', {
+      .then((token) => {
+        window.sessionStorage.setItem("token", `${token}`)
+        return token;
+      })
+      .then((token) => axios.get('http://localhost:8000/list_items.json', {
         headers: {
-          'Authorization': `Token ${state.user}`,
+          'Authorization': `Token ${token}`,
         }
       }))
       .then((response) => setState({ ...state, list: response.data }))

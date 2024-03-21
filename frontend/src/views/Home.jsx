@@ -20,6 +20,17 @@ export default function Home({ state, setState }) {
     setState({ ...state, view: "add" });
   };
 
+  useEffect(() => {
+    axios.get(
+      "http://localhost:8000/list_items.json", {
+      headers: {
+        'Authorization': `Token ${state.user}`,
+      }
+    }).then((response) => {
+      setState({ ...state, list: response.data });
+    });
+  }, []);
+
   return (
     <>
       <div className='Home'>

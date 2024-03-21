@@ -7,19 +7,7 @@ export default function useAppData() {
   let view = "login";
 
   if (token) {
-    
     view = "home";
-
-    useEffect(() => {
-      axios.get(
-        "http://localhost:8000/list_items.json", {
-        headers: {
-          'Authorization': `Token ${token}`,
-        }
-      }).then((response) => {
-        setState({ ...state, list: response.data });
-      });
-    }, []);
   } else {
     view = "login";
   }

@@ -1,20 +1,22 @@
 import axios from "axios";
 import '../styles/EditItem.css';
 
+import { EDIT_ITEM } from "../hooks/helpers";
+
 import { useState } from "react";
 
 export default function EditItem({ id, state, setState }) {
 
-  const handleEdit = (item) => {
-    axios.put(`http://localhost:8000/list_items/${id}.json`, item, {
-      headers: {
-        'Authorization': `Token ${state.user}`,
-      }
-    }).then((response) => {
-      console.log(response);
-      setState({ ...state, view: "home" });
-    });
-  };
+  // const handleEdit = (item) => {
+  //   axios.put(`http://localhost:8000/list_items/${id}.json`, item, {
+  //     headers: {
+  //       'Authorization': `Token ${state.user}`,
+  //     }
+  //   }).then((response) => {
+  //     console.log(response);
+  //     setState({ ...state, view: "home" });
+  //   });
+  // };
 
   const task = state.list.find((task) => task.id === id);
 
@@ -29,7 +31,7 @@ export default function EditItem({ id, state, setState }) {
         <form
           onSubmit={(evt) => {
             evt.preventDefault();
-            handleEdit(taskData);
+            EDIT_ITEM(id, taskData, state, setState);
           }}>
           <input
             id="editItem"

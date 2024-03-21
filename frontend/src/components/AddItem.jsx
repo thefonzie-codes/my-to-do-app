@@ -1,35 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
+import { ADD_ITEM } from "../hooks/helpers";
 
 export default function AddItem({ setState, state }) {
 
   const [newItem, setNewItem] = useState("");
-
-  const handleAdd = (name) => {
-    const item = {
-      name: name,
-      completed: false
-    };
-
-    axios.post("http://localhost:8000/list_items/", item, {
-      headers: {
-        'Authorization': `Token ${state.user}`,
-      }
-    })
-      .then(() => {
-        axios.get(
-          "http://localhost:8000/list_items.json", {
-          headers: {
-            'Authorization': `Token ${state.user}`,
-          }
-        }).then((response) => {
-          console.log(response);
-          setState({ ...state, list: response.data, view: "home" });
-        });
-      });
-
-    setNewItem("");
-  };
 
   return (
     <div className="modal-bg">
@@ -37,7 +12,7 @@ export default function AddItem({ setState, state }) {
         <form
           onSubmit={(evt) => {
             evt.preventDefault();
-            handleAdd(newItem);
+            ADD_ITEM(newItem, state, setState);
           }}>
           <input
             id="newItem"
