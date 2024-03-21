@@ -10,24 +10,20 @@ export default function LogIn({ state, setState }) {
   });
 
   const handleLogin = () => {
-    console.log(loginData);
     axios.post(URL + 'login/', loginData)
       .then((response) => {
-        console.log(response);
-        setState({ ...state, user: response.data.token, view: "home" });
+        console.log(response.data.user.id);
+        window.sessionStorage.setItem("token", `${response.data.token}`);
+        setState({ ...state, user: response.data.user.id, view: "home" });
         return response.data.token;
       })
-      .then((token) => {
-        window.sessionStorage.setItem("token", `${token}`)
-        return token;
-      })
-      .then((token) => axios.get('http://localhost:8000/list_items.json', {
-        headers: {
-          'Authorization': `Token ${token}`,
-        }
-      }))
-      .then((response) => setState({ ...state, list: response.data }))
-      .catch((error) => console.log(error));
+      // .then((token) => axios.get('http://localhost:8000/list_items.json', {
+      //   headers: {
+      //     'Authorization': `Token ${token}`,
+      //   }
+      // }))
+      // .then((response) => setState({ ...state, list: response.data }))
+      // .catch((error) => console.log(error));
   };
 
   return (

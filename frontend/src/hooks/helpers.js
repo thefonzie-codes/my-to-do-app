@@ -49,4 +49,4 @@ const CHANGE_STATUS = (name, id, done, setDone, state, setState) => {
     });
 };
 
-export { CHANGE_STATUS, EDIT_ITEM, ADD_ITEM, DELETE_ITEM, URL, HEADERS, TOKEN };
+export { GET_ALL_ITEMS, CHANGE_STATUS, EDIT_ITEM, ADD_ITEM, DELETE_ITEM, URL, HEADERS, TOKEN };

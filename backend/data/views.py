@@ -25,7 +25,6 @@ def list_items(request, format=None):
 
   if request.method == 'POST':
     serializer = ListItemSerializer(data=request.data)
-    print(serializer)
     if not serializer.is_valid():
       return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     if serializer.is_valid():
@@ -54,6 +53,14 @@ def list_items_detail(request, id, format=None):
   elif request.method == 'DELETE':
     list_item.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
+  
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def get_items_by_user(request, format=None):
+  ListItems = ListItem.objects.filter(user=request.user)
+  serializer = ListItemSerializer(ListItems, many=True)
+  return Response(serializer.data)
   
 @api_view(['POST'])
 def login(request, format=None):

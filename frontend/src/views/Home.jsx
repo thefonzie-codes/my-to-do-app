@@ -2,6 +2,7 @@ import ToDoItem from '../components/ToDoItem';
 import '../styles/Home.css';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { GET_ALL_ITEMS } from '../hooks/helpers';
 
 export default function Home({ state, setState }) {
 
@@ -21,14 +22,10 @@ export default function Home({ state, setState }) {
   };
 
   useEffect(() => {
-    axios.get(
-      "http://localhost:8000/list_items.json", {
-      headers: {
-        'Authorization': `Token ${state.user}`,
-      }
-    }).then((response) => {
+    GET_ALL_ITEMS()
+    .then((response) => {
       setState({ ...state, list: response.data });
-    });
+    })
   }, []);
 
   return (
