@@ -2,7 +2,7 @@ import ToDoItem from '../components/ToDoItem';
 import '../styles/Home.css';
 import { useEffect } from 'react';
 import axios from 'axios';
-import { GET_ALL_ITEMS } from '../hooks/helpers';
+import { GET_ITEMS_BY_USER } from '../hooks/helpers';
 import { TOKEN } from '../hooks/helpers';
 
 export default function Home({ state, setState }) {
@@ -23,7 +23,7 @@ export default function Home({ state, setState }) {
   };
 
   useEffect(() => {
-    GET_ALL_ITEMS()
+    GET_ITEMS_BY_USER()
     .then((response) => {
       setState({ ...state, list: response.data });
     })

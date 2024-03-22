@@ -9,6 +9,7 @@ const HEADERS = {
 };
 
 const GET_ALL_ITEMS = () => axios.get(URL + "list_items.json", HEADERS);
+const GET_ITEMS_BY_USER = () => axios.get(URL + "my_list_items.json", HEADERS);
 
 const DELETE_ITEM = (id, state, setState) => {
   axios.delete(URL + 'list_items/' + id, HEADERS)
@@ -52,9 +53,11 @@ const CHANGE_STATUS = (name, id, done, setDone, state, setState) => {
 const LOGIN = (loginData, state, setState) => {
   axios.post(URL + 'login/', loginData)
     .then((response) => {
+      setState({ ...state, user: response.data.username });
+
       window.sessionStorage.setItem("token", `${response.data.token}`);
 
-      const items = axios.get('http://localhost:8000/list_items.json', {
+      const items = axios.get(`${URL}my_list_items`, {
         headers: {
           'Authorization': `Token ${response.data.token}`,
         }
@@ -66,4 +69,4 @@ const LOGIN = (loginData, state, setState) => {
     .catch((error) => console.log(error));
 };
 
-export { LOGIN, GET_ALL_ITEMS, CHANGE_STATUS, EDIT_ITEM, ADD_ITEM, DELETE_ITEM, URL, HEADERS, TOKEN };
+export { LOGIN, GET_ALL_ITEMS, GET_ITEMS_BY_USER, CHANGE_STATUS, EDIT_ITEM, ADD_ITEM, DELETE_ITEM, URL, HEADERS, TOKEN };

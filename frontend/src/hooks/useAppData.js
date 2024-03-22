@@ -14,11 +14,8 @@ export default function useAppData() {
 
   const [state, setState] = useState({
     list: [],
-    user: token,
     view: view,
   });
-
-  console.log("state", state);
 
   return { state, setState };
 }
