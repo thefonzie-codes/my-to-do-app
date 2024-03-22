@@ -49,4 +49,21 @@ const CHANGE_STATUS = (name, id, done, setDone, state, setState) => {
     });
 };
 
-export { GET_ALL_ITEMS, CHANGE_STATUS, EDIT_ITEM, ADD_ITEM, DELETE_ITEM, URL, HEADERS, TOKEN };
+const LOGIN = (loginData, state, setState) => {
+  axios.post(URL + 'login/', loginData)
+    .then((response) => {
+      window.sessionStorage.setItem("token", `${response.data.token}`);
+
+      const items = axios.get('http://localhost:8000/list_items.json', {
+        headers: {
+          'Authorization': `Token ${response.data.token}`,
+        }
+      });
+
+      return items;
+    })
+    .then((response) => setState({ ...state, list: response.data, view: "home" }))
+    .catch((error) => console.log(error));
+};
+
+export { LOGIN, GET_ALL_ITEMS, CHANGE_STATUS, EDIT_ITEM, ADD_ITEM, DELETE_ITEM, URL, HEADERS, TOKEN };

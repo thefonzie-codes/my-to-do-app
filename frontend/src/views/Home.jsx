@@ -3,6 +3,7 @@ import '../styles/Home.css';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { GET_ALL_ITEMS } from '../hooks/helpers';
+import { TOKEN } from '../hooks/helpers';
 
 export default function Home({ state, setState }) {
 
