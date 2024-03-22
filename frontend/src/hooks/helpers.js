@@ -17,13 +17,15 @@ const DELETE_ITEM = (id, state, setState) => {
     .then((response) => {
       console.log(response);
       setState({ ...state, list: response.data });
-    });
+    })
+    .catch((error) => console.log(error));
 };
 
 const ADD_ITEM = (name, state, setState) => {
   const item = {
     name: name,
-    completed: false
+    completed: false,
+    user_id: state.user.id
   };
 
   axios.post(URL + "list_items/", item, HEADERS)
@@ -33,7 +35,8 @@ const ADD_ITEM = (name, state, setState) => {
 
 const EDIT_ITEM = (id, item, state, setState) => {
   axios.put(`${URL}list_items/${id}`, item, HEADERS)
-    .then(setState({ ...state, view: "home" }));
+    .then(setState({ ...state, view: "home" }))
+    .catch((error) => console.log(error));
 };
 
 const CHANGE_STATUS = (name, id, done, setDone, state, setState) => {
@@ -47,13 +50,25 @@ const CHANGE_STATUS = (name, id, done, setDone, state, setState) => {
     .then(() => axios.get(`${URL}list_items.json`, HEADERS))
     .then((response) => {
       setState({ ...state, list: response.data });
-    });
+    })
+    .catch((error) => console.log(error));
 };
+
+const GET_USER = () => {
+  axios.get(URL + 'authenticate/', HEADERS)
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => console.log(error));
+}
 
 const LOGIN = (loginData, state, setState) => {
   axios.post(URL + 'login/', loginData)
     .then((response) => {
-      setState({ ...state, user: response.data.username });
+      setState({ ...state, user: response.data });
+      return response;
+    })
+    .then((response) => {
 
       window.sessionStorage.setItem("token", `${response.data.token}`);
 
@@ -69,4 +84,10 @@ const LOGIN = (loginData, state, setState) => {
     .catch((error) => console.log(error));
 };
 
-export { LOGIN, GET_ALL_ITEMS, GET_ITEMS_BY_USER, CHANGE_STATUS, EDIT_ITEM, ADD_ITEM, DELETE_ITEM, URL, HEADERS, TOKEN };
+const LOGOUT = (state, setState) => {
+  window.sessionStorage.removeItem("token");
+  setState({ ...state, user: null, view: "login" });
+}
+
+
+export { LOGOUT, GET_USER, LOGIN, GET_ALL_ITEMS, GET_ITEMS_BY_USER, CHANGE_STATUS, EDIT_ITEM, ADD_ITEM, DELETE_ITEM, URL, HEADERS, TOKEN };

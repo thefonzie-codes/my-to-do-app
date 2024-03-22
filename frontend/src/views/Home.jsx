@@ -1,9 +1,7 @@
 import ToDoItem from '../components/ToDoItem';
 import '../styles/Home.css';
 import { useEffect } from 'react';
-import axios from 'axios';
-import { GET_ITEMS_BY_USER } from '../hooks/helpers';
-import { TOKEN } from '../hooks/helpers';
+import { GET_ITEMS_BY_USER, LOGOUT } from '../hooks/helpers';
 
 export default function Home({ state, setState }) {
 
@@ -36,6 +34,7 @@ export default function Home({ state, setState }) {
         {items}
       </div>
       <button type="button" onClick={() => openAdd()}>Add</button>
+      <button type="button" onClick={() => LOGOUT(state, setState)}>Log Out</button>
     </>
   );
 };

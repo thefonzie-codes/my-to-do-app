@@ -24,13 +24,19 @@ def list_items(request, format=None):
     return Response(serializer.data)
 
   elif request.method == 'POST':
-    print (request.user)
-    user = request.user
-    serializer = ListItemSerializer(data=[request.data, user])
+    serializer = ListItemSerializer(data=request.data)
+    print (request, serializer)
     if serializer.is_valid():
-      serializer.save()
-      return Response(serializer.data, status=status.HTTP_201_CREATED )
+        serializer.save(user=request.user)  # Associate the current user with the ListItem
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # print (request.user)
+    # user = request.user
+    # serializer = ListItemSerializer(data=[request.data, user])
+    # if serializer.is_valid():
+    #   serializer.save()
+    #   return Response(serializer.data, status=status.HTTP_201_CREATED )
+    # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['GET', 'PUT', 'DELETE'])
 @authentication_classes([TokenAuthentication])
@@ -72,6 +78,13 @@ def login(request, format=None):
   token, created = Token.objects.get_or_create(user=user)
   serializer = UserSerializer(instance=user)
   return Response({'token': token.key, 'user': serializer.data})
+
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def authenticate(request, format=None):
+  serializer = UserSerializer(request.user)
+  return Response(serializer.data)
 
 @api_view(['POST'])
 def signup(request, format=None):
