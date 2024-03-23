@@ -25,18 +25,10 @@ def list_items(request, format=None):
 
   elif request.method == 'POST':
     serializer = ListItemSerializer(data=request.data)
-    print (request, serializer)
     if serializer.is_valid():
-        serializer.save(user=request.user)  # Associate the current user with the ListItem
+        serializer.save(user_id=request.data['user_id'])  # Associate the current user with the ListItem
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    # print (request.user)
-    # user = request.user
-    # serializer = ListItemSerializer(data=[request.data, user])
-    # if serializer.is_valid():
-    #   serializer.save()
-    #   return Response(serializer.data, status=status.HTTP_201_CREATED )
-    # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['GET', 'PUT', 'DELETE'])
 @authentication_classes([TokenAuthentication])

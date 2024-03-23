@@ -9,7 +9,14 @@ const HEADERS = {
 };
 
 const GET_ALL_ITEMS = () => axios.get(URL + "list_items.json", HEADERS);
-const GET_ITEMS_BY_USER = () => axios.get(URL + "my_list_items.json", HEADERS);
+
+const GET_ITEMS_BY_USER = (state, setState) => {
+  axios.get(URL + "my_list_items.json", HEADERS)
+    .then((response) => {
+      setState({ ...state, list: response.data, view: "home" });
+    })
+    .catch((error) => console.log(error));
+};
 
 const DELETE_ITEM = (id, state, setState) => {
   axios.delete(URL + 'list_items/' + id, HEADERS)
@@ -22,14 +29,22 @@ const DELETE_ITEM = (id, state, setState) => {
 };
 
 const ADD_ITEM = (name, state, setState) => {
-  const item = {
+  let item = {
     name: name,
     completed: false,
-    user_id: state.user.id
+    user_id: null,
   };
 
-  axios.post(URL + "list_items/", item, HEADERS)
-    .then(() => axios.get(URL + "list_items.json", HEADERS))
+  axios.get(URL + "authenticate/", HEADERS)
+    .then((response) => {
+      item = { ...item, user_id: response.data.id };
+      console.log(item);
+      return item;
+    })
+    .then((item) => {
+      axios.post(URL + "list_items/", item, HEADERS);
+    })
+    .then(() => axios.get(URL + "my_list_items.json", HEADERS))
     .then((response) => setState({ ...state, list: response.data, view: "home" }));
 };
 
@@ -54,13 +69,15 @@ const CHANGE_STATUS = (name, id, done, setDone, state, setState) => {
     .catch((error) => console.log(error));
 };
 
-const GET_USER = () => {
+const GET_USER = (state, setState) => {
   axios.get(URL + 'authenticate/', HEADERS)
     .then((response) => {
-      return response;
+      console.log(response.data);
+      setState({ ...state, user: response.data });
+      return response.data;
     })
     .catch((error) => console.log(error));
-}
+};
 
 const LOGIN = (loginData, state, setState) => {
   axios.post(URL + 'login/', loginData)
@@ -87,7 +104,7 @@ const LOGIN = (loginData, state, setState) => {
 const LOGOUT = (state, setState) => {
   window.sessionStorage.removeItem("token");
   setState({ ...state, user: null, view: "login" });
-}
+};
 
 
 export { LOGOUT, GET_USER, LOGIN, GET_ALL_ITEMS, GET_ITEMS_BY_USER, CHANGE_STATUS, EDIT_ITEM, ADD_ITEM, DELETE_ITEM, URL, HEADERS, TOKEN };

@@ -1,7 +1,7 @@
 import ToDoItem from '../components/ToDoItem';
 import '../styles/Home.css';
 import { useEffect } from 'react';
-import { GET_ITEMS_BY_USER, LOGOUT } from '../hooks/helpers';
+import { GET_ITEMS_BY_USER, GET_USER, LOGOUT } from '../hooks/helpers';
 
 export default function Home({ state, setState }) {
 
@@ -20,12 +20,9 @@ export default function Home({ state, setState }) {
     setState({ ...state, view: "add" });
   };
 
-  useEffect(() => {
-    GET_ITEMS_BY_USER()
-    .then((response) => {
-      setState({ ...state, list: response.data });
-    })
-  }, []);
+  // useEffect(() => {
+  //   GET_ITEMS_BY_USER();
+  // }, []);
 
   return (
     <>
