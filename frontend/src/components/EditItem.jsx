@@ -1,5 +1,6 @@
 import axios from "axios";
 import '../styles/EditItem.css';
+import DatePicker from "react-datepicker";
 
 import { EDIT_ITEM } from "../hooks/helpers";
 
@@ -7,20 +8,10 @@ import { useState } from "react";
 
 export default function EditItem({ id, state, setState }) {
 
-  // const handleEdit = (item) => {
-  //   axios.put(`http://localhost:8000/list_items/${id}.json`, item, {
-  //     headers: {
-  //       'Authorization': `Token ${state.user}`,
-  //     }
-  //   }).then((response) => {
-  //     console.log(response);
-  //     setState({ ...state, view: "home" });
-  //   });
-  // };
 
   const task = state.list.find((task) => task.id === id);
 
-  const [taskData, setTaskData] = useState({ name: task.name, completed: false });
+  const [taskData, setTaskData] = useState({ name: task.name, completed: false, due_date: task.due_date });
 
   console.log(state);
 
@@ -31,6 +22,7 @@ export default function EditItem({ id, state, setState }) {
         <form
           onSubmit={(evt) => {
             evt.preventDefault();
+            console.log('taskdata', taskData);
             EDIT_ITEM(id, taskData, state, setState);
           }}>
           <input
@@ -41,6 +33,14 @@ export default function EditItem({ id, state, setState }) {
             maxLength="100"
             onChange={(evt) => setTaskData({ ...taskData, name: evt.target.value })}>
           </input>
+          <DatePicker
+            selected={taskData.due_date}
+            onChange={(date) => setTaskData({ ...taskData, due_date: date })}
+            onSelect={(date) => {
+              const formattedDate = Intl.DateTimeFormat("fr-CA", {year: "numeric", month: "2-digit", day: "2-digit"}).format(date);
+              console.log(formattedDate);
+              setTaskData({ ...taskData, due_date: formattedDate });
+            }} />
           <p>Completed:
             <input
               label='completed'
@@ -49,7 +49,6 @@ export default function EditItem({ id, state, setState }) {
               onChange={(evt) => setTaskData({ ...taskData, completed: evt.target.checked })}>
             </input>
           </p>
-          <p>{taskData.due_date}</p>
           <br></br>
           <button type='submit'>Save</button>
         </form>

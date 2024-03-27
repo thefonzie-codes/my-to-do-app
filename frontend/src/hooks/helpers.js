@@ -13,14 +13,14 @@ const GET_ALL_ITEMS = () => axios.get(URL + "list_items.json", HEADERS);
 const GET_ITEMS_BY_USER = (state, setState) => {
   axios.get(URL + "my_list_items.json", HEADERS)
     .then((response) => {
-      setState({ ...state, list: response.data, view: "home" });
+      setState({ ...state, list: response.data });
     })
     .catch((error) => console.log(error));
 };
 
 const DELETE_ITEM = (id, state, setState) => {
   axios.delete(URL + 'list_items/' + id, HEADERS)
-    .then(() => axios.get(URL + "list_items.json", HEADERS))
+    .then(() => axios.get(URL + "my_list_items.json", HEADERS))
     .then((response) => {
       console.log(response);
       setState({ ...state, list: response.data });
@@ -38,19 +38,25 @@ const ADD_ITEM = (name, state, setState) => {
   axios.get(URL + "authenticate/", HEADERS)
     .then((response) => {
       item = { ...item, user_id: response.data.id };
-      console.log(item);
-      return item;
-    })
-    .then((item) => {
       axios.post(URL + "list_items/", item, HEADERS);
     })
     .then(() => axios.get(URL + "my_list_items.json", HEADERS))
-    .then((response) => setState({ ...state, list: response.data, view: "home" }));
+    .then((response) => {
+      setState({ ...state, list: response.data, view: "home" });
+    })
+    .catch((error) => console.log(error));
 };
 
 const EDIT_ITEM = (id, item, state, setState) => {
-  axios.put(`${URL}list_items/${id}`, item, HEADERS)
-    .then(setState({ ...state, view: "home" }))
+  axios.get(URL + "authenticate/", HEADERS)
+    .then((response) => {
+      item = { ...item, user_id: response.data.id };
+      axios.put(`${URL}list_items/${id}`, item, HEADERS);
+    })
+    .then(() => axios.get(URL + "my_list_items.json", HEADERS))
+    .then((response) => {
+      setState({ ...state, list: response.data, view: "home" });
+    })
     .catch((error) => console.log(error));
 };
 

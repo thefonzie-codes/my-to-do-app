@@ -20,10 +20,6 @@ export default function Home({ state, setState }) {
     setState({ ...state, view: "add" });
   };
 
-  // useEffect(() => {
-  //   GET_ITEMS_BY_USER();
-  // }, []);
-
   return (
     <>
       <div className='Home'>
