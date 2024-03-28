@@ -11,7 +11,7 @@ export default function EditItem({ id, state, setState }) {
 
   const task = state.list.find((task) => task.id === id);
 
-  const [taskData, setTaskData] = useState({ name: task.name, completed: false, due_date: task.due_date });
+  const [taskData, setTaskData] = useState({ name: task.name, completed: false, due_date: task.due_date, selectedDate: new Date(task.due_date)});
 
   console.log(state);
 
@@ -34,12 +34,13 @@ export default function EditItem({ id, state, setState }) {
             onChange={(evt) => setTaskData({ ...taskData, name: evt.target.value })}>
           </input>
           <DatePicker
-            selected={taskData.due_date}
+            selected={taskData.selectedDate}
             onChange={(date) => setTaskData({ ...taskData, due_date: date })}
             onSelect={(date) => {
+              console.log(date.toUTCString());
               const formattedDate = Intl.DateTimeFormat("fr-CA", {year: "numeric", month: "2-digit", day: "2-digit"}).format(date);
               console.log(formattedDate);
-              setTaskData({ ...taskData, due_date: formattedDate });
+              setTaskData({ ...taskData, due_date: formattedDate, selectedDate: date});
             }} />
           <p>Completed:
             <input

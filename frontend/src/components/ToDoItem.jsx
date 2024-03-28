@@ -15,7 +15,7 @@ export default function ToDoItem({ name, completed, id, setState, state, dueDate
   return (
     <div className="card">
       <p>{name}</p>
-      <p>{formatDate(dueDate).toString()}</p>
+      <p>{dueDate}</p>
       <button onClick={() => CHANGE_STATUS(name, id, done, setDone, state, setState)}>{done ? "Done" : "Not Yet"}</button>
       <button onClick={() => DELETE_ITEM(id, state, setState)}>Delete</button>
       <button onClick={() => setState({ ...state, view: "edit", itemToEdit: id })}>Edit</button>
