@@ -96,3 +96,15 @@ def signup(request, format=None):
 @permission_classes([IsAuthenticated])
 def test_token(request, format=None):
   return Response({"passed for {}".format(request.user.username)})
+
+from django.core.mail import send_mail
+from django.conf import settings
+
+@api_view(['GET'])
+def email_reminder(request, format=None):
+  subject = 'Reminder'
+  message = 'This is a reminder to complete your tasks'
+  email_from = settings.EMAIL_HOST_USER
+  recipient_list = ['al_banzon@hotmail.com']
+  send_mail( subject, message, email_from, recipient_list )
+  return Response({"email reminder sent"})

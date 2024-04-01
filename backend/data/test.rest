@@ -24,3 +24,10 @@ content-type: application/json
 Authorization: Token 3985345623cda8b5dec1c59c8661597e36618400
 
 {}
+
+###
+
+GET http://127.0.0.1:8000/reminder_email/
+content-type: application/json
+
+{}

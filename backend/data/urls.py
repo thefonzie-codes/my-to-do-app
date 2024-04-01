@@ -28,6 +28,7 @@ urlpatterns = [
     path('list_items/', views.list_items),
     path('list_items/<int:id>', views.list_items_detail),
     path('my_list_items', views.get_items_by_user),
+    path('reminder_email/', views.email_reminder),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
