@@ -13,6 +13,8 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
+from datetime import date
+
 @api_view(['GET', 'POST'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
@@ -61,6 +63,7 @@ def get_items_by_user(request, format=None):
   ListItems = ListItem.objects.filter(user=user)
   serializer = ListItemSerializer(ListItems, many=True)
   return Response(serializer.data, status=status.HTTP_200_OK)
+
   
 @api_view(['POST'])
 def login(request, format=None):
@@ -99,6 +102,21 @@ def test_token(request, format=None):
 
 from django.core.mail import send_mail
 from django.conf import settings
+
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def get_items_by_user_due_today(request, format=None):
+  user = request.user
+  ListItems = ListItem.objects.filter(user=user, due_date=date.today())
+  serializer = ListItemSerializer(ListItems, many=True)
+  subject = 'Reminder'
+  message = serializer.data.__str__()
+  email_from = settings.EMAIL_HOST_USER
+  recipient_list = ['al_banzon@hotmail.com']
+  print(serializer.data)
+  send_mail( subject, message, email_from, recipient_list )
+  return Response({'reminder sent'})
 
 @api_view(['GET'])
 def email_reminder(request, format=None):
