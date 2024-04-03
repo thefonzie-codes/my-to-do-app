@@ -100,23 +100,43 @@ def signup(request, format=None):
 def test_token(request, format=None):
   return Response({"passed for {}".format(request.user.username)})
 
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
+from django.template.loader import render_to_string
 
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def get_items_by_user_due_today(request, format=None):
-  user = request.user
-  ListItems = ListItem.objects.filter(user=user, due_date=date.today())
-  serializer = ListItemSerializer(ListItems, many=True)
-  subject = 'Reminder'
-  message = serializer.data.__str__()
-  email_from = settings.EMAIL_HOST_USER
-  recipient_list = ['al_banzon@hotmail.com']
-  print(serializer.data)
-  send_mail( subject, message, email_from, recipient_list )
-  return Response({'reminder sent'})
+    user = request.user
+    ListItems = ListItem.objects.filter(user=user, due_date=date.today())
+    serializer = ListItemSerializer(ListItems, many=True)
+    def items(list):
+      return [item['name'] for item in list]
+    merge_data = {
+        'tasks': items(serializer.data)
+    }
+    html_body = render_to_string("email-templates.html", merge_data)
+
+    message = EmailMultiAlternatives(
+       subject='Your To-Do List for Today',
+       body="mail testing",
+       from_email='alfonsobanzon@gmail.com',
+       to=['al_banzon@hotmail.com']
+    )
+    message.attach_alternative(html_body, "text/html")
+    message.send(fail_silently=False)
+  # user = request.user
+  # ListItems = ListItem.objects.filter(user=user, due_date=date.today())
+  # serializer = ListItemSerializer(ListItems, many=True)
+  # subject = 'Reminder'
+  # html_message = render_to_string(serializer.data)
+  # plain_message = 'This is a reminder to complete your tasks'
+  # email_from = settings.EMAIL_HOST_USER
+  # recipient_list = ['al_banzon@hotmail.com']
+  # print(serializer.data)
+  # send_mail( subject, plain_message, email_from, recipient_list, html_message=html_message )
+    return Response({items(serializer.data).__str__()})
 
 @api_view(['GET'])
 def email_reminder(request, format=None):

@@ -114,9 +114,4 @@ const LOGOUT = (state, setState) => {
   setState({ ...state, user: null, view: "login", token: null, list: []});
 };
 
-const getUtcOffset = () => {
-  const offset = new Date().getTimezoneOffset();
-  return offset / 60;
-};
-
 export { LOGOUT, GET_USER, LOGIN, GET_ALL_ITEMS, GET_ITEMS_BY_USER, CHANGE_STATUS, EDIT_ITEM, ADD_ITEM, DELETE_ITEM, URL, HEADERS, TOKEN };
