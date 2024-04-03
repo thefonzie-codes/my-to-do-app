@@ -64,11 +64,13 @@ const CHANGE_STATUS = (name, id, done, setDone, state, setState) => {
 
   setDone(!done);
 
-  axios.put(`${URL}list_items/${id}`, {
+  axios.get(URL + "authenticate/", HEADERS)
+  .then((response) => axios.put(`${URL}list_items/${id}`, {
     name: name,
-    completed: !done
-  }, HEADERS)
-    .then(() => axios.get(`${URL}list_items.json`, HEADERS))
+    completed: !done,
+    user_id: response.data.id
+  }, HEADERS))
+    .then(() => axios.get(`${URL}my_list_items.json`, HEADERS))
     .then((response) => {
       setState({ ...state, list: response.data });
     })
@@ -88,7 +90,7 @@ const GET_USER = (state, setState) => {
 const LOGIN = (loginData, state, setState) => {
   axios.post(URL + 'login/', loginData)
     .then((response) => {
-      setState({ ...state, user: response.data });
+      setState({ ...state, token: response.data.token });
       return response;
     })
     .then((response) => {
@@ -109,7 +111,7 @@ const LOGIN = (loginData, state, setState) => {
 
 const LOGOUT = (state, setState) => {
   window.sessionStorage.removeItem("token");
-  setState({ ...state, user: null, view: "login" });
+  setState({ ...state, user: null, view: "login", token: null, list: []});
 };
 
 const getUtcOffset = () => {

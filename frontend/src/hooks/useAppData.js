@@ -16,11 +16,16 @@ export default function useAppData() {
   const [state, setState] = useState({
     list: [],
     view: view,
+    token: token,
   });
 
   useEffect(() => {
+    if (token){
     GET_ITEMS_BY_USER(state, setState);
-  }, [state.view]);
+    }
+  }, []);
+
+  console.log(state);
 
   return { state, setState };
 }
