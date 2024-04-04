@@ -1,27 +1,26 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { GET_ITEMS_BY_USER} from "./helpers";
+import { useState, useEffect, useReducer } from "react";
+import { GET_ITEMS_BY_USER, AUTHENTICATE} from "./helpers";
 
+const items = await GET_ITEMS_BY_USER();
+const user = await AUTHENTICATE();
 
 export default function useAppData() {
 
-  let token = window.sessionStorage.getItem("token");
+  const token = window.sessionStorage.getItem("token");
   let view = "login";
-  let list = [];
   
   if (token) {
     view = "home";
   }
 
-  const [state, setState] = useState({
+  const [state,setState] = useState({
     list: [],
     view: view,
-    token: token,
   });
 
-  useEffect(() => {
+  useEffect(() => {;
     if (token){
-    GET_ITEMS_BY_USER(state, setState);
+    setState({ ...state, view: "home", list: items, user: user});
     }
   }, []);
 

@@ -1,10 +1,15 @@
 import { useState } from "react";
-import axios from "axios";
-import { ADD_ITEM } from "../hooks/helpers";
+import { ADD_ITEM, GET_ITEMS_BY_USER } from "../hooks/helpers";
 
 export default function AddItem({ setState, state }) {
 
   const [newItem, setNewItem] = useState("");
+
+  const HANDLE_ADD = async () => {
+    await ADD_ITEM(newItem, state, setState);
+    const items = await GET_ITEMS_BY_USER(state, setState);
+    setState({ ...state, view: "home", list: items});
+  }
 
   return (
     <div className="modal-bg">
@@ -12,7 +17,7 @@ export default function AddItem({ setState, state }) {
         <form
           onSubmit={(evt) => {
             evt.preventDefault();
-            ADD_ITEM(newItem, state, setState);
+            HANDLE_ADD();
           }}>
           <input
             id="newItem"

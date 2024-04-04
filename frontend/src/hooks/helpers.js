@@ -8,110 +8,112 @@ const HEADERS = {
   },
 };
 
-const GET_ALL_ITEMS = () => axios.get(URL + "list_items.json", HEADERS);
-
-const GET_ITEMS_BY_USER = (state, setState) => {
-  axios.get(URL + "my_list_items.json", HEADERS)
-    .then((response) => {
-      setState({ ...state, list: response.data });
-    })
-    .catch((error) => console.log(error));
+const AUTHENTICATE = async () => {
+  try {
+    const response = await axios.get(URL + "authenticate/", HEADERS);
+    return response.data;
+  }
+  catch (error) {
+    console.log(error);
+  }
 };
 
-const DELETE_ITEM = (id, state, setState) => {
-  axios.delete(URL + 'list_items/' + id, HEADERS)
-    .then(() => axios.get(URL + "my_list_items.json", HEADERS))
-    .then((response) => {
-      console.log(response);
-      setState({ ...state, list: response.data });
-    })
-    .catch((error) => console.log(error));
+const GET_ALL_ITEMS = async () => {
+  try {
+    axios.get(URL + "list_items.json", HEADERS);
+  }
+  catch (error) {
+    console.log(error);
+  }
 };
 
-const ADD_ITEM = (name, state, setState) => {
-  let item = {
-    name: name,
-    completed: false,
-    user_id: null,
+const GET_ITEMS_BY_USER = async () => {
+  try {
+    const items = await axios.get(URL + "my_list_items.json", HEADERS);
+    return items.data;
+  }
+  catch (error) {
+    console.log(error);
+  }
+};
+
+const DELETE_ITEM = async (id) => {
+  try {
+    const DELETE_API = await axios.delete(URL + 'list_items/' + id, HEADERS);
+    console.log('Successfully deleted item');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const ADD_ITEM = async (name, state, setState) => {
+  try {
+    let item = {
+      name: name,
+      completed: false,
+      user_id: state.user.id,
+    };
+    await axios.post(`${URL}list_items/`, item, HEADERS);
+    console.log('Successfully added item');
+  } catch (error) {
+    console.log(error);
   };
-
-  axios.get(URL + "authenticate/", HEADERS)
-    .then((response) => {
-      item = { ...item, user_id: response.data.id };
-      axios.post(URL + "list_items/", item, HEADERS);
-    })
-    .then(() => axios.get(URL + "my_list_items.json", HEADERS))
-    .then((response) => {
-      setState({ ...state, list: response.data, view: "home" });
-    })
-    .catch((error) => console.log(error));
 };
 
-const EDIT_ITEM = (id, item, state, setState) => {
-  axios.get(URL + "authenticate/", HEADERS)
-    .then((response) => {
-      item = { ...item, user_id: response.data.id };
-      axios.put(`${URL}list_items/${id}`, item, HEADERS);
-    })
-    .then(() => axios.get(URL + "my_list_items.json", HEADERS))
-    .then((response) => {
-      setState({ ...state, list: response.data, view: "home" });
-    })
-    .catch((error) => console.log(error));
+const EDIT_ITEM = async(id, item) => {
+  try {
+    axios.put(`${URL}list_items/${id}`, item, HEADERS);
+    console.log('Successfully edited item');
+  }
+  catch (error) {
+    console.log(error);
+  }
 };
 
-const CHANGE_STATUS = (name, id, done, setDone, state, setState) => {
-
-  setDone(!done);
-
-  axios.get(URL + "authenticate/", HEADERS)
-  .then((response) => axios.put(`${URL}list_items/${id}`, {
-    name: name,
-    completed: !done,
-    user_id: response.data.id
-  }, HEADERS))
-    .then(() => axios.get(`${URL}my_list_items.json`, HEADERS))
-    .then((response) => {
-      setState({ ...state, list: response.data });
-    })
-    .catch((error) => console.log(error));
+const CHANGE_STATUS = async (name, id, done, userId) => {
+  try {
+    await axios.put(`${URL}list_items/${id}`, {
+      name: name,
+      completed: !done,
+      user_id: userId
+    }, HEADERS);
+    console.log('Successfully changed status');
+  }
+  catch (error){
+    console.log(error);
+  }
 };
 
-const GET_USER = (state, setState) => {
-  axios.get(URL + 'authenticate/', HEADERS)
-    .then((response) => {
-      console.log(response.data);
-      setState({ ...state, user: response.data });
-      return response.data;
-    })
-    .catch((error) => console.log(error));
-};
+// const GET_USER = (state, setState) => {
+//   axios.get(URL + 'authenticate/', HEADERS)
+//     .then((response) => {
+//       console.log(response.data);
+//       setState({ ...state, user: response.data });
+//       return response.data;
+//     })
+//     .catch((error) => console.log(error));
+// };
 
-const LOGIN = (loginData, state, setState) => {
-  axios.post(URL + 'login/', loginData)
-    .then((response) => {
-      setState({ ...state, token: response.data.token });
-      return response;
-    })
-    .then((response) => {
-
-      window.sessionStorage.setItem("token", `${response.data.token}`);
-
-      const items = axios.get(`${URL}my_list_items`, {
-        headers: {
-          'Authorization': `Token ${response.data.token}`,
-        }
-      });
-
-      return items;
-    })
-    .then((response) => setState({ ...state, list: response.data, view: "home" }))
-    .catch((error) => console.log(error));
+const LOGIN = async (loginData, state, setState) => {
+  try {
+    const userData = await axios.post(URL + 'login/', loginData);
+    const listData = await axios.get(`${URL}my_list_items`, {
+      headers: {
+        'Authorization': `Token ${userData.data.token}`,
+      }
+    });
+    window.sessionStorage.setItem("token", `${userData.data.token}`);
+    setState({ ...state, user: userData.data, list: listData.data, view: "home" });
+    return [userData.listData];
+  }
+  catch (error) {
+    console.log(error);
+  }
 };
 
 const LOGOUT = (state, setState) => {
   window.sessionStorage.removeItem("token");
-  setState({ ...state, user: null, view: "login", token: null, list: []});
+  setState({ ...state, user: null, view: "login", list: [] });
 };
 
-export { LOGOUT, GET_USER, LOGIN, GET_ALL_ITEMS, GET_ITEMS_BY_USER, CHANGE_STATUS, EDIT_ITEM, ADD_ITEM, DELETE_ITEM, URL, HEADERS, TOKEN };
+export { AUTHENTICATE, LOGOUT, LOGIN, GET_ALL_ITEMS, GET_ITEMS_BY_USER, CHANGE_STATUS, EDIT_ITEM, ADD_ITEM, DELETE_ITEM, URL, HEADERS, TOKEN };

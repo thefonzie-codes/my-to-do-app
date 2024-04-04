@@ -2,16 +2,32 @@ import axios from "axios";
 import '../styles/EditItem.css';
 import DatePicker from "react-datepicker";
 
-import { EDIT_ITEM } from "../hooks/helpers";
+import { EDIT_ITEM, GET_ITEMS_BY_USER } from "../hooks/helpers";
 
 import { useState } from "react";
 
 export default function EditItem({ id, state, setState }) {
-
-
+  
   const task = state.list.find((task) => task.id === id);
 
-  const [taskData, setTaskData] = useState({ name: task.name, completed: false, due_date: task.due_date, selectedDate: new Date(task.due_date)});
+  const HANDLE_EDIT = async () => {
+    try {
+      await EDIT_ITEM(id, taskData);
+      const items = await GET_ITEMS_BY_USER();
+      setState({ ...state, view: "home", list: items });
+    }
+    catch (error) {
+      console.log(error);
+    }
+  };
+
+  const [taskData, setTaskData] = useState({ 
+    name: task.name, 
+    completed: false, 
+    due_date: task.due_date, 
+    selectedDate: new Date(task.due_date),
+    user_id: state.user.id
+  });
 
   console.log(state);
 
@@ -23,7 +39,7 @@ export default function EditItem({ id, state, setState }) {
           onSubmit={(evt) => {
             evt.preventDefault();
             console.log('taskdata', taskData);
-            EDIT_ITEM(id, taskData, state, setState);
+            HANDLE_EDIT();
           }}>
           <input
             id="editItem"
