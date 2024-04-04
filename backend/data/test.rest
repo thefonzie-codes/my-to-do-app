@@ -37,6 +37,6 @@ content-type: application/json
 
 GET http://127.0.0.1:8000/get_items_by_user_due_today/
 content-type: application/json
-Authorization: Token 980cd972ff0343779044b0ed6da188d794b4fca5
+Authorization: Token bdea412fcce397a1b4a5220e198fa65303940935
 
 {}
