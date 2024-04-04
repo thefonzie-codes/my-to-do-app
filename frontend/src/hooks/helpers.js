@@ -84,36 +84,9 @@ const CHANGE_STATUS = async (name, id, done, userId) => {
   }
 };
 
-// const GET_USER = (state, setState) => {
-//   axios.get(URL + 'authenticate/', HEADERS)
-//     .then((response) => {
-//       console.log(response.data);
-//       setState({ ...state, user: response.data });
-//       return response.data;
-//     })
-//     .catch((error) => console.log(error));
-// };
-
-const LOGIN = async (loginData, state, setState) => {
-  try {
-    const userData = await axios.post(URL + 'login/', loginData);
-    const listData = await axios.get(`${URL}my_list_items`, {
-      headers: {
-        'Authorization': `Token ${userData.data.token}`,
-      }
-    });
-    window.sessionStorage.setItem("token", `${userData.data.token}`);
-    setState({ ...state, user: userData.data, list: listData.data, view: "home" });
-    return [userData.listData];
-  }
-  catch (error) {
-    console.log(error);
-  }
-};
-
 const LOGOUT = (state, setState) => {
   window.sessionStorage.removeItem("token");
   setState({ ...state, user: null, view: "login", list: [] });
 };
 
-export { AUTHENTICATE, LOGOUT, LOGIN, GET_ALL_ITEMS, GET_ITEMS_BY_USER, CHANGE_STATUS, EDIT_ITEM, ADD_ITEM, DELETE_ITEM, URL, HEADERS, TOKEN };
+export { AUTHENTICATE, LOGOUT, GET_ALL_ITEMS, GET_ITEMS_BY_USER, CHANGE_STATUS, EDIT_ITEM, ADD_ITEM, DELETE_ITEM, URL, HEADERS, TOKEN };

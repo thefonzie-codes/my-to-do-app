@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { LOGIN } from "../hooks/helpers";
+import { URL } from "../hooks/helpers";
 
 export default function LogIn({ state, setState }) {
 
@@ -8,6 +8,23 @@ export default function LogIn({ state, setState }) {
     username: null,
     password: null,
   });
+
+  const LOGIN = async (loginData, state, setState) => {
+  try {
+    const userData = await axios.post(URL + 'login/', loginData);
+    const listData = await axios.get(`${URL}my_list_items`, {
+      headers: {
+        'Authorization': `Token ${userData.data.token}`,
+      }
+    });
+    window.sessionStorage.setItem("token", `${userData.data.token}`);
+    setState({ ...state, user: userData.data.user, list: listData.data, view: "home" });
+    return [userData.listData];
+  }
+  catch (error) {
+    console.log(error);
+  }
+};
 
   return (
     <div className="modal-bg">
