@@ -1,5 +1,5 @@
 from .models import ListItem
-from .serializers import ListItemSerializer
+from .serializers import ListItemSerializer, UserSerializer
 
 from datetime import date
 
@@ -25,5 +25,3 @@ def send_daily_reminder():
       to, 
       html_message=html_message,
       fail_silently=False)
-    
-    return 'Email sent'
