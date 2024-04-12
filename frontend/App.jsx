@@ -1,10 +1,10 @@
 import './App.css';
-import useAppData from './hooks/useAppData';
+import useAppData from './src/hooks/useAppData';
 
-import EditItem from './components/EditItem';
-import AddItem from './components/AddItem';
-import Home from './views/Home';
-import LogIn from './components/LogIn';
+import EditItem from './src/components/EditItem';
+import AddItem from './src/components/AddItem';
+import Home from './src/views/Home';
+import LogIn from './src/components/LogIn';
 
 function App() {
 
