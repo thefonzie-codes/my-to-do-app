@@ -77,7 +77,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'data.wsgi.application'
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+]
+
+from django.core.management.commands.runserver import Command as runserver
+
+ALLOWED_HOSTS = ['*']
+runserver.default_port = '8000'        # <-- Your port
+runserver.default_addr = '0.0.0.0'   # <-- Your address
 
 
 # Database
