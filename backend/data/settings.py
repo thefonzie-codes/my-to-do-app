@@ -158,6 +158,8 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('APP_PASSWORD')
 
 Q_CLUSTER = {
-    "name": "shop",
-    "orm": "default",  # Use Django's ORM + database for broker
+    'name': 'data',
+    'orm': 'default',  # Use Django's ORM + database for broker
+    'retry': 60,  # Retry in 60 seconds
+    'timeout': 3000,  # Wait for 3000 seconds before timing out
 }
