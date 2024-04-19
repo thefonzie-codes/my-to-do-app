@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,16 +22,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-kyz1o^@dvxiqyb6t@%^ggy#8nh9)s&)9fgt3ou7be#v@k@2)&7'
+# SECRET_KEY = 'django-insecure-kyz1o^@dvxiqyb6t@%^ggy#8nh9)s&)9fgt3ou7be#v@k@2)&7'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-kyz1o^@dvxiqyb6t@%^ggy#8nh9)s&)9fgt3ou7be#v@k@2)&7')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG','') != 'False'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+  'https://my-to-do-app-production.up.railway.app'
+]
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'data',
     'corsheaders',
@@ -121,7 +125,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -146,9 +149,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email settings
 
-from dotenv import load_dotenv
-import os
-
 load_dotenv()
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -160,6 +160,6 @@ EMAIL_HOST_PASSWORD = os.getenv('APP_PASSWORD')
 Q_CLUSTER = {
     'name': 'data',
     'orm': 'default',  # Use Django's ORM + database for broker
-    'retry': 60,  # Retry in 60 seconds
-    'timeout': 3000,  # Wait for 3000 seconds before timing out
+    'retry': 15,
+    'timeout': 60,
 }
