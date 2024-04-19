@@ -2,7 +2,7 @@ FROM python:3.10.12-slim
 
 ENV PYTHONBUFFERED=1
 
-WORKDIR /app
+WORKDIR /backend
 
 COPY requirements.txt .
 
