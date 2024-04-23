@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "http://localhost:8000/";
+const URL = "https://my-to-do-app-production.up.railway.app/";
 const TOKEN = window.sessionStorage.getItem("token");
 const HEADERS = {
   headers: {
