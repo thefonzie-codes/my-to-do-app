@@ -1,0 +1,20 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$720000$dqtHYkUvtdP9AhvkYx3ZwW$kEX2UofKVhn7lbkpPqCLKPzKw+EIoisG1r7WtEXpfhw=",
+      "last_login": "2024-04-12T18:42:55.144Z",
+      "is_superuser": true,
+      "username": "thefonzie-codes",
+      "first_name": "",
+      "last_name": "",
+      "email": "al_banzon@hotmail.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-03-08T19:38:41.591Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]
