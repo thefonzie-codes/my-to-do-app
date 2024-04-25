@@ -128,8 +128,7 @@ def get_items_by_user_due_today(request, format=None):
       fail_silently=False)
     return Response({'email sent'})
   
-
-from scheduled_emails import send_daily_reminder, send_daily_checkin
+from data.scheduled_emails import send_daily_reminder, send_daily_checkin
 
 @api_view(['GET'])
 def email_reminder(request, format=None):
