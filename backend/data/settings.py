@@ -161,8 +161,14 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('APP_PASSWORD')
 
 Q_CLUSTER = {
-    'name': 'data',
-    'orm': 'default',  # Use Django's ORM + database for broker
-    'retry': 15,
-    'timeout': 60,
+    'redis': {
+        'host': 'localhost',
+        'port': 6379,
+        'db': 0,
+        'password': None,
+        'socket_timeout': None,
+        'charset': 'utf-8',
+        'errors': 'strict',
+        'unix_socket_path': None
+    }
 }
