@@ -127,12 +127,11 @@ def get_items_by_user_due_today(request, format=None):
       html_message=html_message,
       fail_silently=False)
     return Response({'email sent'})
+  
+
+from scheduled_emails import send_daily_reminder, send_daily_checkin
 
 @api_view(['GET'])
 def email_reminder(request, format=None):
-  subject = 'Reminder'
-  message = 'This is a reminder to complete your tasks'
-  email_from = settings.EMAIL_HOST_USER
-  recipient_list = ['al_banzon@hotmail.com']
-  send_mail( subject, message, email_from, recipient_list )
+  send_daily_reminder()
   return Response({"email reminder sent"})
