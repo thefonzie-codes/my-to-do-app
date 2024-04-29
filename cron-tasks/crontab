@@ -1,0 +1,2 @@
+*/5 * * * * python3 /app/check-in.py >> /var/log/cron.log 2>&1
+*/5 * * * * python3 /app/reminder.py >> /var/log/cron.log 2>&1
