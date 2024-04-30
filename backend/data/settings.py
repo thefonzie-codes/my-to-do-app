@@ -165,4 +165,5 @@ EMAIL_HOST_PASSWORD = os.getenv('APP_PASSWORD')
 
 CRONJOBS = [
   ('*/5 * * * *', 'data.scheduled_emails.send_daily_reminder'),
+  ('*/5 * * * *', 'data.scheduled_emails.send_daily_checkin'),
 ]
