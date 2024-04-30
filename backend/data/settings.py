@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_q',
+    # 'django_q',
+    'django_crontab'
 ]
 
 MIDDLEWARE = [
@@ -160,15 +161,6 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('APP_PASSWORD')
 
-Q_CLUSTER = {
-    'redis': {
-        'host': 'localhost',
-        'port': 6379,
-        'db': 0,
-        'password': None,
-        'socket_timeout': None,
-        'charset': 'utf-8',
-        'errors': 'strict',
-        'unix_socket_path': None
-    }
-}
+CRONJOBS = [
+  ('*/5 * * * *', 'data.scheduled_emails.send_daily_reminder'),
+]

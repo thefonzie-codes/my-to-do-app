@@ -134,3 +134,8 @@ from data.scheduled_emails import send_daily_reminder, send_daily_checkin
 def email_reminder(request, format=None):
   send_daily_reminder()
   return Response({"email reminder sent"})
+
+@api_view(['GET'])
+def email_checkin(request, format=None):
+  send_daily_checkin()
+  return Response({"email check-in sent"})
