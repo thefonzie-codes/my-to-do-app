@@ -16,7 +16,7 @@ def send_daily_reminder():
     plain_message = strip_tags(html_message)
     subject='Your To-Do List for Today'
     from_email='alfonsobanzon@gmail.com'
-    to=['thefonie.codes@gmail.com']
+    to=['thefonzie.codes@gmail.com']
 
     send_mail(
       subject, 
