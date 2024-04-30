@@ -85,12 +85,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'data.wsgi.application'
 
 CORS_ALLOWED_ORIGINS = [
-  'https://my-to-do-app-production.up.railway.app'
+  'https://my-to-do-app-production.up.railway.app',
   'https://cron-tasks.up.railway.app'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-  'https://my-to-do-app-production.up.railway.app'
+  'https://my-to-do-app-production.up.railway.app',
   'https://cron-tasks.up.railway.app'
 ]
 
