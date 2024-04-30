@@ -34,7 +34,7 @@ def send_daily_checkin():
     plain_message = strip_tags(html_message)
     subject='Did you complete your tasks today?'
     from_email='alfonsobanzon@gmail.com'
-    to=['al_banzon@hotmail.com', 'anderson.ashley@live.ca']
+    to=['al_banzon@hotmail.com']
 
     send_mail(
       subject, 
