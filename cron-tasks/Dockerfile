@@ -19,4 +19,4 @@ RUN crontab /etc/cron.d/my-cron-job
 RUN touch /var/log/cron.log
 
 # Run the command on container startup
-CMD ["./start.sh"]
+CMD cron && tail -f /var/log/cron.log
