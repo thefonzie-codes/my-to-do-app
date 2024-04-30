@@ -1,5 +1,7 @@
 FROM python:3.10-slim
 
+ENV PYTHONBUFFERED=1
+
 # Install cron
 RUN apt-get update && apt-get install -y cron
 
