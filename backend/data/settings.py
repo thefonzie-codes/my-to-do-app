@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 'django_q',
-    # 'django_crontab'
+    'django_crontab'
 ]
 
 MIDDLEWARE = [
@@ -162,3 +162,8 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('APP_PASSWORD')
+
+CRONJOBS = [
+    ('*/1 * * * *', 'data.scheduled_emails.send_daily_reminder'),
+    ('*/1 * * * *', 'data.scheduled_emails.send_daily_checkin')
+]

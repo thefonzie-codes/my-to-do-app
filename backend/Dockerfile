@@ -12,6 +12,8 @@ RUN pip install python-dotenv
 
 COPY . .
 
+RUN python 
+
 EXPOSE 8000 
 
 CMD ["gunicorn" , "-b", "0.0.0.0:8000", "data.wsgi:application"]
