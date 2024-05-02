@@ -17,4 +17,4 @@ wcwidth==0.2.13
 gunicorn
 whitenoise
 mailerlite
-django-crontab
+# django-crontab
