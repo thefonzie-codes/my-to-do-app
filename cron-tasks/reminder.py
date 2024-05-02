@@ -1,7 +1,7 @@
 import requests
 
 def ping_endpoint():
-    url = 'my-to-do-app-production.up.railway.app/email_reminder/'
+    url = 'https://my-to-do-app-production.up.railway.app/email_reminder/'
     response = requests.get(url)
     print(f"Status Code: {response.status_code}, Response: {response.text}")
 
