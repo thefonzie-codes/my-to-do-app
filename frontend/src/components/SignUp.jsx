@@ -1,5 +1,6 @@
 import axios from "../api/axios";
 import { useState } from "react";
+import Cookies from 'js-cookie';
 
 export default function Registration({ state, setState }) {
 
@@ -16,8 +17,10 @@ export default function Registration({ state, setState }) {
       return;
     }
     try {
-      const userData = await axios.post('signup/', registrationData);
-      setState({ ...state, user: response.data.token, view: "home" });
+      const response = await axios.post('signup/', registrationData);
+      const user = response.data.user;
+      Cookies.set('token', response.data.token, { expires: 1, secure: true, sameSite: 'Strict' });
+      setState({ ...state, user: user, view: "home" });
     }
     catch (error) {
       alert('Invalid credentials');
