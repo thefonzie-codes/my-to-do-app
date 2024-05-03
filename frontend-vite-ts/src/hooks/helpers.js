@@ -53,6 +53,7 @@ const ADD_ITEM = async (name, state, setState) => {
       completed: false,
       user_id: state.user.id,
     };
+    console.log(item);
     await axios.post(`${URL}list_items/`, item, HEADERS);
     console.log('Successfully added item');
   } catch (error) {

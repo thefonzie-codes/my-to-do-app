@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const URL = "https://my-to-do-app-production.up.railway.app/";
+const localURL = "http://localhost:8000/";
+const URL = localURL;
+// const URL = "https://my-to-do-app-production.up.railway.app/";
 const TOKEN = window.sessionStorage.getItem("token");
 const HEADERS = {
   headers: {
@@ -53,6 +55,7 @@ const ADD_ITEM = async (name, state, setState) => {
       completed: false,
       user_id: state.user.id,
     };
+    console.log(item);
     await axios.post(`${URL}list_items/`, item, HEADERS);
     console.log('Successfully added item');
   } catch (error) {

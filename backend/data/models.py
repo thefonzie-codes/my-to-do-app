@@ -7,10 +7,13 @@ from django.utils import timezone
 
 User = get_user_model()
 
+def default_due_date():
+  return timezone.now().date()
+
 class ListItem(models.Model):
   name = models.CharField(max_length=100)
   description = models.CharField(max_length=500, blank=True, default='')
-  due_date = models.DateField(default=timezone.now)
+  due_date = models.DateField(default=default_due_date)
   completed = models.BooleanField(default=False)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   
