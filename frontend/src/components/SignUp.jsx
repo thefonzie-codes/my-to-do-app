@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../api/axios";
 import { useState } from "react";
 
 export default function Registration({ state, setState }) {
@@ -9,19 +9,25 @@ export default function Registration({ state, setState }) {
     password: null,
   });
 
-  const handleRegistration = () => {
+  const handleRegistration = async () => {
     console.log(registrationData);
-
-    axios.post('http://localhost:8000/login/', registrationData)
-      .then((response) => {
-        console.log(response);
-        setState({ ...state, user: response.data.token, view: "home" });
-      })
-      .catch((error) => {
-        alert('Invalid credentials');
-        console.log(error);
-      });
+    if (!registrationData.username || !registrationData.email || !registrationData.password) {
+      alert('Please fill in all fields');
+      return;
+    }
+    try {
+      const userData = await axios.post('signup/', registrationData);
+      setState({ ...state, user: response.data.token, view: "home" });
+    }
+    catch (error) {
+      alert('Invalid credentials');
+      console.log(error);
+    };
   };
+
+  const setLogin = () => {
+    setState({ ...state, view: "login" });
+  }
 
   return (
     <div className="modal-bg">
@@ -52,9 +58,9 @@ export default function Registration({ state, setState }) {
             maxLength="100"
             onChange={(evt) => setRegistrationData({ ...registrationData, password: evt.target.value })}>
           </input>
-          <button type='submit'>Log In</button>
+          <button type='submit'>Register</button>
         </form>
-        <button>Cancel</button>
+        <button onClick={setLogin}>Log In</button>
       </div>
     </div>
   );

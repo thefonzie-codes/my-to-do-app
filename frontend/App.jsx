@@ -5,6 +5,7 @@ import EditItem from './src/components/EditItem';
 import AddItem from './src/components/AddItem';
 import Home from './src/views/Home';
 import LogIn from './src/components/LogIn';
+import SignUp from './src/components/SignUp';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
       {state.view === "login" && <LogIn state={state} setState={setState} />}
       {state.view === "add" && <AddItem state={state} setState={setState} />}
       {state.view === "edit" && <EditItem id={state.itemToEdit} state={state} setState={setState}/>}
+      {state.view === "signup" && <SignUp state={state} setState={setState} />}
     </>
   );
 }

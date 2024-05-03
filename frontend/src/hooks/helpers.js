@@ -1,28 +1,20 @@
-import axios from "axios";
-
-const localURL = "http://localhost:8000/";
-const URL = localURL;
-// const URL = "https://my-to-do-app-production.up.railway.app/";
-const TOKEN = window.sessionStorage.getItem("token");
-const HEADERS = {
-  headers: {
-    'Authorization': `Token ${TOKEN}`
-  },
-};
+import axios from "../api/axios";
+import Cookies from 'js-cookie';
 
 const AUTHENTICATE = async () => {
   try {
-    const response = await axios.get(URL + "authenticate/", HEADERS);
+    const response = await axios.get("authenticate/");
     return response.data;
   }
   catch (error) {
     console.log(error);
+    return null
   }
 };
 
 const GET_ALL_ITEMS = async () => {
   try {
-    axios.get(URL + "list_items.json", HEADERS);
+    axios.get("list_items.json");
   }
   catch (error) {
     console.log(error);
@@ -31,7 +23,7 @@ const GET_ALL_ITEMS = async () => {
 
 const GET_ITEMS_BY_USER = async () => {
   try {
-    const items = await axios.get(URL + "my_list_items.json", HEADERS);
+    const items = await axios.get("my_list_items.json");
     return items.data;
   }
   catch (error) {
@@ -41,7 +33,7 @@ const GET_ITEMS_BY_USER = async () => {
 
 const DELETE_ITEM = async (id) => {
   try {
-    const DELETE_API = await axios.delete(URL + 'list_items/' + id, HEADERS);
+    const DELETE_API = await axios.delete('list_items/' + id);
     console.log('Successfully deleted item');
   } catch (error) {
     console.log(error);
@@ -56,7 +48,7 @@ const ADD_ITEM = async (name, state, setState) => {
       user_id: state.user.id,
     };
     console.log(item);
-    await axios.post(`${URL}list_items/`, item, HEADERS);
+    await axios.post(`list_items/`, item);
     console.log('Successfully added item');
   } catch (error) {
     console.log(error);
@@ -65,7 +57,7 @@ const ADD_ITEM = async (name, state, setState) => {
 
 const EDIT_ITEM = async(id, item) => {
   try {
-    axios.put(`${URL}list_items/${id}`, item, HEADERS);
+    axios.put(`list_items/${id}`, item);
     console.log('Successfully edited item');
   }
   catch (error) {
@@ -75,11 +67,11 @@ const EDIT_ITEM = async(id, item) => {
 
 const CHANGE_STATUS = async (name, id, done, userId) => {
   try {
-    await axios.put(`${URL}list_items/${id}`, {
+    await axios.put(`list_items/${id}`, {
       name: name,
       completed: !done,
       user_id: userId
-    }, HEADERS);
+    });
     console.log('Successfully changed status');
   }
   catch (error){
@@ -88,8 +80,8 @@ const CHANGE_STATUS = async (name, id, done, userId) => {
 };
 
 const LOGOUT = (state, setState) => {
-  window.sessionStorage.removeItem("token");
+  Cookies.remove("token");
   setState({ ...state, user: null, view: "login", list: [] });
 };
 
-export { AUTHENTICATE, LOGOUT, GET_ALL_ITEMS, GET_ITEMS_BY_USER, CHANGE_STATUS, EDIT_ITEM, ADD_ITEM, DELETE_ITEM, URL, HEADERS, TOKEN };
+export { AUTHENTICATE, LOGOUT, GET_ALL_ITEMS, GET_ITEMS_BY_USER, CHANGE_STATUS, EDIT_ITEM, ADD_ITEM, DELETE_ITEM};

@@ -1,19 +1,16 @@
-import { useState, useEffect, useReducer } from "react";
+import { useState, useEffect} from "react";
 import { GET_ITEMS_BY_USER, AUTHENTICATE } from "./helpers";
 
-const token = window.sessionStorage.getItem("token");
-
-let items = [];
-let user = {};
-
-if (token) {
-  items = await GET_ITEMS_BY_USER();
-  user = await AUTHENTICATE();
-}
+let user = await AUTHENTICATE();
+let items = await GET_ITEMS_BY_USER();
 
 export default function useAppData() {
 
   let view = "login";
+ 
+  if (user !== null) {
+    view = "home";
+  }
 
   const [state, setState] = useState({
     list: [],
@@ -21,7 +18,7 @@ export default function useAppData() {
   });
 
   useEffect(() => {
-    if (token) {
+    if (user) {
       setState({ ...state, view: "home", list: items, user: user });
     }
   }, []);

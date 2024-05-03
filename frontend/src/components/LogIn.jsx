@@ -23,6 +23,10 @@ export default function LogIn({ state, setState }) {
     }
   };
 
+  const setSignUp = () => {
+    setState({ ...state, view: "signup" });
+  };
+
   return (
     <div className="modal-bg">
       <div className="LogIn modal">
@@ -47,7 +51,7 @@ export default function LogIn({ state, setState }) {
           </input>
           <button type='submit'>Log In</button>
         </form>
-        <button>Cancel</button>
+        <button onClick={setSignUp}>Register</button>
       </div>
     </div>
   );
