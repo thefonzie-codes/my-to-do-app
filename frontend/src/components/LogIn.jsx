@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from "../api/axios";
 import { useState } from "react";
-import { URL } from "../hooks/helpers";
+import Cookies from 'js-cookie'; // Import js-cookie
 
 export default function LogIn({ state, setState }) {
 
@@ -10,21 +10,18 @@ export default function LogIn({ state, setState }) {
   });
 
   const LOGIN = async (loginData, state, setState) => {
-  try {
-    const userData = await axios.post(URL + 'login/', loginData);
-    const listData = await axios.get(`${URL}my_list_items`, {
-      headers: {
-        'Authorization': `Token ${userData.data.token}`,
-      }
-    });
-    window.sessionStorage.setItem("token", `${userData.data.token}`);
-    setState({ ...state, user: userData.data.user, list: listData.data, view: "home" });
-    return [userData.listData];
-  }
-  catch (error) {
-    console.log(error);
-  }
-};
+    try {
+      const userData = await axios.post('login/', loginData);
+      Cookies.set('token', userData.data.token, { expires: 1, secure: true, sameSite: 'Strict' }); // Set cookie to expire in 1 day
+      const listData = await axios.get(`my_list_items`);
+      // Set token in cookies instead of sessionStorage
+      setState({ ...state, user: userData.data.user, list: listData.data, view: "home" });
+      return [listData.data];
+    }
+    catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="modal-bg">
