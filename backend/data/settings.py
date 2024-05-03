@@ -86,12 +86,14 @@ WSGI_APPLICATION = 'data.wsgi.application'
 
 CORS_ALLOWED_ORIGINS = [
   'https://my-to-do-app-production.up.railway.app',
-  'https://cron-tasks.up.railway.app'
+  'https://cron-tasks.up.railway.app',
+  'http://localhost:3000'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
   'https://my-to-do-app-production.up.railway.app',
-  'https://cron-tasks.up.railway.app'
+  'https://cron-tasks.up.railway.app',
+  'http://localhost:3000'
 ]
 
 from django.core.management.commands.runserver import Command as runserver
