@@ -35,8 +35,7 @@ content-type: application/json
 
 ###
 
-GET http://127.0.0.1:8000/get_items_by_user_due_today/
+GET http://127.0.0.1:8000/email_to_user/
 content-type: application/json
-Authorization: Token bdea412fcce397a1b4a5220e198fa65303940935
 
 {}

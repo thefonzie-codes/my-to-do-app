@@ -100,33 +100,18 @@ def signup(request, format=None):
 def test_token(request, format=None):
   return Response({"passed for {}".format(request.user.username)})
  
-from django.core.mail import send_mail
-from django.conf import settings
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
+# from django.core.mail import send_mail
+# from django.conf import settings
+# from django.template.loader import render_to_string
+# from django.utils.html import strip_tags
+
+from data.email_to_user import email_to_user
 
 @api_view(['GET'])
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
-def get_items_by_user_due_today(request, format=None):
-    user = request.user
-    ListItems = ListItem.objects.filter(user=user, due_date=date.today())
-    serializer = ListItemSerializer(ListItems, many=True)
-    data = serializer.data
-    html_message = render_to_string("email-templates.html", {'tasks': data})
-    plain_message = strip_tags(html_message)
-    subject='Your To-Do List for Today'
-    from_email='alfonsobanzon@gmail.com'
-    to=['al_banzon@hotmail.com']
-
-    send_mail(
-      subject, 
-      plain_message, 
-      from_email, 
-      to, 
-      html_message=html_message,
-      fail_silently=False)
-    
+# @authentication_classes([TokenAuthentication])
+# @permission_classes([IsAuthenticated])
+def email_each_user(request, format=None):
+    email_to_user(request)
     return Response({'email sent'})
   
 from data.scheduled_emails import send_daily_reminder, send_daily_checkin
