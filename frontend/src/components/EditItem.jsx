@@ -1,4 +1,5 @@
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import { EDIT_ITEM, GET_ITEMS_BY_USER } from "../hooks/helpers";
 
@@ -44,7 +45,6 @@ export default function EditItem({ id, state, setState }) {
   return (
     <div className="bg">
       <div className="modal">
-        <h1>Edit Item</h1>
         <form
           onSubmit={(evt) => {
             evt.preventDefault();
@@ -52,10 +52,10 @@ export default function EditItem({ id, state, setState }) {
             HANDLE_EDIT();
           }}>
           <input
+            value={taskData.name}
             id="editItem"
             type='text'
             label='editItem'
-            placeholder={taskData.name}
             maxLength="100"
             onChange={(evt) => setTaskData({ ...taskData, name: evt.target.value })}>
           </input>

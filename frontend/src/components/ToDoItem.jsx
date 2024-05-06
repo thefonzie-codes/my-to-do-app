@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
-import { CHANGE_STATUS, DELETE_ITEM, GET_ITEMS_BY_USER } from "../hooks/helpers";
+import { CHANGE_STATUS, daysUntilDueText } from "../hooks/helpers";
 
 export default function ToDoItem({ name, completed, id, setState, state, dueDate }) {
 
@@ -18,11 +20,14 @@ export default function ToDoItem({ name, completed, id, setState, state, dueDate
 
   return (
     <div className="card">
-      <h3>{name}</h3>
-      <p>{dueDate}</p>
+      <h2>{name}
+        <span className="edit" onClick={() => setState({ ...state, view: "edit", itemToEdit: id })}>
+          <FontAwesomeIcon icon={faPenToSquare} />
+        </span>
+      </h2>
+      <h4>{daysUntilDueText(dueDate)}</h4>
       <div className="options">
-        <button onClick={() => HANDLE_CHANGE()}>{done ? "Done" : "Not Yet"}</button>
-        <button onClick={() => setState({ ...state, view: "edit", itemToEdit: id })}>Edit</button>
+        <button onClick={() => HANDLE_CHANGE()}>{done ? "Mark Incomplete" : "Mark Complete"}</button>
       </div>
     </div>
   );

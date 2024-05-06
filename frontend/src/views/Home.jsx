@@ -22,7 +22,7 @@ export default function Home({ state, setState }) {
   return (
     <>
       <div className='Home'>
-        <h1>Is it done yet?</h1>
+        <h2>Is It Done Yet?</h2>
         {items}
       </div>
       <button className="add" type="button" onClick={() => openAdd()}>Add</button>
