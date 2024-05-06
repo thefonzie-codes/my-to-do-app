@@ -33,7 +33,7 @@ export default function Registration({ state, setState }) {
   }
 
   return (
-    <div className="modal-bg">
+    <div className="bg">
       <div className="LogIn modal">
         <form
           onSubmit={(evt) => {

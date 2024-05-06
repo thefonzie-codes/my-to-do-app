@@ -9,15 +9,18 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
+
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
 }
+
 .modal {
   position: absolute;
   left: 50%;
@@ -55,6 +58,7 @@ form {
   align-items: center;
   justify-content: center;
   border-radius: 20px;
+
 }
 
 .options {
@@ -92,11 +96,10 @@ button {
 
 button:hover {
   border-color: #646cff;
+  ;
 }
 
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-
-/*# sourceMappingURL=App.css.map */

@@ -12,8 +12,8 @@ export default function AddItem({ setState, state }) {
   }
 
   return (
-    <div className="modal-bg">
-      <div className="AddItem modal">
+    <div className="bg">
+      <div className="modal">
         <form
           onSubmit={(evt) => {
             evt.preventDefault();

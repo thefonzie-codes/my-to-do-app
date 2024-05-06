@@ -1,5 +1,5 @@
 import ToDoItem from '../components/ToDoItem';
-import '../styles/Home.css';
+import '../styles/Home.scss';
 import { LOGOUT } from '../hooks/helpers';
 
 export default function Home({ state, setState }) {
@@ -25,7 +25,7 @@ export default function Home({ state, setState }) {
         <h1>Is it done yet?</h1>
         {items}
       </div>
-      <button type="button" onClick={() => openAdd()}>Add</button>
+      <button className="add" type="button" onClick={() => openAdd()}>Add</button>
       <button type="button" onClick={() => LOGOUT(state, setState)}>Log Out</button>
     </>
   );
