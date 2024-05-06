@@ -11,6 +11,7 @@ export default function Home({ state, setState }) {
       state={state}
       setState={setState}
       name={item.name}
+      description={item.description}
       completed={item.completed}
       dueDate={item.due_date} />;
   });

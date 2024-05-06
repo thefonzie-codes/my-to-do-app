@@ -10,11 +10,8 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
   background-color: black;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  text-align: left;
   padding: 20px;
   border-radius: 20px;
 }
@@ -31,19 +28,24 @@
 
 .card {
   background-color: black;
-  padding: 2.5px;
+  padding: 20px;
   border-radius: 20px;
   margin: 20px;
   position: relative;
   width: 350px;
+  text-align: left;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items:left;
   justify-content: center;
   border-radius: 20px;
+
+  label{
+    font-weight: bold;
+  }
 
   input {
     margin: 10px;
@@ -56,6 +58,12 @@ form {
     width: 100%;
     flex-wrap: no-wrap;
     align-content: flex-end;
+  }
+
+  .formSection {
+    display: flex;
+    justify-content: center;
+    align-content: center;
   }
 }
 

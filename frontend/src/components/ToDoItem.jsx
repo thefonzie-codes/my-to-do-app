@@ -4,7 +4,7 @@ import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 import { CHANGE_STATUS, daysUntilDueText } from "../hooks/helpers";
 
-export default function ToDoItem({ name, completed, id, setState, state, dueDate }) {
+export default function ToDoItem({ name, completed, id, setState, state, dueDate, description }) {
 
   const HANDLE_CHANGE = async () => {
     try {
@@ -26,6 +26,7 @@ export default function ToDoItem({ name, completed, id, setState, state, dueDate
         </span>
       </h2>
       <h4>{daysUntilDueText(dueDate)}</h4>
+      <p>{description}</p>
       <div className="options">
         <button onClick={() => HANDLE_CHANGE()}>{done ? "Mark Incomplete" : "Mark Complete"}</button>
       </div>

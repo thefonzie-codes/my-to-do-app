@@ -1,5 +1,7 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendar, faAlignJustify, faIndent } from '@fortawesome/free-solid-svg-icons';
 
 import { EDIT_ITEM, GET_ITEMS_BY_USER } from "../hooks/helpers";
 
@@ -34,6 +36,7 @@ export default function EditItem({ id, state, setState }) {
 
   const [taskData, setTaskData] = useState({
     name: task.name,
+    description: task.description,
     completed: false,
     due_date: task.due_date,
     selectedDate: new Date(task.due_date),
@@ -51,31 +54,32 @@ export default function EditItem({ id, state, setState }) {
             console.log('taskdata', taskData);
             HANDLE_EDIT();
           }}>
+          <label><FontAwesomeIcon icon={faAlignJustify} />  Title:</label>
           <input
             value={taskData.name}
-            id="editItem"
+            id="taskName"
             type='text'
             label='editItem'
             maxLength="100"
             onChange={(evt) => setTaskData({ ...taskData, name: evt.target.value })}>
           </input>
+          <label><FontAwesomeIcon icon={faIndent} />  Description:</label>
+          <input
+            value={taskData.description}
+            id="taskDescription"
+            type="text"
+            onChange={(evt) => setTaskData({ ...taskData, description: evt.target.value })}
+          >
+          </input>
+          <label><FontAwesomeIcon icon={faCalendar} />  Due Date:</label>
           <DatePicker
             selected={taskData.selectedDate}
             onChange={(date) => setTaskData({ ...taskData, due_date: date })}
             onSelect={(date) => {
               console.log(date.toUTCString());
               const formattedDate = Intl.DateTimeFormat("fr-CA", { year: "numeric", month: "2-digit", day: "2-digit" }).format(date);
-              console.log(formattedDate);
               setTaskData({ ...taskData, due_date: formattedDate, selectedDate: date });
             }} />
-          <p>Completed:
-            <input
-              label='completed'
-              type="checkbox"
-              checked={taskData.completed}
-              onChange={(evt) => setTaskData({ ...taskData, completed: evt.target.checked })}>
-            </input>
-          </p>
           <div className="options">
             <button type='submit'>Save</button>
             <button className="delete" onClick={() => HANDLE_DELETE()}>Delete</button>
