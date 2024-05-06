@@ -20,15 +20,15 @@ export default function ToDoItem({ name, completed, id, setState, state, dueDate
 
   return (
     <div className="card">
-      <h2>{name}
+      <h3>{name}
         <span className="edit" onClick={() => setState({ ...state, view: "edit", itemToEdit: id })}>
           <FontAwesomeIcon icon={faPenToSquare} />
         </span>
-      </h2>
+      </h3>
       <h4>{daysUntilDueText(dueDate)}</h4>
       <p>{description}</p>
       <div className="options">
-        <button onClick={() => HANDLE_CHANGE()}>{done ? "Mark Incomplete" : "Mark Complete"}</button>
+        <button className={done ? 'completed' : undefined} onClick={() => HANDLE_CHANGE()}>{done ? "Completed" : "Mark Complete"}</button>
       </div>
     </div>
   );

@@ -5,6 +5,10 @@
   text-align: center;
 }
 
+h2 {
+  margin-left: 20px;
+}
+
 .modal {
   position: absolute;
   left: 50%;
@@ -14,6 +18,7 @@
   text-align: left;
   padding: 20px;
   border-radius: 20px;
+  width: 350px;
 }
 
 .bg {
@@ -35,6 +40,9 @@
   width: 350px;
   text-align: left;
 }
+.card h3 {
+  text-align: right;
+}
 
 form {
   display: flex;
@@ -52,15 +60,18 @@ form input {
   border-radius: 10px;
   border: none;
 }
-form.options {
-  width: 100%;
-  flex-wrap: no-wrap;
-  align-content: flex-end;
-}
 form .formSection {
   display: flex;
   justify-content: center;
   align-content: center;
+}
+
+.options {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-end;
 }
 
 span:hover {
@@ -79,7 +90,6 @@ span.edit:hover {
 }
 
 button {
-  margin: 4px;
   border: none;
   border-radius: 10px;
   padding: 10px;
@@ -102,6 +112,13 @@ button.add {
   background-color: white;
   color: black;
 }
+button.completed {
+  background-color: rgb(13, 137, 13);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+}
 button:hover {
   border-color: #646cff;
 }
@@ -112,7 +129,7 @@ button:focus, button:focus-visible {
 h3 {
   display: flex;
   width: 100%;
-  justify-content: center;
+  text-align: left;
 }
 
 /*# sourceMappingURL=App.css.map */

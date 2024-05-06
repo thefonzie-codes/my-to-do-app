@@ -23,7 +23,9 @@ export default function Home({ state, setState }) {
   return (
     <>
       <div className='Home'>
-        <h2>Is It Done Yet?</h2>
+        <nav>
+          <h2>Is It Done Yet?</h2>
+        </nav>
         {items}
       </div>
       <button className="add" type="button" onClick={() => openAdd()}>Add</button>
