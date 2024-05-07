@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import useAppData from './src/hooks/useAppData';
 
 import EditItem from './src/components/EditItem';

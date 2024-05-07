@@ -84,4 +84,28 @@ const LOGOUT = (state, setState) => {
   setState({ ...state, user: null, view: "login", list: [] });
 };
 
-export { AUTHENTICATE, LOGOUT, GET_ALL_ITEMS, GET_ITEMS_BY_USER, CHANGE_STATUS, EDIT_ITEM, ADD_ITEM, DELETE_ITEM};
+const daysUntilDueCount = (dueDate) => {
+  let today = new Date();
+  let due = new Date(dueDate);
+  let timeDiff = due.getTime() - today.getTime();
+  let daysDiff = timeDiff / (1000 * 3600 * 24);
+  return Math.round(daysDiff);
+};
+
+const daysUntilDueText = (dueDate) => {
+  let days = daysUntilDueCount(dueDate);
+  if (days < 0) {
+    return "Overdue";
+  }
+  else if (days === 0) {
+    return "Due Today";
+  }
+  else if (days === 1) {
+    return "Due Tomorrow";
+  }
+  else {
+    return `Due in ${days} days`;
+  }
+}
+
+export { AUTHENTICATE, LOGOUT, GET_ALL_ITEMS, GET_ITEMS_BY_USER, CHANGE_STATUS, EDIT_ITEM, ADD_ITEM, DELETE_ITEM, daysUntilDueCount, daysUntilDueText};
