@@ -24,7 +24,6 @@ const GET_ALL_ITEMS = async () => {
 const GET_ITEMS_BY_USER = async () => {
   try {
     const items = await axios.get("my_list_items.json");
-    console.log('fn called');
     return items.data;
   }
   catch (error) {
@@ -34,7 +33,7 @@ const GET_ITEMS_BY_USER = async () => {
 
 const DELETE_ITEM = async (id) => {
   try {
-    const DELETE_API = await axios.delete('list_items/' + id);
+    await axios.delete('list_items/' + id);
     console.log('Successfully deleted item');
   } catch (error) {
     console.log(error);
@@ -59,7 +58,7 @@ const ADD_ITEM = async (taskData, state) => {
 
 const EDIT_ITEM = async(id, item) => {
   try {
-    axios.put(`list_items/${id}`, item);
+    await axios.put(`list_items/${id}`, item);
     console.log('Successfully edited item');
   }
   catch (error) {

@@ -59,10 +59,10 @@ export default function AddItem({ setState, state }) {
           <label><FontAwesomeIcon icon={faCalendar} />  Due Date:</label>
           <DatePicker
             selected={taskData.selectedDate}
-            // onChange={(date) => setTaskData({ ...taskData, due_date: date })}
             onSelect={(date) => {
-              console.log(date.toLocaleString());
+              console.log('select' + date);
               const formattedDate = Intl.DateTimeFormat("fr-CA", { year: "numeric", month: "2-digit", day: "2-digit" }).format(date);
+              console.log(formattedDate);
               setTaskData({ ...taskData, due_date: formattedDate, selectedDate: date });
             }} />
           <div className="options">

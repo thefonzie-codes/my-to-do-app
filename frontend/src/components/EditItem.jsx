@@ -88,7 +88,7 @@ export default function EditItem({ id, state, setState }) {
             }} />
           <div className="options">
             <button type='submit'>Save</button>
-            <button className="delete" onClick={() => HANDLE_DELETE()}>Delete</button>
+            <button type='button' className="delete" onClick={() => HANDLE_DELETE()}>Delete</button>
             <button onClick={() => setState({ ...state, view: "home" })}>Cancel</button>
           </div>
         </form>
