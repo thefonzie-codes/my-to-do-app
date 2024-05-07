@@ -24,6 +24,7 @@ const GET_ALL_ITEMS = async () => {
 const GET_ITEMS_BY_USER = async () => {
   try {
     const items = await axios.get("my_list_items.json");
+    console.log('fn called');
     return items.data;
   }
   catch (error) {
@@ -40,11 +41,12 @@ const DELETE_ITEM = async (id) => {
   }
 };
 
-const ADD_ITEM = async (name, state, setState) => {
+const ADD_ITEM = async (taskData, state) => {
   try {
     let item = {
-      name: name,
-      completed: false,
+      name: taskData.name,
+      completed: taskData.completed,
+      due_date: taskData.due_date,
       user_id: state.user.id,
     };
     console.log(item);
@@ -86,10 +88,12 @@ const LOGOUT = (state, setState) => {
 
 const daysUntilDueCount = (dueDate) => {
   let today = new Date();
-  let due = new Date(dueDate);
+  today.setHours(0, 0, 0, 0);
+  let due = new Date(dueDate + "T00:00:00");
+  due.setHours(0, 0, 0, 0);
   let timeDiff = due.getTime() - today.getTime();
   let daysDiff = timeDiff / (1000 * 3600 * 24);
-  return Math.round(daysDiff);
+  return Math.floor(daysDiff);
 };
 
 const daysUntilDueText = (dueDate) => {

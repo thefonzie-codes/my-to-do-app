@@ -9,10 +9,16 @@ import { daysUntilDueCount } from "../hooks/helpers";
 
 export default function AddItem({ setState, state }) {
 
-  const [taskData, setTaskData] = useState("");
+  const [taskData, setTaskData] = useState({
+    name: "",
+    description: "",
+    due_date: "",
+    selectedDate: new Date(),
+    completed: false
+  });
 
   const HANDLE_ADD = async () => {
-    await ADD_ITEM(taskData, state, setState);
+    await ADD_ITEM(taskData, state);
     const items = await GET_ITEMS_BY_USER(state, setState);
     setState({ ...state, view: "home", list: items });
   };
@@ -33,14 +39,6 @@ export default function AddItem({ setState, state }) {
             }
             HANDLE_ADD();
           }}>
-          {/* <input
-            id="taskData"
-            type='text'
-            label='name'
-            placeholder="Add new To-do"
-            maxLength="100"
-            onChange={(evt) => settaskData(evt.target.value)}>
-          </input> */}
           <label><FontAwesomeIcon icon={faAlignJustify} />  Title:</label>
           <input
             value={taskData.name}
@@ -61,9 +59,9 @@ export default function AddItem({ setState, state }) {
           <label><FontAwesomeIcon icon={faCalendar} />  Due Date:</label>
           <DatePicker
             selected={taskData.selectedDate}
-            onChange={(date) => setTaskData({ ...taskData, due_date: date })}
+            // onChange={(date) => setTaskData({ ...taskData, due_date: date })}
             onSelect={(date) => {
-              console.log(date.toUTCString());
+              console.log(date.toLocaleString());
               const formattedDate = Intl.DateTimeFormat("fr-CA", { year: "numeric", month: "2-digit", day: "2-digit" }).format(date);
               setTaskData({ ...taskData, due_date: formattedDate, selectedDate: date });
             }} />

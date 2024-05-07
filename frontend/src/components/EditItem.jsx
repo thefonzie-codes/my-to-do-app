@@ -3,7 +3,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faAlignJustify, faIndent } from '@fortawesome/free-solid-svg-icons';
 
-import { EDIT_ITEM, GET_ITEMS_BY_USER } from "../hooks/helpers";
+import { EDIT_ITEM, GET_ITEMS_BY_USER, daysUntilDueCount, DELETE_ITEM } from "../hooks/helpers";
 
 import { useState } from "react";
 
@@ -33,13 +33,12 @@ export default function EditItem({ id, state, setState }) {
     }
   };
 
-
   const [taskData, setTaskData] = useState({
     name: task.name,
     description: task.description,
     completed: false,
     due_date: task.due_date,
-    selectedDate: new Date(task.due_date),
+    selectedDate: new Date(task.due_date + "T00:00:00"),
     user_id: state.user.id
   });
 
@@ -51,7 +50,14 @@ export default function EditItem({ id, state, setState }) {
         <form
           onSubmit={(evt) => {
             evt.preventDefault();
-            console.log('taskdata', taskData);
+            if (taskData.name === "" || taskData.name === undefined || taskData.name === null) {
+              alert("Please enter a title for the task");
+              return;
+            }
+            if (daysUntilDueCount(taskData.due_date) < 0) {
+              alert("Please enter a due date of today or in the future");
+              return;
+            }
             HANDLE_EDIT();
           }}>
           <label><FontAwesomeIcon icon={faAlignJustify} />  Title:</label>
@@ -74,10 +80,10 @@ export default function EditItem({ id, state, setState }) {
           <label><FontAwesomeIcon icon={faCalendar} />  Due Date:</label>
           <DatePicker
             selected={taskData.selectedDate}
-            onChange={(date) => setTaskData({ ...taskData, due_date: date })}
             onSelect={(date) => {
-              console.log(date.toUTCString());
+              console.log('select' + date);
               const formattedDate = Intl.DateTimeFormat("fr-CA", { year: "numeric", month: "2-digit", day: "2-digit" }).format(date);
+              console.log(formattedDate);
               setTaskData({ ...taskData, due_date: formattedDate, selectedDate: date });
             }} />
           <div className="options">
