@@ -28,8 +28,8 @@ export default function LogIn({ state, setState }) {
   };
 
   return (
-    <div className="modal-bg">
-      <div className="LogIn modal">
+    <div className="bg">
+      <div className="modal">
         <form
           onSubmit={(evt) => {
             evt.preventDefault();

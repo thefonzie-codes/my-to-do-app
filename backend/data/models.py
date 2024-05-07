@@ -2,9 +2,30 @@ from django.db import models
 from datetime import date
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from django.utils import timezone
 
+class CustomUser(AbstractUser):
+  email = models.EmailField('email address', unique=True, blank=False, null=False)
+
+  groups = models.ManyToManyField(
+      'auth.Group',
+      verbose_name='groups',
+      blank=True,
+      help_text='The groups this user belongs to. A group represents a set of permissions.',
+      related_name="customuser_groups",  # Changed related_name
+      related_query_name="customuser",
+  )
+  user_permissions = models.ManyToManyField(
+      'auth.Permission',
+      verbose_name='user permissions',
+      blank=True,
+      help_text='Specific permissions for this user.',
+      related_name="customuser_permissions",  # Changed related_name
+      related_query_name="customuser",
+  )
+  
 User = get_user_model()
 
 def default_due_date():
@@ -14,7 +35,7 @@ class ListItem(models.Model):
 # Model representing a list item in a to-do list.
 # Each item is linked to a user and has a name, description, due date, and completion status.
   name = models.CharField(max_length=100)
-  description = models.CharField(max_length=500, blank=True, default='')
+  description = models.TextField(blank=True, default='')
   due_date = models.DateField(default=default_due_date)
   completed = models.BooleanField(default=False)
   user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='list_items')
