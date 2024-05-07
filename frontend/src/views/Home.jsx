@@ -20,11 +20,13 @@ export default function Home({ state, setState }) {
     setState({ ...state, view: "add" });
   };
 
+  const user = state.user.username;
+
   return (
     <>
       <div className='Home'>
         <nav>
-          <h2>Is It Done Yet?</h2>
+          <h2>Hi {user}! Are these done yet?</h2>
         </nav>
         {items}
       </div>

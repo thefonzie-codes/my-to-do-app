@@ -33,18 +33,19 @@ const GET_ITEMS_BY_USER = async () => {
 
 const DELETE_ITEM = async (id) => {
   try {
-    const DELETE_API = await axios.delete('list_items/' + id);
+    await axios.delete('list_items/' + id);
     console.log('Successfully deleted item');
   } catch (error) {
     console.log(error);
   }
 };
 
-const ADD_ITEM = async (name, state, setState) => {
+const ADD_ITEM = async (taskData, state) => {
   try {
     let item = {
-      name: name,
-      completed: false,
+      name: taskData.name,
+      completed: taskData.completed,
+      due_date: taskData.due_date,
       user_id: state.user.id,
     };
     console.log(item);
@@ -57,7 +58,7 @@ const ADD_ITEM = async (name, state, setState) => {
 
 const EDIT_ITEM = async(id, item) => {
   try {
-    axios.put(`list_items/${id}`, item);
+    await axios.put(`list_items/${id}`, item);
     console.log('Successfully edited item');
   }
   catch (error) {
@@ -86,10 +87,12 @@ const LOGOUT = (state, setState) => {
 
 const daysUntilDueCount = (dueDate) => {
   let today = new Date();
-  let due = new Date(dueDate);
+  today.setHours(0, 0, 0, 0);
+  let due = new Date(dueDate + "T00:00:00");
+  due.setHours(0, 0, 0, 0);
   let timeDiff = due.getTime() - today.getTime();
   let daysDiff = timeDiff / (1000 * 3600 * 24);
-  return Math.round(daysDiff);
+  return Math.floor(daysDiff);
 };
 
 const daysUntilDueText = (dueDate) => {
