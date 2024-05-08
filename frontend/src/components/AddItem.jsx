@@ -9,10 +9,12 @@ import { daysUntilDueCount } from "../hooks/helpers";
 
 export default function AddItem({ setState, state }) {
 
+  const formattedDate = (date) => Intl.DateTimeFormat("fr-CA", { year: "numeric", month: "2-digit", day: "2-digit" }).format(date);
+
   const [taskData, setTaskData] = useState({
     name: "",
     description: "",
-    due_date: "",
+    due_date: formattedDate(new Date()),
     selectedDate: new Date(),
     completed: false
   });
@@ -60,10 +62,7 @@ export default function AddItem({ setState, state }) {
           <DatePicker
             selected={taskData.selectedDate}
             onSelect={(date) => {
-              console.log('select' + date);
-              const formattedDate = Intl.DateTimeFormat("fr-CA", { year: "numeric", month: "2-digit", day: "2-digit" }).format(date);
-              console.log(formattedDate);
-              setTaskData({ ...taskData, due_date: formattedDate, selectedDate: date });
+              setTaskData({ ...taskData, due_date: formattedDate(date), selectedDate: date });
             }} />
           <div className="options">
             <button className='add' type='submit'>Save</button>

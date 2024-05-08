@@ -81,9 +81,7 @@ export default function EditItem({ id, state, setState }) {
           <DatePicker
             selected={taskData.selectedDate}
             onSelect={(date) => {
-              console.log('select' + date);
               const formattedDate = Intl.DateTimeFormat("fr-CA", { year: "numeric", month: "2-digit", day: "2-digit" }).format(date);
-              console.log(formattedDate);
               setTaskData({ ...taskData, due_date: formattedDate, selectedDate: date });
             }} />
           <div className="options">
