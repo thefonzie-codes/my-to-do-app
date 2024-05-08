@@ -89,12 +89,14 @@ CORS_ALLOWED_ORIGINS = [
   'https://my-to-do-app-production.up.railway.app',
   'https://cron-tasks.up.railway.app',
   'https://thefonzie-codes.github.io',
+  'http://localhost:3000',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
   'https://my-to-do-app-production.up.railway.app',
   'https://cron-tasks.up.railway.app',
   'https://thefonzie-codes.github.io',
+  'http://localhost:3000',
 ]
 from django.core.management.commands.runserver import Command as runserver
 
@@ -163,8 +165,3 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('APP_PASSWORD')
-
-# CRONJOBS = [
-#     ('*/1 * * * *', 'data.scheduled_emails.send_daily_reminder'),
-#     ('*/1 * * * *', 'data.scheduled_emails.send_daily_checkin')
-# ]

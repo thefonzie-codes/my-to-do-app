@@ -5,17 +5,16 @@ let user = await AUTHENTICATE();
 let items = await GET_ITEMS_BY_USER();
 
 export default function useAppData() {
-
-  let view = "login";
  
-  if (user !== null) {
-    view = "home";
-  }
-
   const [state, setState] = useState({
     list: [],
-    view: view,
+    view: "login",
   });
+
+  if (!!user) {
+    state.view = "home";
+    return { state, setState };
+  }
 
   useEffect(() => {
     if (user) {

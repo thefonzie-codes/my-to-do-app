@@ -6,14 +6,15 @@ WORKDIR /app
 
 COPY requirements.txt .
 
-RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install python-dotenv
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
 COPY . .
+COPY entrypoint.sh /app/entrypoint.sh
 
-RUN python 
+RUN chmod +x /app/entrypoint.sh
 
 EXPOSE 8000 
 
-CMD ["gunicorn" , "-b", "0.0.0.0:8000", "data.wsgi:application"]
+ENTRYPOINT ["/app/entrypoint.sh"]
+CMD ["gunicorn", "-b", "0.0.0.0:8000", "data.wsgi:application"]
