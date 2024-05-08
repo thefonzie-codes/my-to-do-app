@@ -27,9 +27,12 @@ def list_items(request, format=None):
     return Response(serializer.data)
 
   elif request.method == 'POST':
+    user = request.user
+    data = request.data
+    data['user_id'] = user.id
     serializer = ListItemSerializer(data=request.data)
     if serializer.is_valid():
-        serializer.save(user_id=request.data['user_id'])  # Associate the current user with the ListItem
+        serializer.save(user_id=user.id)  # Associate the current user with the ListItem
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     

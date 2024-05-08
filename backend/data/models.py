@@ -32,8 +32,6 @@ def default_due_date():
   return timezone.now().date()
 
 class ListItem(models.Model):
-# Model representing a list item in a to-do list.
-# Each item is linked to a user and has a name, description, due date, and completion status.
   name = models.CharField(max_length=100)
   description = models.TextField(blank=True, default='')
   due_date = models.DateField(default=default_due_date)
