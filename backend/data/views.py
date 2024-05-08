@@ -80,7 +80,9 @@ def login(request, format=None):
 @permission_classes([IsAuthenticated])
 def authenticate(request, format=None):
   serializer = UserSerializer(request.user)
-  return Response(serializer.data)
+  if serializer.is_valid():
+    return Response(serializer.data)
+  return Response(serializer.errors, status=status.HTTP_401_UNAUTHORIZED)
 
 @api_view(['POST'])
 def signup(request, format=None):
