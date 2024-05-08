@@ -40,15 +40,8 @@ const DELETE_ITEM = async (id) => {
   }
 };
 
-const ADD_ITEM = async (taskData, state) => {
+const ADD_ITEM = async (item) => {
   try {
-    let item = {
-      name: taskData.name,
-      completed: taskData.completed,
-      due_date: taskData.due_date,
-      user_id: state.user.id,
-    };
-    console.log(item);
     await axios.post(`list_items/`, item);
     console.log('Successfully added item');
   } catch (error) {
