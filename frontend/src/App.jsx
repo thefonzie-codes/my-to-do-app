@@ -1,11 +1,11 @@
 import './App.scss';
-import useAppData from './src/hooks/useAppData';
+import useAppData from './hooks/useAppData';
 
-import EditItem from './src/components/EditItem';
-import AddItem from './src/components/AddItem';
-import Home from './src/views/Home';
-import LogIn from './src/components/LogIn';
-import SignUp from './src/components/SignUp';
+import EditItem from './components/EditItem';
+import AddItem from './components/AddItem';
+import Home from './views/UserHome';
+import LogIn from './components/LogIn';
+import SignUp from './components/SignUp';
 
 function App() {
 
@@ -13,7 +13,7 @@ function App() {
 
   return (
     <>
-      {state.view === "home" && <Home state={state} setState={setState} />}
+      {state.view === "home" && <UserHome state={state} setState={setState} />}
       {state.view === "login" && <LogIn state={state} setState={setState} />}
       {state.view === "add" && <AddItem state={state} setState={setState} />}
       {state.view === "edit" && <EditItem id={state.itemToEdit} state={state} setState={setState}/>}

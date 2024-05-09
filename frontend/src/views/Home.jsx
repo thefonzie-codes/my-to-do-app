@@ -1,37 +1,16 @@
-import ToDoItem from '../components/ToDoItem';
 import '../styles/Home.scss';
-import { LOGOUT } from '../hooks/helpers';
 
 export default function Home({ state, setState }) {
-
-  const items = state.list.map(item => {
-    return <ToDoItem
-      key={item.id}
-      id={item.id}
-      state={state}
-      setState={setState}
-      name={item.name}
-      description={item.description}
-      completed={item.completed}
-      dueDate={item.due_date} />;
-  });
-
-  const openAdd = () => {
-    setState({ ...state, view: "add" });
-  };
-
-  const user = state.user.username;
 
   return (
     <>
       <div className='Home'>
-        <nav>
-          <h2>Hi {user}! Are these done yet?</h2>
-        </nav>
-        {items}
+        <h1>Is It Done Yet?</h1>
+        <h2>An accountability tool for chronic procrastinators.</h2>
+        <h3>
+          This app's goals are to help keep chronic procrastinators accountable by allowing them to create a live to-do list that reminds you of your tasks at the beinning of the day and asks you if you've completed them at the end of the day.
+        </h3>
       </div>
-      <button className="add" type="button" onClick={() => openAdd()}>Add</button>
-      <button type="button" onClick={() => LOGOUT(state, setState)}>Log Out</button>
     </>
   );
 };
