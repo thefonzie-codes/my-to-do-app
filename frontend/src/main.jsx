@@ -6,6 +6,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
+import { useAppData as rootLoader } from './hooks/useAppData';
+
 import App from './App.jsx';
 import UserHome from './views/UserHome.jsx';
 import EditItem from './components/EditItem';
@@ -16,11 +18,14 @@ import SignUp from './components/SignUp';
 import ErrorPage from './error-page.jsx';
 import './index.css';
 
+import { LOGIN } from './components/LogIn.jsx';
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     errorElement: <ErrorPage />,
+    loader: rootLoader,
     children: [
       {
         path: "UserHome",
@@ -38,6 +43,7 @@ const router = createBrowserRouter([
   },
   {
     path: "login",
+    action: LOGIN,
     element: <LogIn />,
   },
   {

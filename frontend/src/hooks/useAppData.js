@@ -1,11 +1,11 @@
-import { useState, useEffect} from "react";
+// import React, { useContext } from "react";
 import { GET_ITEMS_BY_USER, AUTHENTICATE } from "./helpers";
 
-let user = await AUTHENTICATE();
-let items = await GET_ITEMS_BY_USER();
+// const userData = React.createContext();
+// const itemData = React.createContext();
 
 export default function useAppData() {
- 
+
   const [state, setState] = useState({
     list: [],
     view: "login",
@@ -24,3 +24,10 @@ export default function useAppData() {
 
   return { state, setState };
 }
+
+// export async function useAppData() {
+//   const user = await AUTHENTICATE();
+//   const items = await GET_ITEMS_BY_USER();
+//   console.log(user, items)
+//   return { user, items };
+// }

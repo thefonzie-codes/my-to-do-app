@@ -3,25 +3,36 @@ import { useState } from "react";
 import Cookies from 'js-cookie';
 import { Link, Form } from 'react-router-dom'
 
-export default function Registration({ state, setState }) {
+export default function Registration() {
 
-  const [registrationData, setRegistrationData] = useState({
-    username: null,
-    email: null,
-    password: null,
+  interface RegistrationData {
+    username: string,
+    email: string,
+    password: string,
+  }
+
+  const [registrationData, setRegistrationData] = useState<RegistrationData>({
+    username: "",
+    email: "",
+    password: "",
   });
 
-  const handleRegistration = async () => {
+  const handleRegistration = async (registrationData:RegistrationData) => {
+    const { username, email, password } = registrationData;
     console.log(registrationData);
-    if (!registrationData.username || !registrationData.email || !registrationData.password) {
+    if (!username || !email || !password || username === "" || email === "" || password === "" ) {
       alert('Please fill in all fields');
+      return;
+    }
+    if (!email.includes('@')){
+      alert('please enter valid email')
       return;
     }
     try {
       const response = await axios.post('signup/', registrationData);
       const user = response.data.user;
       Cookies.set('token', response.data.token, { expires: 1, secure: true, sameSite: 'Strict' });
-      setState({ ...state, user: user, view: "home" });
+      // setState({ ...state, user: user, view: "home" });
     }
     catch (error) {
       alert('Invalid credentials');
@@ -29,9 +40,9 @@ export default function Registration({ state, setState }) {
     };
   };
 
-  const setLogin = () => {
-    setState({ ...state, view: "login" });
-  }
+  // const setLogin = () => {
+  //   setState({ ...state, view: "login" });
+  // }
 
   return (
     <div className="bg">
