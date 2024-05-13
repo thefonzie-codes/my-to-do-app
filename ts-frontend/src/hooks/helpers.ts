@@ -1,4 +1,4 @@
-import { ToDoItem, AddToDoItem } from "../../types";
+import type { TaskData, ToDoItem, AddToDoItem } from "../../types";
 import axios from "../api/axios";
 import Cookies from 'js-cookie';
 
@@ -12,6 +12,17 @@ export const AUTHENTICATE = async () => {
     return null;
   }
 };
+
+export const GET_ITEM_BY_ID = async (id: string | undefined) => {
+  try {
+    const item = await axios.get(`list_items/${id}`);
+    return item.data;
+  }
+  catch (error) {
+    console.log(error);
+  }
+
+}
 
 // const GET_ALL_ITEMS = async () => {
 //   try {
@@ -32,7 +43,7 @@ export const GET_ITEMS_BY_USER = async () => {
   }
 };
 
-export const DELETE_ITEM = async (id: string) => {
+export const DELETE_ITEM = async (id: string | undefined) => {
   try {
     await axios.delete('list_items/' + id);
     console.log('Successfully deleted item');
@@ -50,9 +61,9 @@ export const ADD_ITEM = async (item: AddToDoItem) => {
   };
 };
 
-export const EDIT_ITEM = async(id: string, item: ToDoItem) => {
+export const EDIT_ITEM = async(item: TaskData) => {
   try {
-    await axios.put(`list_items/${id}`, item);
+    await axios.put(`list_items/${item.id}`, item);
     console.log('Successfully edited item');
   }
   catch (error) {
@@ -80,7 +91,7 @@ export const LOGOUT = () => {
   Cookies.remove("token");
 };
 
-export const daysUntilDueCount = (dueDate: string) => {
+export const daysUntilDueCount = (dueDate: string | undefined | Date) => {
   let today = new Date();
   today.setHours(0, 0, 0, 0);
   let due = new Date(dueDate + "T00:00:00");

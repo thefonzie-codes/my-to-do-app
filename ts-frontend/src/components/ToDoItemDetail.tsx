@@ -10,7 +10,7 @@ export default function ToDoItemDetail({
   name, 
   completed, 
   id, 
-  dueDate, 
+  due_date, 
   description }: ToDoItemProps) {
 
   const navigate = useNavigate();
@@ -30,11 +30,11 @@ export default function ToDoItemDetail({
   return (
     <div className="card">
       <h3>{name}
-        <span className="edit" onClick={() => navigate(`${id}`)}>
+        <span className="edit" onClick={() => navigate(`/edit/${id}`)}>
           <FontAwesomeIcon icon={faPenToSquare} />
         </span>
       </h3>
-      <h4>{daysUntilDueText(dueDate)}</h4>
+      <h4>{daysUntilDueText(due_date)}</h4>
       <p>{description}</p>
       <div className="options">
         <button className={done ? 'completed' : undefined} onClick={() => HANDLE_CHANGE()}>{done ? "Completed" : "Mark Complete"}</button>

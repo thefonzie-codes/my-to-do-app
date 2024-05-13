@@ -5,18 +5,26 @@ export interface User {
 }
 
 export interface ToDoItem {
-  id: string,
+  uniid: string,
   name: string,
-  description: string,
+  description?: string,
   due_date: string,
-  completed: boolean,
+  completed?: boolean,
 }
 
 export interface AddToDoItem {
   name: string,
   description: string,
-  due_date: string,
+  due_date: string | Date,
   completed: boolean,
+}
+
+export interface TaskData{
+  id: string | undefined,
+  name: string | undefined,
+  description: string | undefined,
+  due_date: string | Date | undefined,
+  completed: boolean | undefined,
 }
 
 
@@ -24,7 +32,7 @@ export type ToDoList = Array<{
   id: string,
   name: string,
   description: string,
-  dueDate: string,
+  due_date: string,
   completed: boolean,
 }>
 
@@ -33,5 +41,5 @@ export interface ToDoItemProps {
   name: string;
   description: string;
   completed: boolean;
-  dueDate: string;
+  due_date: string;
 }

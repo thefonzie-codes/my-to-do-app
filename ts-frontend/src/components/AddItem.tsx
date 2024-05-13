@@ -18,7 +18,7 @@ export default function AddItem() {
   const [taskData, setTaskData] = useState({
     name: "",
     description: "",
-    due_date: formattedDate(new Date()),
+    due_date: new Date(),
     selectedDate: new Date(),
     completed: false
   });
@@ -26,7 +26,7 @@ export default function AddItem() {
   const navigate = useNavigate();
 
   const HANDLE_ADD = async () => {
-    await ADD_ITEM(taskData);
+    await ADD_ITEM({ ...taskData, due_date: formattedDate(taskData.selectedDate) });
     navigate(`/${user?.id}`);
   };
 
@@ -34,8 +34,7 @@ export default function AddItem() {
     <div className="bg">
       <div className="modal">
         <form
-          onSubmit={(evt) => {
-            evt.preventDefault();
+          onSubmit={() => {
             if (taskData.name === "" || taskData.name === undefined || taskData.name === null) {
               alert("Please enter a title for the task");
               return;
@@ -67,12 +66,12 @@ export default function AddItem() {
             selected={taskData.selectedDate}
             onChange={(date) => {
               if (date) {
-                setTaskData({ ...taskData, due_date: formattedDate(date), selectedDate: date });
+                setTaskData({ ...taskData, selectedDate: date });
               }
             }}
             onSelect={(date) => {
               if (date) {
-                setTaskData({ ...taskData, due_date: formattedDate(date), selectedDate: date });
+                setTaskData({ ...taskData, selectedDate: date });
               }
             }}
           />

@@ -20,7 +20,7 @@ export default function Dashboard() {
         name={each.name}
         description={each.description}
         completed={each.completed}
-        dueDate={each.dueDate} />;
+        due_date={each.due_date} />;
     });
   }
 
