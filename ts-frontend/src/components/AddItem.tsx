@@ -1,15 +1,19 @@
 import { useState } from "react";
-import { ADD_ITEM, GET_ITEMS_BY_USER } from "../hooks/helpers";
+import { ADD_ITEM } from "../hooks/helpers";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faAlignJustify, faIndent } from '@fortawesome/free-solid-svg-icons';
 import { daysUntilDueCount } from "../hooks/helpers";
+import { useNavigate } from "react-router-dom";
+import { useAppData } from "../App";
 
-export default function AddItem({ setState, state }) {
+export default function AddItem() {
 
-  const formattedDate = (date) => Intl.DateTimeFormat("fr-CA", { year: "numeric", month: "2-digit", day: "2-digit" }).format(date);
+  const formattedDate = (date: Date) => Intl.DateTimeFormat("fr-CA", { year: "numeric", month: "2-digit", day: "2-digit" }).format(date);
+
+  const { user } = useAppData();
 
   const [taskData, setTaskData] = useState({
     name: "",
@@ -19,10 +23,11 @@ export default function AddItem({ setState, state }) {
     completed: false
   });
 
+  const navigate = useNavigate();
+
   const HANDLE_ADD = async () => {
-    await ADD_ITEM(taskData, state);
-    const items = await GET_ITEMS_BY_USER(state, setState);
-    setState({ ...state, view: "home", list: items });
+    await ADD_ITEM(taskData);
+    navigate(`/${user?.id}`);
   };
 
   return (
@@ -46,8 +51,7 @@ export default function AddItem({ setState, state }) {
             value={taskData.name}
             id="taskName"
             type='text'
-            label='editItem'
-            maxLength="100"
+            maxLength={100}
             onChange={(evt) => setTaskData({ ...taskData, name: evt.target.value })}>
           </input>
           <label><FontAwesomeIcon icon={faIndent} />  Description:</label>
@@ -61,12 +65,20 @@ export default function AddItem({ setState, state }) {
           <label><FontAwesomeIcon icon={faCalendar} />  Due Date:</label>
           <DatePicker
             selected={taskData.selectedDate}
+            onChange={(date) => {
+              if (date) {
+                setTaskData({ ...taskData, due_date: formattedDate(date), selectedDate: date });
+              }
+            }}
             onSelect={(date) => {
-              setTaskData({ ...taskData, due_date: formattedDate(date), selectedDate: date });
-            }} />
+              if (date) {
+                setTaskData({ ...taskData, due_date: formattedDate(date), selectedDate: date });
+              }
+            }}
+          />
           <div className="options">
             <button className='add' type='submit'>Save</button>
-            <button onClick={() => setState({ ...state, view: "home" })}>Cancel</button>
+            <button onClick={() => navigate(`/${user?.id}`)}>Cancel</button>
           </div>
         </form>
       </div>

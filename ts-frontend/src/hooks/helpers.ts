@@ -1,3 +1,4 @@
+import { ToDoItem, AddToDoItem } from "../../types";
 import axios from "../api/axios";
 import Cookies from 'js-cookie';
 
@@ -8,7 +9,7 @@ export const AUTHENTICATE = async () => {
   }
   catch (error) {
     console.log(error);
-    return null
+    return null;
   }
 };
 
@@ -31,55 +32,52 @@ export const GET_ITEMS_BY_USER = async () => {
   }
 };
 
-// const DELETE_ITEM = async (id) => {
-//   try {
-//     await axios.delete('list_items/' + id);
-//     console.log('Successfully deleted item');
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+export const DELETE_ITEM = async (id: string) => {
+  try {
+    await axios.delete('list_items/' + id);
+    console.log('Successfully deleted item');
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-// const ADD_ITEM = async (item) => {
-//   try {
-//     await axios.post(`list_items/`, item);
-//     console.log('Successfully added item');
-//   } catch (error) {
-//     console.log(error);
-//   };
-// };
+export const ADD_ITEM = async (item: AddToDoItem) => {
+  try {
+    await axios.post(`list_items/`, item);
+    console.log('Successfully added item');
+  } catch (error) {
+    console.log(error);
+  };
+};
 
-// const EDIT_ITEM = async(id, item) => {
-//   try {
-//     await axios.put(`list_items/${id}`, item);
-//     console.log('Successfully edited item');
-//   }
-//   catch (error) {
-//     console.log(error);
-//   }
-// };
+export const EDIT_ITEM = async(id: string, item: ToDoItem) => {
+  try {
+    await axios.put(`list_items/${id}`, item);
+    console.log('Successfully edited item');
+  }
+  catch (error) {
+    console.log(error);
+  }
+};
 
 export const CHANGE_STATUS = async (
-  name:string, 
-  id:string, 
-  done:boolean, 
-  userId:string) => {
+  name: string,
+  id: string,
+  done: boolean) => {
   try {
     await axios.put(`list_items/${id}`, {
       name: name,
       completed: !done,
-      user_id: userId
     });
     console.log('Successfully changed status');
   }
-  catch (error){
+  catch (error) {
     console.log(error);
   }
 };
 
 export const LOGOUT = () => {
   Cookies.remove("token");
-  // setState({ ...state, user: null, view: "login", list: [] });
 };
 
 export const daysUntilDueCount = (dueDate: string) => {
@@ -92,7 +90,7 @@ export const daysUntilDueCount = (dueDate: string) => {
   return Math.floor(daysDiff);
 };
 
-export const daysUntilDueText = (dueDate:string) => {
+export const daysUntilDueText = (dueDate: string) => {
   let days = daysUntilDueCount(dueDate);
   if (days < 0) {
     return "Overdue";
@@ -106,6 +104,6 @@ export const daysUntilDueText = (dueDate:string) => {
   else {
     return `Due in ${days} days`;
   }
-}
+};
 
 // export { AUTHENTICATE, LOGOUT, GET_ALL_ITEMS, GET_ITEMS_BY_USER, CHANGE_STATUS, EDIT_ITEM, ADD_ITEM, DELETE_ITEM, daysUntilDueCount, daysUntilDueText};

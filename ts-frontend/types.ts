@@ -8,9 +8,17 @@ export interface ToDoItem {
   id: string,
   name: string,
   description: string,
-  dueDate: string,
+  due_date: string,
   completed: boolean,
 }
+
+export interface AddToDoItem {
+  name: string,
+  description: string,
+  due_date: string,
+  completed: boolean,
+}
+
 
 export type ToDoList = Array<{
   id: string,
@@ -27,7 +35,3 @@ export interface ToDoItemProps {
   completed: boolean;
   dueDate: string;
 }
-
-// export declare function useOutletContext<
-//   Context = unknown
-// >(): Context;

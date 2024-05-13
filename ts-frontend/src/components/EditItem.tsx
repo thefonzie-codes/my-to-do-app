@@ -4,18 +4,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faAlignJustify, faIndent } from '@fortawesome/free-solid-svg-icons';
 
 import { EDIT_ITEM, GET_ITEMS_BY_USER, daysUntilDueCount, DELETE_ITEM } from "../hooks/helpers";
-
+import { useAppData } from "../App";
 import { useState } from "react";
+// import type { ToDoItemProps } from "../../types";
 
-export default function EditItem({ id, state, setState }) {
+export default function EditItem() {
 
-  const task = state.list.find((task) => task.id === id);
+  const { toDoList } = useAppData();
+
+  const task = toDoList?.find((task) => task.id === id);
 
   const HANDLE_EDIT = async () => {
     try {
       await EDIT_ITEM(id, taskData);
       const items = await GET_ITEMS_BY_USER();
-      setState({ ...state, view: "home", list: items });
+      // setState({ ...state, view: "home", list: items });
     }
     catch (error) {
       console.log(error);
@@ -25,8 +28,8 @@ export default function EditItem({ id, state, setState }) {
   const HANDLE_DELETE = async () => {
     try {
       await DELETE_ITEM(id);
-      const items = await GET_ITEMS_BY_USER(state, setState);
-      setState({ ...state, view: "home", list: items });
+      // const items = await GET_ITEMS_BY_USER(state, setState);
+      // setState({ ...state, view: "home", list: items });
     }
     catch (error) {
       console.log(error);
@@ -34,15 +37,12 @@ export default function EditItem({ id, state, setState }) {
   };
 
   const [taskData, setTaskData] = useState({
-    name: task.name,
-    description: task.description,
-    completed: false,
-    due_date: task.due_date,
-    selectedDate: new Date(task.due_date + "T00:00:00"),
-    user_id: state.user.id
+    name: task?.name,
+    description: task?.description,
+    completed: task?.completed,
+    due_date: task?.dueDate,
+    selectedDate: new Date(task?.dueDate + "T00:00:00"),
   });
-
-  console.log(state);
 
   return (
     <div className="bg">

@@ -1,7 +1,9 @@
-import  ToDoItemDetail from './components/ToDoItemDetail';
+import  ToDoItemDetail from '../components/ToDoItemDetail';
 import '../styles/Home.scss';
 import { useAppData } from '../App';
-import type { ToDoItem } from '../../types';
+import type { ToDoItemProps } from '../../types';
+import { useNavigate } from 'react-router-dom';
+import { LOGOUT } from '../hooks/helpers';
 
 export default function Dashboard() {
 
@@ -11,7 +13,7 @@ export default function Dashboard() {
   let items;
 
   if (toDoList) {
-    items = toDoList.map((each: ToDoItem) => {
+    items = toDoList.map((each: ToDoItemProps) => {
       return <ToDoItemDetail
         key={each.id}
         id={each.id}
@@ -22,21 +24,23 @@ export default function Dashboard() {
     });
   }
 
-  // const openAdd = () => {
-  //   setState({ ...state, view: "add" });
-  // };
+  const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    LOGOUT();
+    navigate('/login');
+  }
 
   return (
     <>
-      <>{user?.username}</>
       <div className='Home'>
         <nav>
           <h2>Hi {user?.username}! Are these done yet?</h2>
         </nav>
         {items}
       </div>
-      {/* <button className="add" type="button" onClick={() => openAdd()}>Add</button>
-      <button type="button" onClick={() => LOGOUT(state, setState)}>Log Out</button> */}
+      <button className="add" type="button" onClick={() => navigate('/add')}>Add</button>
+      <button type="button" onClick={() => handleLogOut}>Log Out</button>
     </>
   );
 };

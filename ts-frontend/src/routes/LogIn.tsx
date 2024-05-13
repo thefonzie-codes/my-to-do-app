@@ -1,10 +1,8 @@
 import axios from "../api/axios";
-import { useState } from "react";
-import { Form, Link, useNavigate, useOutletContext, Outlet } from "react-router-dom"
-import Cookies from 'js-cookie'; // Import js-cookie
-import type { ToDoList, User } from "../../types";
-
-type ContextType = { user: User | null, toDoList: ToDoList | null  };
+import { useState, useEffect } from "react";
+import { Form, Link, useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie';
+import { useAppData } from "../App";
 
 export default function LogIn() {
 
@@ -13,8 +11,7 @@ export default function LogIn() {
     password: string,
   }
 
-  const [ user, setUser ] = useState<User | null>(null)
-  const [ toDoList, setToDoList ] = useState<ToDoList | null>(null)
+  const { user, toDoList, setUser, setToDoList } = useAppData();
 
   const [loginData, setLoginData] = useState<LoginData>({
     username: "",
@@ -23,17 +20,23 @@ export default function LogIn() {
 
   const navigate = useNavigate();
 
-  async function LOGIN (data:LoginData) {
+  useEffect(() => {
+    if (user) {
+      navigate(`/${user?.id}`);
+    }
+  }, [user, toDoList]);
+
+  async function LOGIN(data: LoginData) {
     try {
       const userData = await axios.post('login/', data);
       Cookies.set('token', userData.data.token, { expires: 1, secure: true, sameSite: 'Strict' }); // Set cookie to expire in 1 day
-      const listData = await axios.get(`my_list_items`);
       setUser(userData.data.user);
-      setToDoList(listData.data)
-      console.log(user, toDoList)
-      console.log(listData, userData)
-      navigate(`/${user?.id}`);
-      return;
+
+      const listData = await axios.get(`my_list_items`);
+      setToDoList(listData.data);
+
+      console.log(user, toDoList);
+      console.log(listData, userData);
     }
     catch (error) {
       alert('Invalid username or password');
@@ -43,7 +46,6 @@ export default function LogIn() {
 
   return (
     <div className="bg">
-      <Outlet context={{user, toDoList} satisfies ContextType} />
       <div className="modal">
         <Form
           onSubmit={(evt) => {
@@ -70,8 +72,4 @@ export default function LogIn() {
       </div>
     </div>
   );
-}
-
-export function useUser() {
-  return useOutletContext<ContextType>();
 }

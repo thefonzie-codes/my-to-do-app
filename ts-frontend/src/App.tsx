@@ -1,10 +1,15 @@
-import './App.css'
+import './styles/App.scss'
+import './styles/index.scss'
 import React, { useState, useEffect } from 'react';
 import type { ToDoList, User } from "../types";
 import { useOutletContext, Outlet, useNavigate } from 'react-router-dom';
 import { AUTHENTICATE, GET_ITEMS_BY_USER } from './hooks/helpers';
 
-type AppDataContextType = { user: User | null, toDoList: ToDoList | null, setToDoList: React.Dispatch<React.SetStateAction<ToDoList | null>> };
+type AppDataContextType = { 
+  user: User | null, 
+  toDoList: ToDoList | null, 
+  setToDoList: React.Dispatch<React.SetStateAction<ToDoList | null>>,
+  setUser: React.Dispatch<React.SetStateAction<User | null>>};
 
 export default function App () {
 
@@ -25,6 +30,7 @@ export default function App () {
 
     if (!user) {
       navigate('/login')
+      return
     }
   
     navigate(`/${user?.id}`)
@@ -33,7 +39,7 @@ export default function App () {
 
   return (
     <div className='App'>
-      <Outlet context={{ user, toDoList, setToDoList } satisfies AppDataContextType}/>
+      <Outlet context={{ user, toDoList, setToDoList, setUser } satisfies AppDataContextType}/>
     </div>
   )
 }
