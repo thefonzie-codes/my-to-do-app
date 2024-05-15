@@ -5,26 +5,20 @@ export interface User {
 }
 
 export interface ToDoItem {
-  uniid: string,
+  id: string,
   name: string,
   description?: string,
-  due_date: string,
+  due_date: string | Date,
   completed?: boolean,
 }
 
-export interface AddToDoItem {
-  name: string,
-  description: string,
-  due_date: string | Date,
-  completed: boolean,
-}
-
-export interface TaskData{
-  id: string | undefined,
+export type TaskData = {
+  id?: string | undefined,
   name: string | undefined,
-  description: string | undefined,
-  due_date: string | Date | undefined,
-  completed: boolean | undefined,
+  description?: string | undefined,
+  due_date?: string | Date | undefined,
+  selectedDate? : Date | null,
+  completed?: boolean | undefined
 }
 
 

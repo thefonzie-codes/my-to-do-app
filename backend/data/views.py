@@ -50,7 +50,10 @@ def list_items_detail(request, id, format=None):
     serializer = ListItemSerializer(list_item)
     return Response(serializer.data)
   elif request.method == 'PUT':
-    serializer = ListItemSerializer(list_item, data=request.data)
+    user = request.user
+    data = request.data
+    data['user_id'] = user.id
+    serializer = ListItemSerializer(list_item, data=data)
     if serializer.is_valid():
       serializer.save()
       return Response(serializer.data)

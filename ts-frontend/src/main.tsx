@@ -10,9 +10,9 @@ import {
 
 import App from './App.tsx';
 // import UserHome from './views/UserHome.jsx';
+import Home from './routes/Home';
 import EditItem from './components/EditItem.tsx';
 import AddItem from './components/AddItem.tsx';
-// import Home from './routes/Home';
 import LogIn from './routes/LogIn';
 import SignUp from './routes/SignUp';
 import Dashboard from './routes/Dashboard';
@@ -28,7 +28,11 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: ":userId",
+        path: "home",
+        element: <Home />,
+      },
+      {
+        path: "dashboard",
         element: <Dashboard />,
       },
       {

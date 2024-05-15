@@ -1,20 +1,25 @@
-import './styles/App.scss'
-import './styles/index.scss'
+import './styles/App.scss';
+import './styles/index.scss';
 import React, { useState, useEffect } from 'react';
 import type { ToDoList, User } from "../types";
 import { useOutletContext, Outlet, useNavigate } from 'react-router-dom';
 import { AUTHENTICATE, GET_ITEMS_BY_USER } from './hooks/helpers';
 
-type AppDataContextType = { 
-  user: User | null, 
-  toDoList: ToDoList | null, 
-  setToDoList: React.Dispatch<React.SetStateAction<ToDoList | null>>,
-  setUser: React.Dispatch<React.SetStateAction<User | null>>};
+type AppDataContextType = {
+  user: User,
+  setUser: React.Dispatch<React.SetStateAction<User>>;
+  toDoList: ToDoList,
+  setToDoList: React.Dispatch<React.SetStateAction<ToDoList>>,
+};
 
-export default function App () {
+export default function App() {
 
-  const [ user, setUser ] = React.useState<User | null>(null)
-  const [ toDoList, setToDoList ] = useState<ToDoList | null>(null);
+  const [user, setUser] = useState<User>({
+    id: "",
+    username: "",
+    email: "",
+  });
+  const [toDoList, setToDoList] = useState<ToDoList>([]);
 
   const navigate = useNavigate();
 
@@ -22,26 +27,28 @@ export default function App () {
     const fetchData = async () => {
       const fetchedUser = await AUTHENTICATE();
       const fetchedItems = await GET_ITEMS_BY_USER();
-      setUser(fetchedUser)
-      setToDoList(fetchedItems)
+      setUser(fetchedUser);
+      setToDoList(fetchedItems);
       return fetchedUser;
     };
+    
     fetchData();
-
-    if (!user) {
-      navigate('/login')
-      return
-    }
-  
-    navigate(`/${user?.id}`)
   }, []);
-
+  
+  useEffect(() => {
+    if (user) {
+      console.log(user);
+      navigate(`dashboard`);
+    } else {
+      navigate('home');
+    }
+  }, [user]);
 
   return (
     <div className='App'>
-      <Outlet context={{ user, toDoList, setToDoList, setUser } satisfies AppDataContextType}/>
+      <Outlet context={{ user, toDoList, setToDoList, setUser } satisfies AppDataContextType} />
     </div>
-  )
+  );
 }
 
 export function useAppData() {

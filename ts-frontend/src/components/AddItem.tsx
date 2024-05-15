@@ -7,13 +7,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faAlignJustify, faIndent } from '@fortawesome/free-solid-svg-icons';
 import { daysUntilDueCount } from "../hooks/helpers";
 import { useNavigate } from "react-router-dom";
-import { useAppData } from "../App";
 
 export default function AddItem() {
 
   const formattedDate = (date: Date) => Intl.DateTimeFormat("fr-CA", { year: "numeric", month: "2-digit", day: "2-digit" }).format(date);
-
-  const { user } = useAppData();
 
   const [taskData, setTaskData] = useState({
     name: "",
@@ -27,7 +24,7 @@ export default function AddItem() {
 
   const HANDLE_ADD = async () => {
     await ADD_ITEM({ ...taskData, due_date: formattedDate(taskData.selectedDate) });
-    navigate(`/${user?.id}`);
+    navigate(`/dashboard`);
   };
 
   return (
@@ -77,7 +74,7 @@ export default function AddItem() {
           />
           <div className="options">
             <button className='add' type='submit'>Save</button>
-            <button onClick={() => navigate(`/${user?.id}`)}>Cancel</button>
+            <button onClick={() => navigate(`/dashboard`)}>Cancel</button>
           </div>
         </form>
       </div>

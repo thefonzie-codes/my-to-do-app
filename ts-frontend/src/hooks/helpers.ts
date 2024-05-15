@@ -1,4 +1,4 @@
-import type { TaskData, ToDoItem, AddToDoItem } from "../../types";
+import type { TaskData } from "../../types";
 import axios from "../api/axios";
 import Cookies from 'js-cookie';
 
@@ -52,7 +52,7 @@ export const DELETE_ITEM = async (id: string | undefined) => {
   }
 };
 
-export const ADD_ITEM = async (item: AddToDoItem) => {
+export const ADD_ITEM = async (item: TaskData) => {
   try {
     await axios.post(`list_items/`, item);
     console.log('Successfully added item');
