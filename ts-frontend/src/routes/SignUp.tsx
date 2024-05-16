@@ -16,7 +16,6 @@ export default function Registration() {
     email: "",
     password: "",
   });
-
   const handleRegistration = async (registrationData:RegistrationData) => {
     const { username, email, password } = registrationData;
     console.log(registrationData);
@@ -31,7 +30,7 @@ export default function Registration() {
     try {
       const response = await axios.post('signup/', registrationData);
       Cookies.set('token', response.data.token, { expires: 1, secure: true, sameSite: 'Strict' });
-      // setState({ ...state, user: user, view: "home" });
+      window.location.reload();
     }
     catch (error) {
       alert('Invalid credentials');

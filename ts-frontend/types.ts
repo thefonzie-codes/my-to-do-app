@@ -13,12 +13,12 @@ export interface ToDoItem {
 }
 
 export type TaskData = {
-  id?: string | undefined,
-  name: string | undefined,
-  description?: string | undefined,
-  due_date?: string | Date | undefined,
-  selectedDate? : Date | null,
-  completed?: boolean | undefined
+  id?: string
+  name: string
+  description?: string
+  due_date: string | Date
+  selectedDate? : Date
+  completed?: boolean
 }
 
 

@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 
 import App from './App.tsx';
-// import UserHome from './views/UserHome.jsx';
 import Home from './routes/Home';
 import EditItem from './components/EditItem.tsx';
 import AddItem from './components/AddItem.tsx';
@@ -17,7 +16,6 @@ import Dashboard from './routes/Dashboard';
 import ErrorPage from './error-page';
 import './styles/index.scss';
 
-// import { LOGIN } from './components/LogIn.jsx';
 
 const router = createBrowserRouter([
   {
@@ -51,19 +49,6 @@ const router = createBrowserRouter([
       },
     ]
   },
-  //   children: [
-  //     {
-  //       path: "UserHome",
-  //       element: <UserHome />,
-  //     },
-
-
-  //   ]
-  // },
-  // {
-  //   path: "/",
-  //   element: <App />,
-  // },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

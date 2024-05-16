@@ -22,7 +22,7 @@ export default function LogIn() {
 
   useEffect(() => {
     if (user) {
-      navigate(`/${user?.id}`);
+      navigate(`/dashboard`);
     }
   }, [user, toDoList]);
 
@@ -34,9 +34,6 @@ export default function LogIn() {
 
       const listData = await axios.get(`my_list_items`);
       setToDoList(listData.data);
-
-      console.log(user, toDoList);
-      console.log(listData, userData);
     }
     catch (error) {
       alert('Invalid username or password');

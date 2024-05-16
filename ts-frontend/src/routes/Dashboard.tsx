@@ -7,7 +7,7 @@ import { LOGOUT } from '../hooks/helpers';
 
 export default function Dashboard() {
 
-  const { user, toDoList, setUser, setToDoList } = useAppData();
+  const { user, toDoList } = useAppData();
 
   let items;
 
