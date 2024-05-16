@@ -1,7 +1,7 @@
 import axios from "../api/axios";
 import { useState } from "react";
 import Cookies from 'js-cookie';
-import { Link, Form } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export default function Registration() {
 
@@ -30,7 +30,6 @@ export default function Registration() {
     }
     try {
       const response = await axios.post('signup/', registrationData);
-      const user = response.data.user;
       Cookies.set('token', response.data.token, { expires: 1, secure: true, sameSite: 'Strict' });
       // setState({ ...state, user: user, view: "home" });
     }
@@ -39,10 +38,6 @@ export default function Registration() {
       console.log(error);
     };
   };
-
-  // const setLogin = () => {
-  //   setState({ ...state, view: "login" });
-  // }
 
   return (
     <div className="bg">
@@ -54,23 +49,20 @@ export default function Registration() {
           }}>
           <input
             type='text'
-            label='email'
             placeholder="Email"
-            maxLength="100"
+            maxLength={100}
             onChange={(evt) => setRegistrationData({ ...registrationData, email: evt.target.value })}>
           </input>
           <input
             type='text'
-            label='username'
             placeholder="Username"
-            maxLength="100"
+            maxLength={100}
             onChange={(evt) => setRegistrationData({ ...registrationData, username: evt.target.value })}>
           </input>
           <input
             type='text'
-            label='password'
             placeholder="Password"
-            maxLength="100"
+            maxLength={100}
             onChange={(evt) => setRegistrationData({ ...registrationData, password: evt.target.value })}>
           </input>
           <button type='submit'>Register</button>

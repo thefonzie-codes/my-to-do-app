@@ -7,8 +7,7 @@ import { LOGOUT } from '../hooks/helpers';
 
 export default function Dashboard() {
 
-  const { user, toDoList } = useAppData();
-  console.log(user, toDoList);
+  const { user, toDoList, setUser, setToDoList } = useAppData();
 
   let items;
 
@@ -26,9 +25,9 @@ export default function Dashboard() {
 
   const navigate = useNavigate();
 
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
     LOGOUT();
-    navigate('/login');
+    window.location.reload();
   }
 
   return (
@@ -40,7 +39,7 @@ export default function Dashboard() {
         {items}
       </div>
       <button className="add" type="button" onClick={() => navigate('/add')}>Add</button>
-      <button type="button" onClick={() => handleLogOut}>Log Out</button>
+      <button type="button" onClick={() => handleLogOut()}>Log Out</button>
     </>
   );
 };

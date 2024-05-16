@@ -6,8 +6,6 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-// import { useAppData as rootLoader } from './hooks/useAppData';
-
 import App from './App.tsx';
 // import UserHome from './views/UserHome.jsx';
 import Home from './routes/Home';
@@ -40,7 +38,7 @@ const router = createBrowserRouter([
         element: <LogIn />,
       },
       {
-        path: "signup",
+        path: "register",
         element: <SignUp />,
       },
       {
