@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import date
+from datetime import date, time
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
@@ -8,6 +8,8 @@ from django.utils import timezone
 
 class CustomUser(AbstractUser):
   email = models.EmailField('email address', unique=True, blank=False, null=False)
+  reminder = models.TimeField(default=time(8, 0, 0))
+  check_in = models.TimeField(default=time(20, 0, 0))
 
   groups = models.ManyToManyField(
       'auth.Group',

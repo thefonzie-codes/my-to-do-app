@@ -28,13 +28,13 @@
         {% for task in tasks %}
             <div class="task-box">
                 {{ task.name }}
-                <button class="complete-button" onclick="CHANGE_STATUS('{{ task.name }}', '{{ task.id }}', '{{ task.completed }}', '{{ user_id }}')">
+                <!-- <button class="complete-button" onclick="CHANGE_STATUS('{{ task.name }}', '{{ task.id }}', '{{ task.completed }}', '{{ user_id }}')">
                     {% if task.completed %}
                         Mark Incomplete
                     {% else %}
                         Mark Complete
                     {% endif %}
-                </button>
+                </button> -->
             </div>
         {% endfor %}
     </div>
