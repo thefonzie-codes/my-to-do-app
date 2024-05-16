@@ -16,7 +16,10 @@ margin_of_error = timedelta(minutes=3)
 
 def reminder():
     for user in User.objects.all():
-        if user.reminder <= current_time <= user.reminder + margin_of_error:
+        reminder_datetime = datetime.combine(datetime.today(), user.reminder)
+        latest_time = reminder_datetime + margin_of_error
+        if reminder_datetime.time() <= current_time <= latest_time.time():
+            print("Reminder time")
             ListItems = ListItem.objects.filter(user=user, due_date=date.today())
             serializer = ListItemSerializer(ListItems, many=True)
             data = serializer.data
@@ -57,63 +60,30 @@ def reminder():
         
 def checkin():
     for user in User.objects.all():
-        if user.check_in <= current_time <= user.check_in + margin_of_error:
-            ListItems = ListItem.objects.filter(user=user, due_date=date.today())
-            serializer = ListItemSerializer(ListItems, many=True)
-            data = serializer.data
-            
-            if data == []:
-                continue
+        reminder_datetime = datetime.combine(datetime.today(), user.reminder)
+        latest_time = reminder_datetime + margin_of_error
+        if reminder_datetime.time() <= current_time <= latest_time.time():
+            if user.check_in <= current_time <= user.check_in + margin_of_error:
+                ListItems = ListItem.objects.filter(user=user, due_date=date.today())
+                serializer = ListItemSerializer(ListItems, many=True)
+                data = serializer.data
                 
-            html_message = render_to_string("check-in-email.html", {'tasks': data})
-            plain_message = strip_tags(html_message)
-            subject='Did you complete your tasks today?'
-            from_email='alfonsobanzon@gmail.com'
-            to=[user.email]
+                if data == []:
+                    continue
+                    
+                html_message = render_to_string("check-in-email.html", {'tasks': data})
+                plain_message = strip_tags(html_message)
+                subject='Did you complete your tasks today?'
+                from_email='alfonsobanzon@gmail.com'
+                to=[user.email]
 
-            send_mail(
-              subject, 
-              plain_message, 
-              from_email, 
-              to, 
-              html_message=html_message,
-              fail_silently=False)
-            
-        else:
-            continue
-        
-# def send_daily_reminder():
-#     ListItems = ListItem.objects.filter(due_date=date.today())
-#     serializer = ListItemSerializer(ListItems, many=True)
-#     data = serializer.data
-#     html_message = render_to_string("reminder.html", {'tasks': data})
-#     plain_message = strip_tags(html_message)
-#     subject='Your To-Do List for Today'
-#     from_email='alfonsobanzon@gmail.com'
-#     to=['thefonzie.codes@gmail.com']
-
-#     send_mail(
-#       subject, 
-#       plain_message, 
-#       from_email, 
-#       to, 
-#       html_message=html_message,
-#       fail_silently=False)
-    
-# def send_daily_checkin():
-#     ListItems = ListItem.objects.filter(due_date=date.today())
-#     serializer = ListItemSerializer(ListItems, many=True)
-#     data = serializer.data
-#     html_message = render_to_string("check-in-email.html", {'tasks': data})
-#     plain_message = strip_tags(html_message)
-#     subject='Did you complete your tasks today?'
-#     from_email='alfonsobanzon@gmail.com'
-#     to=['thefonzie.codes@gmail.com']
-
-#     send_mail(
-#       subject, 
-#       plain_message, 
-#       from_email, 
-#       to, 
-#       html_message=html_message,
-#       fail_silently=False)
+                send_mail(
+                  subject, 
+                  plain_message, 
+                  from_email, 
+                  to, 
+                  html_message=html_message,
+                  fail_silently=False)
+                
+            else:
+                continue
