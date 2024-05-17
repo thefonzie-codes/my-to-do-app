@@ -107,7 +107,7 @@ def signup(request, format=None):
 def test_token(request, format=None):
   return Response({"passed for {}".format(request.user.username)})
   
-from data.scheduled_emails import checkin, reminder
+from data.scheduled_emails import checkin, reminder, test
 
 @api_view(['GET'])
 def email_reminder(request, format=None):

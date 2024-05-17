@@ -12,7 +12,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 current_time = datetime.now().time()
-margin_of_error = timedelta(minutes=3)
+margin_of_error = timedelta(minutes=1)
 
 def reminder():
     for user in User.objects.all():

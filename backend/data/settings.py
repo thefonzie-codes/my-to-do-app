@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 'django_q',
-    # 'django_crontab'
+    'django_crontab'
 ]
 
 MIDDLEWARE = [
@@ -88,14 +88,14 @@ WSGI_APPLICATION = 'data.wsgi.application'
 
 CORS_ALLOWED_ORIGINS = [
   'https://my-to-do-app-production.up.railway.app',
-  'https://cron-tasks.up.railway.app',
+  'https://to-do-cron.railway.internal',
   'https://thefonzie-codes.github.io',
   'http://localhost:3000',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
   'https://my-to-do-app-production.up.railway.app',
-  'https://cron-tasks.up.railway.app',
+  'https://to-do-cron.railway.internal',
   'https://thefonzie-codes.github.io',
   'http://localhost:3000',
 ]
@@ -166,3 +166,9 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('APP_PASSWORD')
+
+CRONJOBS = [
+  ('*/1 * * * *', 'data.scheduled_emails.test'),
+  ('*/1 * * * *', 'data.scheduled_emails.reminder'),
+  ('*/1 * * * *', 'data.scheduled_emails.checkin'),
+]
