@@ -88,6 +88,7 @@ WSGI_APPLICATION = 'data.wsgi.application'
 
 CORS_ALLOWED_ORIGINS = [
   'https://my-to-do-app-production.up.railway.app',
+  'https://my-to-do-app-staging.up.railway.app',
   'https://to-do-cron.railway.internal',
   'https://thefonzie-codes.github.io',
   'http://localhost:3000',
@@ -95,6 +96,7 @@ CORS_ALLOWED_ORIGINS = [
 
 CSRF_TRUSTED_ORIGINS = [
   'https://my-to-do-app-production.up.railway.app',
+  'https://my-to-do-app-staging.up.railway.app',
   'https://to-do-cron.railway.internal',
   'https://thefonzie-codes.github.io',
   'http://localhost:3000',
