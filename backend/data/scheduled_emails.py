@@ -87,3 +87,16 @@ def checkin():
                 
             else:
                 continue
+              
+def test():
+    subject='Did you complete your tasks today?'
+    message = 'This is a test email sent using SMTP in Django.'
+    from_email='alfonsobanzon@gmail.com'
+    to=['thefonzie.codes@gmail.com']
+
+    send_mail(
+      subject, 
+      message, 
+      from_email, 
+      to, 
+      fail_silently=False)
