@@ -22,7 +22,7 @@ export default function ToDoItemDetail({
     try {
       await CHANGE_STATUS(name, id, done);
       setDone(!done);
-    }nav
+    }
     catch (error) {
       console.log(error);
     }
