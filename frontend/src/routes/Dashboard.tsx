@@ -1,13 +1,22 @@
-import  ToDoItemDetail from '../components/ToDoItemDetail';
+import ToDoItemDetail from '../components/ToDoItemDetail';
 import '../styles/Home.scss';
 import { useAppData } from '../App';
 import type { ToDoItemProps } from '../../types';
 import { useNavigate } from 'react-router-dom';
 import { LOGOUT } from '../hooks/helpers';
+import { useEffect } from 'react';
 
 export default function Dashboard() {
 
+  const navigate = useNavigate();
+
   const { user, toDoList } = useAppData();
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+  }, []);
 
   let items;
 
@@ -23,12 +32,11 @@ export default function Dashboard() {
     });
   }
 
-  const navigate = useNavigate();
 
   const handleLogOut = async () => {
     LOGOUT();
     window.location.reload();
-  }
+  };
 
   return (
     <>
