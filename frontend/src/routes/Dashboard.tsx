@@ -3,8 +3,6 @@ import '../styles/Home.scss';
 import { useAppData } from '../App';
 import type { ToDoItemProps } from '../../types';
 import { useNavigate } from 'react-router-dom';
-import { LOGOUT } from '../hooks/helpers';
-import { useEffect } from 'react';
 
 export default function Dashboard() {
 
@@ -12,11 +10,9 @@ export default function Dashboard() {
 
   const { user, toDoList } = useAppData();
 
-  // useEffect(() => {
     if (!user) {
       navigate('/login');
     }
-  // }, []);
 
   let items;
 
