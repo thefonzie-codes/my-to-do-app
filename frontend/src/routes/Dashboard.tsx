@@ -12,11 +12,11 @@ export default function Dashboard() {
 
   const { user, toDoList } = useAppData();
 
-  useEffect(() => {
+  // useEffect(() => {
     if (!user) {
       navigate('/login');
     }
-  }, []);
+  // }, []);
 
   let items;
 
@@ -31,13 +31,6 @@ export default function Dashboard() {
         due_date={each.due_date} />;
     });
   }
-
-
-  const handleLogOut = async () => {
-    LOGOUT();
-    window.location.reload();
-  };
-
   return (
     <>
       <div className='Home'>
@@ -47,7 +40,7 @@ export default function Dashboard() {
         {items}
       </div>
       <button className="add" type="button" onClick={() => navigate('/add')}>Add</button>
-      <button type="button" onClick={() => handleLogOut()}>Log Out</button>
+      {/* <button type="button" onClick={() => handleLogOut()}>Log Out</button> */}
     </>
   );
 };

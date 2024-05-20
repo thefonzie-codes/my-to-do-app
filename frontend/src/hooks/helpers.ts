@@ -47,6 +47,7 @@ export const DELETE_ITEM = async (id: string | undefined) => {
   try {
     await axios.delete('list_items/' + id);
     console.log('Successfully deleted item');
+    return GET_ITEMS_BY_USER();
   } catch (error) {
     console.log(error);
   }
@@ -56,6 +57,7 @@ export const ADD_ITEM = async (item: TaskData) => {
   try {
     await axios.post(`list_items/`, item);
     console.log('Successfully added item');
+    return GET_ITEMS_BY_USER();
   } catch (error) {
     console.log(error);
   };
@@ -65,6 +67,7 @@ export const EDIT_ITEM = async(item: TaskData) => {
   try {
     await axios.put(`list_items/${item.id}`, item);
     console.log('Successfully edited item');
+    return GET_ITEMS_BY_USER();
   }
   catch (error) {
     console.log(error);
@@ -116,5 +119,3 @@ export const daysUntilDueText = (dueDate: string) => {
     return `Due in ${days} days`;
   }
 };
-
-// export { AUTHENTICATE, LOGOUT, GET_ALL_ITEMS, GET_ITEMS_BY_USER, CHANGE_STATUS, EDIT_ITEM, ADD_ITEM, DELETE_ITEM, daysUntilDueCount, daysUntilDueText};

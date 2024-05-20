@@ -15,6 +15,7 @@ import SignUp from './routes/SignUp';
 import Dashboard from './routes/Dashboard';
 import ErrorPage from './error-page';
 import './styles/index.scss';
+import Logout from './components/Logout.tsx';
 
 
 const router = createBrowserRouter([
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: <SignUp />,
+      },
+      {
+        path: "/logout",
+        element: <Logout />,
       },
       {
         path: "add",

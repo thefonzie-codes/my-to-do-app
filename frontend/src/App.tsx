@@ -44,6 +44,12 @@ export default function App() {
     }
   }, [user]);
 
+  // const handleLogOut = async () => {
+  //   LOGOUT();
+  //   window.location.reload();
+  // };
+
+
   return (
     <div className='App'>
       <nav>
@@ -53,8 +59,9 @@ export default function App() {
         <div className="nav-links">
           <Link to='/home'>Home</Link>
           <Link to='/dashboard'>Dashboard</Link>
-          <Link to='/login'>Login</Link>
-          <Link to='/register'>Register</Link>
+          {!user && <Link to='/login'>Login</Link>}
+          {!user && <Link to='/register'>Register</Link>}
+          {user && <Link to='/logout'>Logout</Link>}
         </div>
       </nav>
       <Outlet context={{ user, toDoList, setToDoList, setUser } satisfies AppDataContextType} />
