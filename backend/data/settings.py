@@ -91,6 +91,7 @@ CORS_ALLOWED_ORIGINS = [
   'https://cron-tasks.up.railway.app',
   'https://thefonzie-codes.github.io',
   'http://localhost:3000',
+  'http://localhost:8000',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -98,6 +99,7 @@ CSRF_TRUSTED_ORIGINS = [
   'https://cron-tasks.up.railway.app',
   'https://thefonzie-codes.github.io',
   'http://localhost:3000',
+  'http://localhost:8000',
 ]
 from django.core.management.commands.runserver import Command as runserver
 
@@ -110,9 +112,17 @@ runserver.default_addr = '0.0.0.0'   # <-- Your address
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+      'NAME': 'railway',
+      'ENGINE': 'django.db.backends.postgresql',
+      'USER': 'postgres',
+      'PASSWORD': 'tYBUkmlnIsZoYwZvYStTZkPlqvyNHUly',
+      'HOST': 'viaduct.proxy.rlwy.net',
+      'PORT': '36747',
     }
 }
 
