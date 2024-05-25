@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import {
-  createBrowserRouter,
+  // createBrowserRouter, // this has to be createHashRouter for GH pages
+  createHashRouter,
   RouterProvider,
 } from "react-router-dom";
 
@@ -18,7 +19,8 @@ import './styles/index.scss';
 import Logout from './components/Logout.tsx';
 
 
-const router = createBrowserRouter([
+// const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <App />,
