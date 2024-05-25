@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://thefonzie-codes.github.io/my-to-do-app/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
