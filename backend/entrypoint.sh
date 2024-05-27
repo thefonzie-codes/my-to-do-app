@@ -14,8 +14,8 @@ python manage.py migrate
 echo "Collecting static files..."
 python manage.py collectstatic --noinput
 
-echo "starting cron jobs"
-python manage.py crontab add
+echo "starting qcluster..."
+python manage.py qcluster
 
 # Start the main process
 echo "Starting server..."
