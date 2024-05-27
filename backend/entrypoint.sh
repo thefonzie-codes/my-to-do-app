@@ -14,9 +14,9 @@ python manage.py migrate
 echo "Collecting static files..."
 python manage.py collectstatic --noinput
 
-echo "starting qcluster..."
-python manage.py qcluster
-
 # Start the main process
 echo "Starting server..."
 exec "$@"
+
+echo "starting qcluster..."
+python manage.py qcluster
