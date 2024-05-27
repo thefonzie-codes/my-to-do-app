@@ -27,16 +27,7 @@ Authorization: Token 3985345623cda8b5dec1c59c8661597e36618400
 
 ###
 
-GET http://127.0.0.1:8000/email_reminder
+GET http://127.0.0.1:8000/email_reminder/
 content-type: application/json
-
-{}
-
-
-###
-
-GET http://127.0.0.1:8000/test
-content-type: application/json
-Authorization: Token be71a261990695fb68edc87bd6bee9d88c78ace0
 
 {}

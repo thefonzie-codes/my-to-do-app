@@ -11,15 +11,21 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-current_time = datetime.now().time()
+def get_current_time():
+    return datetime.now().time()
+  
 margin_of_error = timedelta(minutes=1)
 
 def reminder():
     for user in User.objects.all():
+        print(user)
         reminder_datetime = datetime.combine(datetime.today(), user.reminder)
+        print(reminder_datetime)
         latest_time = reminder_datetime + margin_of_error
-        if reminder_datetime.time() <= current_time <= latest_time.time():
-            print("Reminder time")
+        print(latest_time)
+        print(get_current_time())
+        print(reminder_datetime.time() <= get_current_time() <= latest_time.time())
+        if reminder_datetime.time() <= get_current_time() <= latest_time.time():
             ListItems = ListItem.objects.filter(user=user, due_date=date.today())
             serializer = ListItemSerializer(ListItems, many=True)
             data = serializer.data
@@ -60,10 +66,14 @@ def reminder():
         
 def checkin():
     for user in User.objects.all():
-        reminder_datetime = datetime.combine(datetime.today(), user.reminder)
-        latest_time = reminder_datetime + margin_of_error
-        if reminder_datetime.time() <= current_time <= latest_time.time():
-            if user.check_in <= current_time <= user.check_in + margin_of_error:
+        check_in_datetime = datetime.combine(datetime.today(), user.check_in)
+        print(check_in_datetime)
+        latest_time = check_in_datetime + margin_of_error
+        print(latest_time)
+        print(get_current_time())
+        print(check_in_datetime.time() <= get_current_time() <= latest_time.time())
+        if check_in_datetime.time() <= get_current_time() <= latest_time.time():
+            if user.check_in <= get_current_time() <= latest_time.time():
                 ListItems = ListItem.objects.filter(user=user, due_date=date.today())
                 serializer = ListItemSerializer(ListItems, many=True)
                 data = serializer.data
@@ -100,3 +110,12 @@ def test():
       from_email, 
       to, 
       fail_silently=False)
+    
+
+from django_q.tasks import schedule
+from django_q.models import Schedule
+
+Schedule.objects.all().delete()
+
+schedule('data.scheduled_emails.reminder', schedule_type='I', minutes=1)
+schedule('data.scheduled_emails.checkin', schedule_type='I', minutes=1)
