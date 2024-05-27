@@ -8,8 +8,8 @@ python manage.py makemigrations
 python manage.py migrate
 
 # Create superuser
-echo "Creating superuser..."
-python manage.py create_superuser
+# echo "Creating superuser..."
+# python manage.py create_superuser
 
 echo "Collecting static files..."
 python manage.py collectstatic --noinput

@@ -25,7 +25,7 @@ export default function AddItem() {
   const HANDLE_ADD = async () => {
     await ADD_ITEM({ ...taskData, due_date: formattedDate(taskData.selectedDate) });
     navigate(`/dashboard`);
-  };
+  }
 
   return (
     <div className="bg">

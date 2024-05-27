@@ -4,5 +4,6 @@ backend/db.sqlite3
 backend/__pycache__
 backend/staticfiles
 backend/data/__pycache__
+backend/myvenv
 frontend/node_modules
 docker-vm-key

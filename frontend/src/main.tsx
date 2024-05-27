@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import {
-  createBrowserRouter,
+  // createBrowserRouter, // this has to be createHashRouter for GH pages
+  createHashRouter,
   RouterProvider,
 } from "react-router-dom";
 
@@ -15,9 +16,11 @@ import SignUp from './routes/SignUp';
 import Dashboard from './routes/Dashboard';
 import ErrorPage from './error-page';
 import './styles/index.scss';
+import Logout from './components/Logout.tsx';
 
 
-const router = createBrowserRouter([
+// const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <App />,
@@ -38,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: <SignUp />,
+      },
+      {
+        path: "/logout",
+        element: <Logout />,
       },
       {
         path: "add",

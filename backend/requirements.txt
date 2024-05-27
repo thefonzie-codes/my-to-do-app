@@ -16,3 +16,4 @@ wcwidth==0.2.13
 gunicorn
 whitenoise
 django-crontab
+psycopg2-binary

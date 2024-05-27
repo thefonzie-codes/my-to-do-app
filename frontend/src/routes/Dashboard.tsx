@@ -1,13 +1,18 @@
-import  ToDoItemDetail from '../components/ToDoItemDetail';
+import ToDoItemDetail from '../components/ToDoItemDetail';
 import '../styles/Home.scss';
 import { useAppData } from '../App';
 import type { ToDoItemProps } from '../../types';
 import { useNavigate } from 'react-router-dom';
-import { LOGOUT } from '../hooks/helpers';
 
 export default function Dashboard() {
 
+  const navigate = useNavigate();
+
   const { user, toDoList } = useAppData();
+
+    if (!user) {
+      navigate('/login');
+    }
 
   let items;
 
@@ -22,14 +27,6 @@ export default function Dashboard() {
         due_date={each.due_date} />;
     });
   }
-
-  const navigate = useNavigate();
-
-  const handleLogOut = async () => {
-    LOGOUT();
-    window.location.reload();
-  }
-
   return (
     <>
       <div className='Home'>
@@ -39,7 +36,7 @@ export default function Dashboard() {
         {items}
       </div>
       <button className="add" type="button" onClick={() => navigate('/add')}>Add</button>
-      <button type="button" onClick={() => handleLogOut()}>Log Out</button>
+      {/* <button type="button" onClick={() => handleLogOut()}>Log Out</button> */}
     </>
   );
 };
