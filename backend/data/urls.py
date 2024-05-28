@@ -30,6 +30,7 @@ urlpatterns = [
     path('my_list_items', views.get_items_by_user),
     path('email_reminder/', views.email_reminder),
     path('email_checkin/', views.email_checkin),
+    path('test/', views.test_email),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

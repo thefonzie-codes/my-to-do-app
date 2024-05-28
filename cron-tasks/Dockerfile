@@ -19,10 +19,12 @@ RUN chmod 0644 /etc/cron.d/my-crontab
 RUN crontab /etc/cron.d/my-crontab
 
 # Copy the script into the container at /app
-COPY ping_script.py /app/
+COPY . .
 
 # Give execution rights on the cron job
-RUN chmod 0744 /app/ping_script.py
+RUN chmod 0744 /app/check-in.py
+RUN chmod 0744 /app/reminder.py
+RUN chmod 0744 /app/check-in.py
 
 # Create the log file to be able to run tail
 RUN touch /var/log/cron.log
