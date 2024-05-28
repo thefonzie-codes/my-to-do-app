@@ -14,7 +14,7 @@ User = get_user_model()
 def get_current_time():
     return datetime.now().time()
   
-margin_of_error = timedelta(minutes=1)
+margin_of_error = timedelta(minutes=5)
 
 def reminder():
     for user in User.objects.all():
