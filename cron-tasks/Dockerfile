@@ -12,8 +12,8 @@ COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the crontab file to the cron.d directory
-COPY my-crontab /etc/cron.d/my-crontab
-RUN chmod 0644 /etc/cron.d/my-crontab
+COPY crontab /etc/cron.d/crontab
+RUN chmod 0644 /etc/cron.d/crontab
 
 # Apply cron job
 RUN crontab /etc/cron.d/my-crontab
