@@ -29,9 +29,6 @@ RUN chmod 0744 /app/check-in.py
 # Create the log file to be able to run tail
 RUN touch /var/log/cron.log
 
-# Run the command on container startup
-CMD cron && tail -f /var/log/cron.log
-
 # FROM python:3.10-slim
 
 # ENV PYTHONBUFFERED=1
@@ -46,4 +43,4 @@ CMD cron && tail -f /var/log/cron.log
 
 # COPY . .
 
-# CMD python3 check-in.py && python3 reminder.py
+CMD python3 check-in.py && python3 reminder.py
