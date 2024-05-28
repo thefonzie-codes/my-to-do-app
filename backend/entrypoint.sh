@@ -18,5 +18,3 @@ python manage.py collectstatic --noinput
 echo "Starting server..."
 exec "$@"
 
-echo "starting qcluster..."
-python manage.py qcluster

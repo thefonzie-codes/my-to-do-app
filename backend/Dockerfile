@@ -1,5 +1,8 @@
 FROM python:3.10.12-slim
 
+RUN apt-get update && apt-get install -y cron && rm -rf /var/lib/apt/lists/*
+
+ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONBUFFERED=1
 
 WORKDIR /app

@@ -48,8 +48,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_q',
-    # 'django_crontab'
 ]
 
 MIDDLEWARE = [
@@ -184,13 +182,17 @@ EMAIL_HOST_PASSWORD = os.getenv('APP_PASSWORD')
 #   ('*/1 * * * *', 'data.scheduled_emails.checkin'),
 # ]
 
-Q_CLUSTER = {
-    'name': 'DjangORM',
-    'workers': 4,
-    'recycle': 500,
-    'timeout': 60,
-    'retry': 300,
-    'queue_limit': 50,
-    'bulk': 10,
-    'orm': 'default'
-}
+CRON_CLASSES = [
+    "data.cron.MyCronJob",
+]
+
+# Q_CLUSTER = {
+#     'name': 'DjangORM',
+#     'workers': 4,
+#     'recycle': 500,
+#     'timeout': 60,
+#     'retry': 300,
+#     'queue_limit': 50,
+#     'bulk': 10,
+#     'orm': 'default'
+# }

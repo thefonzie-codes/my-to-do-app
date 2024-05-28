@@ -112,10 +112,10 @@ def test():
       fail_silently=False)
     
 
-from django_q.tasks import schedule
-from django_q.models import Schedule
+# from django_q.tasks import schedule
+# from django_q.models import Schedule
 
-Schedule.objects.all().delete()
+# Schedule.objects.all().delete()
 
-schedule('data.scheduled_emails.reminder', schedule_type='I', minutes=1)
-schedule('data.scheduled_emails.checkin', schedule_type='I', minutes=1)
+# schedule('data.scheduled_emails.reminder', schedule_type='I', minutes=1)
+# schedule('data.scheduled_emails.checkin', schedule_type='I', minutes=1)

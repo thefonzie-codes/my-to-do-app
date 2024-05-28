@@ -107,19 +107,19 @@ def signup(request, format=None):
 def test_token(request, format=None):
   return Response({"passed for {}".format(request.user.username)})
   
-# from data.scheduled_emails import checkin, reminder, test
+from data.scheduled_emails import checkin, reminder, test
 
-# @api_view(['GET'])
-# def email_reminder(request, format=None):
-#   reminder()
-#   return Response({"email reminder sent"})
+@api_view(['GET'])
+def email_reminder(request, format=None):
+  reminder()
+  return Response({"email reminder sent"})
 
-# @api_view(['GET'])
-# def email_checkin(request, format=None):
-#   checkin()
-#   return Response({"email check-in sent"})
+@api_view(['GET'])
+def email_checkin(request, format=None):
+  checkin()
+  return Response({"email check-in sent"})
 
-# @api_view(['GET'])
-# def test_email(request, format=None):
-#   test()
-#   return Response({"test email sent"})
+@api_view(['GET'])
+def test_email(request, format=None):
+  test()
+  return Response({"test email sent"})
