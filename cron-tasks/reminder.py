@@ -1,7 +1,8 @@
 import requests
+from os import getenv
 
 def ping_endpoint():
-    url = 'https://my-to-do-app-production.up.railway.app/email_reminder/'
+    url = getenv('ENDPOINT_URL') + '/email_reminder'
     response = requests.get(url)
     print(f"Status Code: {response.status_code}, Response: {response.text}")
 
