@@ -16,7 +16,7 @@ COPY crontab /etc/cron.d/crontab
 RUN chmod 0644 /etc/cron.d/crontab
 
 # Apply cron job
-RUN crontab /etc/cron.d/my-crontab
+RUN crontab /etc/cron.d/crontab
 
 # Copy the script into the container at /app
 COPY . .
