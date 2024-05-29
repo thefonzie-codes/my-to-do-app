@@ -15,7 +15,7 @@ def ping_api(url):
 # This is the scheduler
 def scheduled_job():
   urls = [
-        "https://my-to-do-app-staging.up.railway.app/test",
+        # "https://my-to-do-app-staging.up.railway.app/test",
         "https://my-to-do-app-staging.up.railway.app/email_checkin",
         "https://my-to-do-app-staging.up.railway.app/email_reminder"
   ]
