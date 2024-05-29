@@ -13,7 +13,7 @@ class CustomUserCreationForm(UserCreationForm):
 class CustomUserAdmin(UserAdmin):
     form = CustomUserChangeForm
     fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('reminder', 'check_in')}),
+        (None, {'fields': ('reminder', 'check_in', 'last_reminder_sent', 'last_check_in_sent')}),
     )
 
     def has_add_permission(self, request):

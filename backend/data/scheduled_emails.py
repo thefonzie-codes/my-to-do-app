@@ -64,6 +64,8 @@ def reminder():
               html_message=html_message,
               fail_silently=False)
             
+            user.last_reminder_sent = date.today()
+            
         else:
             continue
         
@@ -102,6 +104,8 @@ def checkin():
                   to, 
                   html_message=html_message,
                   fail_silently=False)
+                
+                user.last_check_in_sent = date.today()
                 
             else:
                 continue
