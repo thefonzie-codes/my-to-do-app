@@ -23,7 +23,7 @@ def scheduled_job():
     ping_api(url)
     
 scheduler = BackgroundScheduler()
-scheduler.add_job(scheduled_job, 'interval', minutes=15)
+scheduler.add_job(scheduled_job, 'interval', minutes=1)
 scheduler.start()
 
 @app.route('/')
@@ -31,4 +31,4 @@ def home():
   return "Flask Cron Job is running!"
   
 if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=8000)
+  app.run(host='0.0.0.0', port=8000, debug=True)
