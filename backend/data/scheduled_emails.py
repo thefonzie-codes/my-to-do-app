@@ -1,10 +1,9 @@
 from .models import ListItem
 from .serializers import ListItemSerializer, UserSerializer
 
-from datetime import date, timedelta, time, datetime
+from datetime import date, timedelta, datetime
 
 from django.core.mail import send_mail
-from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.contrib.auth import get_user_model
@@ -18,7 +17,11 @@ margin_of_error = timedelta(minutes=1)
 
 def reminder():
     for user in User.objects.all():
-        print(user)
+        
+        last_reminder_sent = user.last_reminder_sent
+        if last_reminder_sent == date.today():
+            continue
+          
         reminder_datetime = datetime.combine(datetime.today(), user.reminder)
         print(reminder_datetime)
         latest_time = reminder_datetime + margin_of_error
@@ -66,6 +69,11 @@ def reminder():
         
 def checkin():
     for user in User.objects.all():
+      
+        last_check_in_sent = user.last_check_in_sent
+        if user.last_check_in_sent == date.today():
+            continue
+          
         check_in_datetime = datetime.combine(datetime.today(), user.check_in)
         print(check_in_datetime)
         latest_time = check_in_datetime + margin_of_error
@@ -110,12 +118,3 @@ def test():
       from_email, 
       to, 
       fail_silently=False)
-    
-
-# from django_q.tasks import schedule
-# from django_q.models import Schedule
-
-# Schedule.objects.all().delete()
-
-# schedule('data.scheduled_emails.reminder', schedule_type='I', minutes=1)
-# schedule('data.scheduled_emails.checkin', schedule_type='I', minutes=1)

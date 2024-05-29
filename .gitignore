@@ -9,3 +9,4 @@ backend/myvenv
 backend/data/management/commands/__pycache__
 frontend/node_modules
 docker-vm-key
+flask-cron/__pycache__
