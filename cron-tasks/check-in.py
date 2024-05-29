@@ -1,8 +1,10 @@
 import requests
-from os import getenv
+from dotenv import load_dotenv
+load_dotenv()
+import os
 
 def ping_endpoint():
-    url = getenv('ENDPOINT_URL') + '/email_checkin'
+    url = os.getenv('ENDPOINT_URL') + '/email_checkin'
     response = requests.get(url)
     print(f"Status Code: {response.status_code}, Response: {response.text}")
 
