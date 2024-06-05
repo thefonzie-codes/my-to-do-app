@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import type { ToDoList, User } from "../types";
 import { useOutletContext, Outlet, useNavigate, Link } from 'react-router-dom';
 import { AUTHENTICATE, GET_ITEMS_BY_USER } from './hooks/helpers';
+import Nav from './components/Nav';
 
 type AppDataContextType = {
   user: User,
@@ -44,26 +45,10 @@ export default function App() {
     }
   }, [user]);
 
-  // const handleLogOut = async () => {
-  //   LOGOUT();
-  //   window.location.reload();
-  // };
-
 
   return (
     <div className='App'>
-      <nav>
-        <button className="logo" onClick={() => navigate('home')}>
-          <h2>ToDo App</h2>
-        </button>
-        <div className="nav-links">
-          <Link to='/home'>Home</Link>
-          <Link to='/dashboard'>Dashboard</Link>
-          {!user && <Link to='/login'>Login</Link>}
-          {!user && <Link to='/register'>Register</Link>}
-          {user && <Link to='/logout'>Logout</Link>}
-        </div>
-      </nav>
+      <Nav user={user}/>
       <Outlet context={{ user, toDoList, setToDoList, setUser } satisfies AppDataContextType} />
     </div>
   );

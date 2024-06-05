@@ -45,7 +45,7 @@ export default function EditItem() {
     try {
       if (taskData) {
         await EDIT_ITEM(taskData);
-        navigate('/dashboard');
+        window.location.reload();
       }
     }
     catch (error) {
@@ -58,7 +58,7 @@ export default function EditItem() {
       await DELETE_ITEM(taskId);
       const updatedList = await GET_ITEMS_BY_USER();
       setToDoList(updatedList);
-      navigate('/dashboard');
+      window.location.reload();
     }
     catch (error) {
       console.log(error);

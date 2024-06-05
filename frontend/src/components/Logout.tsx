@@ -1,16 +1,12 @@
-import { useEffect } from "react";
 import { LOGOUT } from "../hooks/helpers";
+import { useNavigate } from "react-router-dom";
 
 export default function Logout() {
   
-  useEffect(() => {
-    if (window.location.pathname === "/logout") {
-      LOGOUT();
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
-    }
-  }, []);
+  LOGOUT();
+  setTimeout(() => {
+    window.location.reload();
+  }, 2000);
 
   return (
     <div>

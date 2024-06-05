@@ -10,9 +10,9 @@ export default function Dashboard() {
 
   const { user, toDoList } = useAppData();
 
-    if (!user) {
-      navigate('/login');
-    }
+  if (!user) {
+    navigate('/login');
+  }
 
   let items;
 
@@ -30,13 +30,10 @@ export default function Dashboard() {
   return (
     <>
       <div className='Home'>
-        <nav>
-          <h2>Hi {user?.username}! Are these done yet?</h2>
-        </nav>
+        <h2>Hi {user?.username}! Are these done yet?</h2>
         {items}
+        <button className="add" type="button" onClick={() => navigate('/add')}>Add</button>
       </div>
-      <button className="add" type="button" onClick={() => navigate('/add')}>Add</button>
-      {/* <button type="button" onClick={() => handleLogOut()}>Log Out</button> */}
     </>
   );
 };
