@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { ADD_ITEM } from "../hooks/helpers";
+import { ADD_ITEM, daysUntilDueCount, GET_ITEMS_BY_USER } from "../hooks/helpers";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faAlignJustify, faIndent } from '@fortawesome/free-solid-svg-icons';
-import { daysUntilDueCount } from "../hooks/helpers";
 import { useNavigate } from "react-router-dom";
+import { useAppData } from "../App";
 
 export default function AddItem() {
+
+  const { setToDoList } = useAppData();
 
   const formattedDate = (date: Date) => Intl.DateTimeFormat("fr-CA", { year: "numeric", month: "2-digit", day: "2-digit" }).format(date);
 
@@ -24,8 +26,9 @@ export default function AddItem() {
 
   const HANDLE_ADD = async () => {
     await ADD_ITEM({ ...taskData, due_date: formattedDate(taskData.selectedDate) });
-    navigate(`/dashboard`);
-    window.location.reload();
+    const updatedList = await GET_ITEMS_BY_USER();
+    setToDoList(updatedList);
+    navigate('/dashboard');
   }
 
   return (

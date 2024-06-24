@@ -48,7 +48,6 @@ export default function EditItem() {
         const updatedList = await GET_ITEMS_BY_USER();
         setToDoList(updatedList);
         navigate('/dashboard');
-        window.location.reload();
       }
     }
     catch (error) {
@@ -62,7 +61,6 @@ export default function EditItem() {
       const updatedList = await GET_ITEMS_BY_USER();
       setToDoList(updatedList);
       navigate('/dashboard');
-      window.location.reload();
     }
     catch (error) {
       console.log(error);
