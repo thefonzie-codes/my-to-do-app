@@ -58,6 +58,7 @@ export default function EditItem() {
       await DELETE_ITEM(taskId);
       const updatedList = await GET_ITEMS_BY_USER();
       setToDoList(updatedList);
+      navigate('/dashboard');
       window.location.reload();
     }
     catch (error) {

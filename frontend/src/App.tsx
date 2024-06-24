@@ -2,7 +2,7 @@ import './styles/App.scss';
 import './styles/index.scss';
 import React, { useState, useEffect } from 'react';
 import type { ToDoList, User } from "../types";
-import { useOutletContext, Outlet, useNavigate, Link } from 'react-router-dom';
+import { useOutletContext, Outlet, useNavigate} from 'react-router-dom';
 import { AUTHENTICATE, GET_ITEMS_BY_USER } from './hooks/helpers';
 import Nav from './components/Nav';
 
