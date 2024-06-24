@@ -45,6 +45,9 @@ export default function EditItem() {
     try {
       if (taskData) {
         await EDIT_ITEM(taskData);
+        const updatedList = await GET_ITEMS_BY_USER();
+        setToDoList(updatedList);
+        navigate('/dashboard');
         window.location.reload();
       }
     }
