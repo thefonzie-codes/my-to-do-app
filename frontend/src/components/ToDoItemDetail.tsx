@@ -2,9 +2,10 @@ import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
-import { CHANGE_STATUS, daysUntilDueText } from "../hooks/helpers.ts";
+import { CHANGE_STATUS, daysUntilDueText, GET_ITEMS_BY_USER } from "../hooks/helpers.ts";
 import { ToDoItemProps } from "../../types";
 import { useNavigate } from "react-router-dom";
+import { useAppData } from "../App";
 
 export default function ToDoItemDetail({ 
   name, 
@@ -16,11 +17,16 @@ export default function ToDoItemDetail({
 
   const navigate = useNavigate();
 
+  const { setToDoList } = useAppData();
+
   const [done, setDone] = useState(completed);
 
   const HANDLE_CHANGE = async () => {
     try {
       await CHANGE_STATUS(name, id, done);
+      const updatedList = await GET_ITEMS_BY_USER();
+      setToDoList(updatedList);
+      navigate('/dashboard');
       setDone(!done);
     }
     catch (error) {

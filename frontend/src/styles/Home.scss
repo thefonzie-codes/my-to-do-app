@@ -1,3 +1,15 @@
 .Home {
+  display: flex;
+  flex-direction: row;
   padding: 20px;
+
+  .to_do {
+    min-width: 375px;
+  }
+}
+
+.add {
+  position: sticky;
+  left: 20px;
+  bottom: 20px;
 }

@@ -3,6 +3,7 @@ import '../styles/Home.scss';
 import { useAppData } from '../App';
 import type { ToDoItemProps } from '../../types';
 import { useNavigate } from 'react-router-dom';
+import { daysUntilDueCount } from '../hooks/helpers';
 
 export default function Dashboard() {
 
@@ -33,10 +34,20 @@ export default function Dashboard() {
   return (
     <>
       <div className='Home'>
-        <h2>Hi {user?.username}! Are these done yet?</h2>
-        {items}
-        <button className="add" type="button" onClick={() => navigate('/add')}>Add</button>
+        <div className='to_do'>
+          <h2>Do these today!!</h2>
+          {items.filter((item) => !item.props.completed && daysUntilDueCount(item.props.due_date) <= 0)}
+        </div>
+        <div className='to_do'>
+          <h2>Tasks completed today</h2>
+          {items.filter((item) => item.props.completed)}
+        </div>
+        <div className='to_do'>
+          <h2>Upcoming tasks</h2>
+          {items.filter((item) => !item.props.completed && daysUntilDueCount(item.props.due_date) > 0)}
+        </div>
       </div>
+        <button className="add" type="button" onClick={() => navigate('/add')}>Add</button>
     </>
   );
 };
