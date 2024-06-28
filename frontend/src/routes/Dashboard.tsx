@@ -14,7 +14,7 @@ export default function Dashboard() {
     navigate('/login');
   }
 
-  let items;
+  let items: any[] = [];
 
   if (toDoList) {
     items = toDoList.map((each: ToDoItemProps) => {
@@ -27,6 +27,9 @@ export default function Dashboard() {
         due_date={each.due_date} />;
     });
   }
+
+  items.sort((a, b) => a - b);
+
   return (
     <>
       <div className='Home'>
