@@ -1,4 +1,12 @@
 .Home {
+  padding: 20px;
+
+  .to_do {
+    min-width: 375px;
+  }
+}
+
+.Dashboard {
   display: flex;
   flex-direction: row;
   padding: 20px;
@@ -7,6 +15,7 @@
     min-width: 375px;
   }
 }
+
 
 .add {
   position: sticky;

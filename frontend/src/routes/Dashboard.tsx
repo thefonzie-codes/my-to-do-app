@@ -33,7 +33,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className='Home'>
+      <div className='Dashboard'>
         <div className='to_do'>
           <h2>Do these today!!</h2>
           {items.filter((item) => !item.props.completed && daysUntilDueCount(item.props.due_date) <= 0)}
