@@ -9,10 +9,14 @@
 .Dashboard {
   display: flex;
   flex-direction: row;
-  padding: 20px;
+  // padding: 20px;
 
   .to_do {
     min-width: 375px;
+  }
+
+  h2 {
+    margin: 20px;
   }
 }
 
@@ -21,4 +25,10 @@
   position: sticky;
   left: 20px;
   bottom: 20px;
+
+}
+
+.add:hover {
+  background-color: grey;
+  color: black;
 }

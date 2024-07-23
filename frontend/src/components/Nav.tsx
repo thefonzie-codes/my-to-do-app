@@ -9,7 +9,7 @@ export default function Nav({ user }: { user: User })  {
   return (
     <nav>
       <button className="logo" onClick={() => navigate('home')}>
-        <h2>Is It Done Yet?</h2>
+        <h2>Done?</h2>
       </button>
       <div className="nav-links">
         <Link to='/home'>Home</Link>
