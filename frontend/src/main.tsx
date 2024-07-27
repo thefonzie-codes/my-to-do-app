@@ -17,6 +17,7 @@ import Dashboard from './routes/Dashboard';
 import ErrorPage from './error-page';
 import './styles/index.scss';
 import Logout from './components/Logout.tsx';
+import UserSettings from './routes/UserSettings.tsx';
 
 
 // const router = createBrowserRouter([
@@ -54,6 +55,10 @@ const router = createHashRouter([
         path: "edit/:itemId",
         element: <EditItem />,
       },
+      {
+        path: "settings/:userId",
+        element: <UserSettings />
+      }
     ]
   },
 ]);
