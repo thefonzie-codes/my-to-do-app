@@ -9,7 +9,7 @@ from django.utils import timezone
 class CustomUser(AbstractUser):
   email = models.EmailField('email address', unique=True, blank=False, null=False)
   reminder = models.TimeField(default=time(8, 0, 0))
-  check_in = models.TimeField(default=time(20, 0, 0))
+  check_in = models.TimeField(default=time(17, 0, 0))
   last_reminder_sent = models.DateField(null=True, blank=True)
   last_check_in_sent = models.DateField(null=True, blank=True)
 

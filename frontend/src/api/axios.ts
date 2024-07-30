@@ -4,14 +4,14 @@ import Cookies from 'js-cookie';
 
 const ENVIRONMENT = import.meta.env.MODE
 
-let baseURL = 'https://my-to-do-app-production.up.railway.app'
+let url = 'https://my-to-do-app-production.up.railway.app'
 
 if (ENVIRONMENT === "development") {
-  baseURL = "http://localhost:8000"
+  url = "http://localhost:8000"
 }
 
 const axiosInstance = axios.create({
-  baseURL: 'https://my-to-do-app-production.up.railway.app'
+  baseURL: url
 });
 
 axiosInstance.interceptors.request.use(function (config) {

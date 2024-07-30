@@ -24,6 +24,8 @@ export default function App() {
     id: "",
     username: "",
     email: "",
+    reminder: "",
+    check_in: "",
   });
   const [toDoList, setToDoList] = useState<ToDoList>([]);
 
