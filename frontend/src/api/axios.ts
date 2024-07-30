@@ -4,16 +4,15 @@ import Cookies from 'js-cookie';
 
 const ENVIRONMENT = import.meta.env.MODE
 
-// var used intentionally here for hoisting
+let baseURL = 'https://my-to-do-app-production.up.railway.app'
+
 if (ENVIRONMENT === "development") {
-  var axiosInstance = axios.create({
-    baseURL: "http://localhost:8000"
-  });
-} else if (ENVIRONMENT === "production"){
-  var axiosInstance = axios.create({
-    baseURL: 'https://my-to-do-app-production.up.railway.app'
-  });
+  baseURL = "http://localhost:8000"
 }
+
+const axiosInstance = axios.create({
+  baseURL: 'https://my-to-do-app-production.up.railway.app'
+});
 
 axiosInstance.interceptors.request.use(function (config) {
   const token = Cookies.get('token');

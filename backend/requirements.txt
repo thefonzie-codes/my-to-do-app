@@ -15,7 +15,5 @@ typing_extensions==4.10.0
 wcwidth==0.2.13
 gunicorn
 whitenoise
-# django-q2
 psycopg2-binary
-# django-crontab
 django-cron
