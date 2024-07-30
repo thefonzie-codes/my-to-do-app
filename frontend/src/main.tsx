@@ -57,7 +57,7 @@ const router = createHashRouter([
         element: <EditItem />,
       },
       {
-        path: "settings/:userId",
+        path: "user_settings/",
         element: <UserSettings />
       }
     ]

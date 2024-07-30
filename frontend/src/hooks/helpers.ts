@@ -15,7 +15,7 @@ export const AUTHENTICATE = async () => {
 
 export const EDIT_USER = async () => {
   try {
-    const response = await axios.put(`edit_user`);
+    const response = await axios.put('edit_user');
     console.log(response.data)
     return response.data;
   }

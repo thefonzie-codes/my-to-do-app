@@ -4,6 +4,7 @@ import { Form } from "react-router-dom";
 import Dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { EDIT_USER } from "../hooks/helpers.ts";
+import { useNavigate } from "react-router-dom";
 
 import { User } from "../../types.ts"
 import { useState } from "react";
@@ -12,6 +13,8 @@ import dayjs from "dayjs";
 dayjs.extend(customParseFormat);
 
 export default function UserSettings() {
+
+  const navigate = useNavigate();
 
   const { user } = useAppData();
   const { email, username, reminder, id, check_in } = user;
@@ -63,6 +66,7 @@ export default function UserSettings() {
           }}
         />
         <button>Save</button>
+        <button onClick={() => navigate('/dashboard')}>Cancel</button>
       </Form>
     </>
   );
