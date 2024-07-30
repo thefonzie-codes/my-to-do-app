@@ -3,6 +3,7 @@ import { useAppData } from "../App";
 import { Form } from "react-router-dom";
 import Dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import { EDIT_USER } from "../hooks/helpers.ts";
 
 import { User } from "../../types.ts"
 import { useState } from "react";
@@ -30,6 +31,7 @@ export default function UserSettings() {
       <Form
         onSubmit={(evt) => {
           evt.preventDefault();
+          EDIT_USER();
         }}>
         <label>Username:</label>
         <input
@@ -60,6 +62,7 @@ export default function UserSettings() {
             setUserSettings({...userSettings, check_in: newTime})
           }}
         />
+        <button>Save</button>
       </Form>
     </>
   );

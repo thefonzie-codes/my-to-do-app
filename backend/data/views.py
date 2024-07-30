@@ -16,7 +16,7 @@ from django.shortcuts import get_object_or_404
 
 from datetime import date
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'PUT', 'POST'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def list_items(request, format=None):
@@ -100,7 +100,17 @@ def signup(request, format=None):
     return Response({'token': token.key, 'user': serializer.data})
   return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
+@api_view(['PUT'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def edit_user(request, format=None):
+  serializer = UserSerializer(data=request.data)
+  if serializer.is_valid():
+    serializer.save()
+    user = User.objects.get(username=request.data['username'])
+    return Response({'user': user})
+  return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])

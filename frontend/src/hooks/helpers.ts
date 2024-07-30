@@ -13,6 +13,18 @@ export const AUTHENTICATE = async () => {
   }
 };
 
+export const EDIT_USER = async () => {
+  try {
+    const response = await axios.put(`edit_user`);
+    console.log(response.data)
+    return response.data;
+  }
+  catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 export const GET_ITEM_BY_ID = async (id: string | undefined) => {
   try {
     const item = await axios.get(`list_items/${id}`);
@@ -21,17 +33,7 @@ export const GET_ITEM_BY_ID = async (id: string | undefined) => {
   catch (error) {
     console.log(error);
   }
-
 }
-
-// const GET_ALL_ITEMS = async () => {
-//   try {
-//     axios.get("list_items.json");
-//   }
-//   catch (error) {
-//     console.log(error);
-//   }
-// };
 
 export const GET_ITEMS_BY_USER = async () => {
   try {
