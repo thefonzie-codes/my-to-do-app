@@ -1,30 +1,19 @@
-# React + TypeScript + Vite
+# Done?
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## What is Done?
+-----
 
-Currently, two official plugins are available:
+**Done?** is at it's core, a to-do list.  I personally know how hard it can be to get started on tasks, and how much accountability can get you going.  The app's goal is to add a layer of accountability.  It will remind you of your tasks and check in to see if you've completed them, both at times you had specified.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## The building journey - The short version
+-----
 
-## Expanding the ESLint configuration
+I wanted to learn Python and challenge myself by using a framework that had not been taught in my time at Lighthouse Labs(LHL), so I decided to build my back end with Django.  It was a challenge at first, having to learn the a new syntax and framework.  However, being able to find similarities between Django and Ruby on Rails(a framework learned at LHL) made a difference in being able to understand how the data flowed throughout the framework.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+As I developed the application, I wanted to have some experience in deployment.  In our final project at LHL, we deployed our application on a cloud service called [Railway](https://railway.app/).  A teammate dealt with it back then, so I decided it was time to get my hands dirty.
 
-- Configure the top-level `parserOptions` property like this:
+I wanted to simplify the app deployment and ensure that it worked on multiple systems by Dockerizing it.  On my system, and even testing it on a separate PC, it worked great!  I deployed to railway and... the cron jobs didn't work.  It wasn't sending the reminder and check in emails as expected.  It took tons of troubleshooting and several hours of redeployment until I finally decided to create a separate service using flask to ping the back end for emails.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+The front end wasn't too bad - until I decided to switch it to TypeScript.  My first conversion was a nightmare - figuring out how to avoid undefined or null types took a couple of days.  However, I learned that strict typing makes a big difference in avoiding bugs in the future.  It may be irritating to deal with now, but better than finding out you're having issues once it's deployed!  The actual deployment wasn't too bad.  Some use of GitHub pages and we were all set.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+I would still prefer to find a more elegant solution specifically for the back end(I might even rebuild the back end with just flask, to get a lower level view) but it's a work in progress!  I'd also like to move from railway to AWS.  The goal is to get this up and running, and have some users test it.  It's not as pretty as I would like it to be, but the functionality is what I wanted so far.
