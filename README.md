@@ -1,22 +1,18 @@
 # Done?
 
 ## What is Done?
------
 
 **Done?** is at it's core, a to-do list.  I personally know how hard it can be to get started on tasks, and how much accountability can get you going.  The app's goal is to add a layer of accountability.  It will remind you of your tasks and check in to see if you've completed them, both at times you had specified.
 
 ## Back End
------
 
 source myvenv/bin/activate
 python3 manage.py runserver
 
 ## Front End
------
 
 
-## The building journey - The short version
------
+## The Building Journey - The Short Version
 
 I wanted to learn Python and challenge myself by using a framework that had not been taught in my time at Lighthouse Labs(LHL), so I decided to build my back end with Django.  It was a challenge at first, having to learn the a new syntax and framework.  However, being able to find similarities between Django and Ruby on Rails(a framework learned at LHL) made a difference in being able to understand how the data flowed throughout the framework.
 
