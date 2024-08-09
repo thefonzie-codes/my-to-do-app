@@ -6,11 +6,29 @@
 
 ## Back End
 
+Installation:
+```bash
+cd backend
+pip install -r requirements.txt
+```
+
+Run with:
+```bash
 source myvenv/bin/activate
 python3 manage.py runserver
+```
 
 ## Front End
 
+Installation:
+```bash
+cd frontend
+npm install
+```
+Run with:
+```bash
+npm run dev
+```
 
 ## The Building Journey - The Short Version
 
