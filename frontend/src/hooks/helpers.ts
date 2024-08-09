@@ -1,4 +1,4 @@
-import type { TaskData, User } from "../../types";
+import type { TaskData } from "../../types";
 import axios from "../api/axios";
 import Cookies from 'js-cookie';
 
