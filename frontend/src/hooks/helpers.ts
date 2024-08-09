@@ -21,17 +21,7 @@ export const GET_ITEM_BY_ID = async (id: string | undefined) => {
   catch (error) {
     console.log(error);
   }
-
 }
-
-// const GET_ALL_ITEMS = async () => {
-//   try {
-//     axios.get("list_items.json");
-//   }
-//   catch (error) {
-//     console.log(error);
-//   }
-// };
 
 export const GET_ITEMS_BY_USER = async () => {
   try {

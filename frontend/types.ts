@@ -2,6 +2,8 @@ export interface User {
   username: string,
   email: string,
   id: string,
+  reminder: string,
+  check_in: string,
 }
 
 export interface ToDoItem {

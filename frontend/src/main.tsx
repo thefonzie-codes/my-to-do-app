@@ -7,6 +7,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
+import './styles/index.scss';
+
 import App from './App.tsx';
 import Home from './routes/Home';
 import EditItem from './components/EditItem.tsx';
@@ -15,8 +17,8 @@ import LogIn from './routes/LogIn';
 import SignUp from './routes/SignUp';
 import Dashboard from './routes/Dashboard';
 import ErrorPage from './error-page';
-import './styles/index.scss';
 import Logout from './components/Logout.tsx';
+import UserSettings from './routes/UserSettings.tsx';
 
 
 // const router = createBrowserRouter([
@@ -54,6 +56,10 @@ const router = createHashRouter([
         path: "edit/:itemId",
         element: <EditItem />,
       },
+      {
+        path: "user_settings/",
+        element: <UserSettings />
+      }
     ]
   },
 ]);

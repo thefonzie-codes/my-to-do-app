@@ -1,9 +1,14 @@
 import './styles/App.scss';
 import './styles/index.scss';
-import React, { useState, useEffect } from 'react';
 import type { ToDoList, User } from "../types";
-import { useOutletContext, Outlet, useNavigate} from 'react-router-dom';
+
+import React, { useState, useEffect } from 'react';
+import { useOutletContext, Outlet, useNavigate } from 'react-router-dom';
 import { AUTHENTICATE, GET_ITEMS_BY_USER } from './hooks/helpers';
+
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+
 import Nav from './components/Nav';
 
 type AppDataContextType = {
@@ -19,6 +24,8 @@ export default function App() {
     id: "",
     username: "",
     email: "",
+    reminder: "",
+    check_in: "",
   });
   const [toDoList, setToDoList] = useState<ToDoList>([]);
 
@@ -47,10 +54,12 @@ export default function App() {
 
 
   return (
-    <div className='App'>
-      <Nav user={user}/>
-      <Outlet context={{ user, toDoList, setToDoList, setUser } satisfies AppDataContextType} />
-    </div>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <div className='App'>
+        <Nav user={user} />
+        <Outlet context={{ user, toDoList, setToDoList, setUser } satisfies AppDataContextType} />
+      </div>
+    </LocalizationProvider>
   );
 }
 

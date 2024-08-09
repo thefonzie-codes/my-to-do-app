@@ -116,20 +116,25 @@ runserver.default_addr = '0.0.0.0'   # <-- Your address
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
-    'default': {
-      'ENGINE': 'django.db.backends.postgresql',
-      'NAME': os.getenv('POSTGRES_DB'),
-      'USER': os.getenv('POSTGRES_USER'),
-      'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-      'HOST': os.getenv('POSTGRES_HOST'),
-      'PORT': os.getenv('POSTGRES_PORT'),
-    }
-}
+if os.getenv('ENVIRONMENT') == 'dev':
+  DATABASES = {
+  'default': {
+          'ENGINE': 'django.db.backends.sqlite3',
+          'NAME': BASE_DIR / 'db.sqlite3',
+      }
+  }
+if os.getenv('ENVIRONMENT') == 'prod':
+  DATABASES = {
+      'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': os.getenv('POSTGRES_HOST'),
+        'PORT': os.getenv('POSTGRES_PORT'),
+      }
+  }
+  
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -180,23 +185,6 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('APP_PASSWORD')
 
-# CRONJOBS = [
-#   ('*/1 * * * *', 'data.scheduled_emails.test'),
-#   ('*/1 * * * *', 'data.scheduled_emails.reminder'),
-#   ('*/1 * * * *', 'data.scheduled_emails.checkin'),
-# ]
-
 CRON_CLASSES = [
     "data.cron.MyCronJob",
 ]
-
-# Q_CLUSTER = {
-#     'name': 'DjangORM',
-#     'workers': 4,
-#     'recycle': 500,
-#     'timeout': 60,
-#     'retry': 300,
-#     'queue_limit': 50,
-#     'bulk': 10,
-#     'orm': 'default'
-# }

@@ -2,9 +2,16 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
+const ENVIRONMENT = import.meta.env.MODE
+
+let url = 'https://my-to-do-app-production.up.railway.app'
+
+if (ENVIRONMENT === "development") {
+  url = "http://localhost:8000"
+}
+
 const axiosInstance = axios.create({
-  // baseURL: 'http://localhost:8000' // Ensure you define your base URL
-  baseURL: 'https://my-to-do-app-production.up.railway.app', // Ensure you define your base URL
+  baseURL: url
 });
 
 axiosInstance.interceptors.request.use(function (config) {

@@ -31,6 +31,7 @@ urlpatterns = [
     path('email_reminder/', views.email_reminder),
     path('email_checkin/', views.email_checkin),
     path('test/', views.test_email),
+    path('edit_user/', views.edit_user),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
