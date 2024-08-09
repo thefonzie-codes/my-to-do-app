@@ -3,12 +3,12 @@ import { useAppData } from "../App";
 import { Form } from "react-router-dom";
 import Dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import { EDIT_USER } from "../hooks/helpers.ts";
 import { useNavigate } from "react-router-dom";
 
 import { User } from "../../types.ts"
 import { useState } from "react";
 import dayjs from "dayjs";
+import axios from "../api/axios";
 
 dayjs.extend(customParseFormat);
 
@@ -27,14 +27,24 @@ export default function UserSettings() {
     check_in: check_in,
   })
 
-  console.log(userSettings.reminder)
+  const EDIT_USER = async (userSettings: User) => {
+    try {
+      const response = await axios.put('edit_user/', userSettings);
+      console.log(response.data)
+      return response.data;
+    }
+    catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
 
   return (
     <>
       <Form
         onSubmit={(evt) => {
           evt.preventDefault();
-          EDIT_USER();
+          EDIT_USER(userSettings);
         }}>
         <label>Username:</label>
         <input
@@ -65,7 +75,7 @@ export default function UserSettings() {
             setUserSettings({...userSettings, check_in: newTime})
           }}
         />
-        <button>Save</button>
+        <button >Save</button>
         <button onClick={() => navigate('/dashboard')}>Cancel</button>
       </Form>
     </>

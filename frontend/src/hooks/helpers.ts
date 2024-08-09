@@ -1,22 +1,10 @@
-import type { TaskData } from "../../types";
+import type { TaskData, User } from "../../types";
 import axios from "../api/axios";
 import Cookies from 'js-cookie';
 
 export const AUTHENTICATE = async () => {
   try {
     const response = await axios.get("authenticate/");
-    return response.data;
-  }
-  catch (error) {
-    console.log(error);
-    return null;
-  }
-};
-
-export const EDIT_USER = async () => {
-  try {
-    const response = await axios.put('edit_user');
-    console.log(response.data)
     return response.data;
   }
   catch (error) {

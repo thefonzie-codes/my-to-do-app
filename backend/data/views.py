@@ -16,6 +16,7 @@ from django.shortcuts import get_object_or_404
 
 from datetime import date
 
+# List Item API endpoints
 @api_view(['GET', 'PUT', 'POST'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
@@ -104,10 +105,15 @@ def signup(request, format=None):
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def edit_user(request, format=None):
-  serializer = UserSerializer(data=request.data)
+  try:
+    print(request.data['username'])
+    user = User.objects.get(username=request.data['username'])
+  except User.DoesNotExist:
+    return Response({ 'error' : 'User not found' }, status=status.HTTP_404_NOT_FOUND)
+  
+  serializer = UserSerializer(user, data=request.data, partial=True)
   if serializer.is_valid():
     serializer.save()
-    user = User.objects.get(username=request.data['username'])
     return Response({'user': user})
   return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
