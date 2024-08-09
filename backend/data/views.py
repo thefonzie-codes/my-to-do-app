@@ -17,6 +17,7 @@ from django.shortcuts import get_object_or_404
 from datetime import date
 
 # List Item API endpoints
+# Retrieves all list items
 @api_view(['GET', 'PUT', 'POST'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
@@ -36,7 +37,8 @@ def list_items(request, format=None):
         serializer.save(user_id=user.id)  # Associate the current user with the ListItem
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
+# API endpoints for individual List Items
 @api_view(['GET', 'PUT', 'DELETE'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
@@ -63,6 +65,8 @@ def list_items_detail(request, id, format=None):
     list_item.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
   
+# API Endpoints for user data
+# Retrieves user list items
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
@@ -72,7 +76,7 @@ def get_items_by_user(request, format=None):
   serializer = ListItemSerializer(ListItems, many=True)
   return Response(serializer.data, status=status.HTTP_200_OK)
 
-  
+# Login
 @api_view(['POST'])
 def login(request, format=None):
   user = get_object_or_404(User, username=request.data['username'])
@@ -82,6 +86,7 @@ def login(request, format=None):
   serializer = UserSerializer(instance=user)
   return Response({'token': token.key, 'user': serializer.data})
 
+# Authenticates Token
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
@@ -89,6 +94,7 @@ def authenticate(request, format=None):
   serializer = UserSerializer(request.user)
   return Response(serializer.data)
 
+# Registration
 @api_view(['POST'])
 def signup(request, format=None):
   serializer = UserSerializer(data=request.data)
@@ -101,6 +107,7 @@ def signup(request, format=None):
     return Response({'token': token.key, 'user': serializer.data})
   return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+# Edits user settings/profile
 @api_view(['PUT'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
@@ -116,13 +123,15 @@ def edit_user(request, format=None):
     serializer.save()
     return Response({'user': user})
   return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
+# API Endpoint to test Token Auth
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def test_token(request, format=None):
   return Response({"passed for {}".format(request.user.username)})
   
+# API Endpoints for email reminders and check-ins, along with a test email
 from data.scheduled_emails import checkin, reminder, test
 
 @api_view(['GET'])
