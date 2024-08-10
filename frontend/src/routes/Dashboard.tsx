@@ -40,7 +40,7 @@ export default function Dashboard() {
         </div>
         <div className='to_do'>
           <h2>Completed Today</h2>
-          {items.filter((item) => item.props.completed)}
+          {items.filter((item) => item.props.completed && daysUntilDueCount(item.props.due_date) === 0)}
         </div>
         <div className='to_do'>
           <h2>Upcoming tasks</h2>
