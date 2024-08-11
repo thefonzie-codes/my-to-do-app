@@ -94,6 +94,7 @@ CORS_ALLOWED_ORIGINS = [
   'http://localhost:3000',
   'http://localhost:8000',
   'http://127.0.0.1:8000',
+  'http://127.0.0.1:3000',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -105,6 +106,7 @@ CSRF_TRUSTED_ORIGINS = [
   'http://localhost:3000',
   'http://localhost:8000',
   'http://127.0.0.1:8000',
+  'http://127.0.0.1:3000',
 ]
 from django.core.management.commands.runserver import Command as runserver
 
@@ -184,7 +186,3 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('APP_PASSWORD')
-
-CRON_CLASSES = [
-    "data.cron.MyCronJob",
-]
