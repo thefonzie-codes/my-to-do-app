@@ -13,15 +13,18 @@ Installation:
 ```bash
 cd backend
 touch .env # Create local environment file and define the dev environment
-echo 'ENVIRONMENT=dev' >>.env
-python3 -m venv env #Create a virtual environment to isolate package dependencies locally
+echo ENVIRONMENT=dev >>.env
+apt install python3.10-venv # Create a virtual environment to isolate package dependencies locally (You may have to add 'sudo' if it asks if you are root)
+python3 -m venv env
 source env/bin/activate
 pip install -r requirements.txt
+python3 manage.py migrate
+python3 manage.py createsuperuser # Follow the prompts
 ```
 
 Run with:
 ```bash
-source env/bin/activate
+source env/bin/activate # If the virtual environment is not running
 python3 manage.py runserver
 ```
 
