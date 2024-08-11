@@ -109,3 +109,16 @@ export const daysUntilDueText = (dueDate: string) => {
     return `Due in ${days} days`;
   }
 };
+
+export const daysUntilDueColor = (dueDate: string) => {
+  let days = daysUntilDueCount(dueDate);
+  if (days < 0) {
+    return "red";
+  }
+  else if (days === 0) {
+    return "tan";
+  }
+  else if (days >= 1) {
+    return "lightgrey";
+  }
+};

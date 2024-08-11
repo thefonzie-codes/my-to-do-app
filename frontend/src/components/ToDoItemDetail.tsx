@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
-import { CHANGE_STATUS, daysUntilDueText, GET_ITEMS_BY_USER } from "../hooks/helpers.ts";
+import { CHANGE_STATUS, daysUntilDueColor, daysUntilDueCount, daysUntilDueText, GET_ITEMS_BY_USER } from "../hooks/helpers.ts";
 import { ToDoItemProps } from "../../types";
 import { useNavigate } from "react-router-dom";
 import { useAppData } from "../App";
@@ -41,9 +41,9 @@ export default function ToDoItemDetail({
           <FontAwesomeIcon icon={faPenToSquare} />
         </span>
       </h3>
-      <h4>{daysUntilDueText(due_date)}</h4>
       <p>{description}</p>
       <div className="options">
+        <div className={`due-badge ${daysUntilDueColor(due_date)}`}>{daysUntilDueText(due_date)}</div>
         <button className={done ? 'completed' : undefined} onClick={() => HANDLE_CHANGE()}>{done ? "Completed" : "Mark Complete"}</button>
       </div>
     </div>

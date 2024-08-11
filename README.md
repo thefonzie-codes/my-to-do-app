@@ -4,6 +4,8 @@
 
 **Done?** is at it's core, a to-do list.  I personally know how hard it can be to get started on tasks, and how much accountability can get you going.  The app's goal is to add a layer of accountability.  It will remind you of your tasks and check in to see if you've completed them, both at times you had specified.
 
+![Dashboard](/frontend/docs/screenshots/dashboard_screenshot.png)
+
 ## Back End
 
 Installation:

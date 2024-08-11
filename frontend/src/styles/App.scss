@@ -141,3 +141,30 @@ h3 {
   width: 100%;
   text-align: left;
 }
+
+.due-badge {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 20px;
+  align-content: center;
+  justify-content: center;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: small;
+  height: 1.5rem;
+  align-self: center;
+
+  &.red {
+    background-color: red;
+    color: black;
+  }
+  &.tan {
+    background-color: tan;
+    color: black;
+  }
+  &.lightgrey {
+    background-color: lightgray;
+    color: black;
+  }
+}
